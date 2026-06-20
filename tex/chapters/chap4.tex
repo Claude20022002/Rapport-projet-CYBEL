@@ -1,12 +1,14 @@
 \newpage
 \section{Chapitre 4 : Analyse et conception du système}
+\label{chap:analyse_conception}
 
 Ce chapitre présente l'analyse fonctionnelle du système CYBEL ainsi que les
 choix de conception retenus pour répondre au cahier des charges défini au
-chapitre précédent. Il détaille successivement les acteurs et les besoins
-identifiés, l'architecture générale et logicielle de la plateforme, les
-diagrammes de conception (composants, cas d'utilisation, séquence) et le
-modèle des flux de communication entre les différents sous-systèmes.
+chapitre 2, à la lumière de l'analyse critique des solutions existantes
+présentée au chapitre 3. Il détaille successivement les acteurs et les
+besoins identifiés, l'architecture générale et logicielle de la plateforme,
+les diagrammes de conception (composants, cas d'utilisation, séquence) et
+le modèle des flux de communication entre les différents sous-systèmes.
 
 \subsection{Analyse fonctionnelle}
 
@@ -26,7 +28,9 @@ avec les différents composants matériels et logiciels du système.
 
 L'analyse fonctionnelle constitue ainsi une étape essentielle avant la
 conception détaillée de l'architecture, puisqu'elle permet de traduire les
-besoins exprimés dans le cahier des charges en fonctionnalités concrètes.
+besoins exprimés dans le cahier des charges (section~\ref{tab:besoins_fonctionnels}
+et suivantes) en fonctionnalités concrètes, et de les rattacher explicitement
+aux exigences EF/ENF formulées au chapitre 2.
 
 \subsubsection{Identification des acteurs}
 
@@ -63,41 +67,52 @@ déclenchement des services associés à la navigation et à l'interaction.
 L'analyse des besoins réalisée au cours des phases préliminaires du projet a
 permis d'identifier les principales fonctionnalités que le système CYBEL doit
 assurer afin de répondre aux attentes des utilisateurs et aux contraintes du
-robot. Les besoins fonctionnels retenus sont présentés dans le tableau
+robot. Les besoins fonctionnels retenus, repris du cahier des charges établi
+au chapitre 2 (réf. EF-01 à EF-11), sont présentés dans le tableau
 \ref{tab:besoins_fonctionnels}.
 
 \begin{table}[H]
 \centering
-\caption{Besoins fonctionnels du système CYBEL}
+\caption{Besoins fonctionnels du système CYBEL — synthèse par fonctionnalité}
 \label{tab:besoins_fonctionnels}
-\begin{tabular}{|p{4cm}|p{10cm}|}
+\begin{tabular}{|p{1.3cm}|p{3.3cm}|p{9.4cm}|}
 \hline
-\textbf{Fonctionnalité} & \textbf{Description} \\
+\textbf{Réf.} & \textbf{Fonctionnalité} & \textbf{Description} \\
 \hline
-Supervision du robot &
+EF-01, EF-02 & Supervision du robot &
 Consultation en temps réel du niveau de batterie, de la position du robot,
-de son état de navigation, des données LiDAR, des visiteurs détectés et des
-messages de diagnostic. \\
+de son état de navigation, de la carte SLAM, des données LiDAR, des
+visiteurs détectés et des messages de diagnostic. \\
 \hline
-Navigation autonome &
+EF-03, EF-04 & Navigation autonome &
 Envoi du robot vers un point prédéfini, navigation vers une position
 sélectionnée sur la carte, suivi de mission et annulation d'une tâche en
 cours. \\
 \hline
-Téléopération &
-Contrôle manuel des déplacements du robot via une interface de commande. \\
+EF-05 & Téléopération &
+Contrôle manuel des déplacements du robot via une interface de commande,
+avec arrêt d'urgence. \\
 \hline
-Interaction Homme-Robot &
-Déclenchement d'annonces vocales, diffusion de messages d'accueil,
-commandes vocales et affichage d'informations destinées aux visiteurs. \\
+EF-06, EF-07 & Interaction Homme-Robot &
+Déclenchement d'annonces vocales (TTS), diffusion de messages d'accueil et
+commandes vocales données par l'opérateur. \\
 \hline
-Configuration du système &
+EF-08 & Configuration du système &
 Modification des paramètres de fonctionnement tels que les vitesses de
 déplacement, les paramètres de navigation et les réglages de communication. \\
 \hline
-Mode simulation &
+EF-09 & Mode simulation &
 Exécution du système sans robot physique afin de faciliter les phases de
 développement et de test. \\
+\hline
+EF-10 & Interface visiteur kiosque &
+Accès tactile dédié, indépendant de l'interface opérateur, proposant des
+actions d'accueil et une foire aux questions bilingue (FR/EN) destinées au
+visiteur. \\
+\hline
+EF-11 & Déploiement autonome &
+Exécution de la plateforme directement sur la tablette du robot, sans
+dépendance à un poste de développement externe. \\
 \hline
 \end{tabular}
 \end{table}
@@ -106,35 +121,43 @@ développement et de test. \\
 
 Au-delà des fonctionnalités attendues, le système doit respecter un ensemble
 d'exigences de qualité garantissant sa robustesse, sa fiabilité et son
-utilisabilité. Les besoins non fonctionnels identifiés sont présentés dans le
-tableau \ref{tab:besoins_non_fonctionnels}.
+utilisabilité. Les besoins non fonctionnels identifiés, repris du chapitre 2
+(réf. ENF-01 à ENF-05), sont présentés dans le tableau
+\ref{tab:besoins_non_fonctionnels}.
 
 \begin{table}[H]
 \centering
-\caption{Besoins non fonctionnels du système CYBEL}
+\caption{Besoins non fonctionnels du système CYBEL — synthèse par critère}
 \label{tab:besoins_non_fonctionnels}
-\begin{tabular}{|p{4cm}|p{10cm}|}
+\begin{tabular}{|p{1.3cm}|p{3.3cm}|p{9.4cm}|}
 \hline
-\textbf{Critère} & \textbf{Description} \\
+\textbf{Réf.} & \textbf{Critère} & \textbf{Description} \\
 \hline
-Performance &
-Mise à jour rapide des informations afin d'assurer une supervision efficace
+ENF-01 & Performance &
+Mise à jour rapide des informations (télémétrie de l'ordre de quelques
+centaines de millisecondes maximum) afin d'assurer une supervision efficace
 et une interaction fluide avec le robot. \\
 \hline
-Fiabilité &
+ENF-02 & Fiabilité &
 Maintien de la continuité des communications et reconnexion automatique en
 cas d'interruption réseau. \\
 \hline
-Maintenabilité &
-Architecture modulaire facilitant l'évolution, la réutilisation et la
-maintenance du système. \\
+ENF-03 & Maintenabilité &
+Architecture modulaire, séparant strictement la couche d'accès au robot,
+l'API et la présentation, facilitant l'évolution et la maintenance du
+système. \\
 \hline
-Sécurité &
-Possibilité d'annuler rapidement les commandes critiques et protection contre
-les comportements indésirables du robot. \\
+ENF-04 & Sécurité opérationnelle &
+Possibilité d'annuler à tout moment toute commande de mouvement ou de
+navigation en cours. \\
 \hline
-Ergonomie &
-Interfaces intuitives et adaptées aussi bien aux opérateurs qu'aux visiteurs. \\
+ENF-05 & Innocuité des phases exploratoires &
+Les scripts utilisés lors de la rétro-ingénierie du protocole ne doivent en
+aucun cas perturber le fonctionnement normal du robot. \\
+\hline
+& Ergonomie &
+Interfaces intuitives et adaptées aussi bien aux opérateurs qu'aux
+visiteurs. \\
 \hline
 \end{tabular}
 \end{table}
@@ -156,51 +179,57 @@ maintenance et l'évolution de la plateforme.
 \end{figure}
 
 Comme illustré en figure~\ref{fig:archi_generale_cybel}, l'architecture
-globale du système s'articule autour de quatre ensembles principaux : le
-robot CIOT TY1251D-03195, le backend CYBEL, les interfaces utilisateur et
-les applications Android embarquées. Chaque composant joue un rôle
-spécifique dans le fonctionnement global de la plateforme.
+globale du système s'articule, d'un point de vue physique et déploiement,
+autour de quatre ensembles principaux : le robot CIOT TY1251D-03195, le
+backend CYBEL, les interfaces utilisateur et les applications Android
+embarquées. La sous-section suivante propose une seconde vue de ce même
+système, cette fois d'un point de vue logique, organisée en couches
+logicielles.
 
 \subsection{Architecture logicielle}
 
 L'architecture logicielle retenue suit une approche en couches permettant
 de séparer les responsabilités fonctionnelles et techniques du système.
-Elle est organisée autour de trois couches principales.
+Elle est organisée autour de trois couches principales, présentées en
+figure~\ref{fig:archi_couches}.
 
-\subsubsection*{Couche d'accès au robot (SDK)}
+\subsubsection{Couche d'accès au robot (SDK)}
 
 Cette couche constitue l'abstraction du robot. Elle est responsable de la
-communication avec ROSBridge, de la gestion du protocole reconstruit, de
-l'accès aux données de télémétrie et de l'exécution des commandes. Deux
-implémentations sont proposées : une implémentation réelle et une
-implémentation simulée. Cette approche permet de développer et de tester
-la plateforme sans dépendre de la disponibilité permanente du robot.
+communication avec \textit{rosbridge}, de la gestion du protocole
+reconstruit, de l'accès aux données de télémétrie et de l'exécution des
+commandes. Deux implémentations sont proposées : une implémentation réelle
+et une implémentation simulée. Cette approche permet de développer et de
+tester la plateforme sans dépendre de la disponibilité permanente du
+robot.
 
-\subsubsection*{Couche API}
+\subsubsection{Couche API}
 
 Cette couche repose sur FastAPI et constitue le point d'entrée principal
 du système. Elle expose des services REST, des services WebSocket ainsi
 que les mécanismes de gestion des événements. Elle joue également le rôle
 d'intermédiaire entre les interfaces utilisateur et le SDK.
 
-\subsubsection*{Couche présentation}
+\subsubsection{Couche présentation}
 
 Cette couche regroupe l'interface opérateur, l'interface visiteur et les
 applications Android complémentaires. Elle permet l'interaction entre les
 utilisateurs et le système.
 
-\begin{center}
+\begin{figure}[h!]
+    \centering
     \includegraphics[width=0.8\textwidth]{diagramme/Architecture en couches-2026-06-20-163125.png}
-    \captionof{figure}{Architecture en couches}
-\end{center}
+    \caption{Architecture en couches du système CYBEL}
+    \label{fig:archi_couches}
+\end{figure}
 
 \subsection{Diagramme des composants}
 
 Le diagramme des composants (figure~\ref{fig:diag_composants}) met en
 évidence l'organisation des différents modules logiciels du système ainsi
 que leurs dépendances. Il montre notamment les interfaces opérateur et
-visiteur, le backend FastAPI, le SDK robot, ROSBridge, le système Android
-embarqué ainsi que les modules TTS. Cette représentation permet de
+visiteur, le backend FastAPI, le SDK robot, \textit{rosbridge}, le système
+Android embarqué ainsi que les modules TTS. Cette représentation permet de
 visualiser clairement la répartition des responsabilités entre les
 différents composants.
 
@@ -247,29 +276,29 @@ utilisateur.
 
 \subsection{Modèle des flux de communication}
 
-\subsubsection*{Robot \texorpdfstring{$\leftrightarrow$}{<->} ROSBridge}
+\subsubsection{Robot \texorpdfstring{$\leftrightarrow$}{<->} rosbridge}
 
-ROSBridge constitue la passerelle principale entre la plateforme CYBEL et
-le système de navigation du robot. Les échanges reposent sur le protocole
-WebSocket et permettent la réception des données de télémétrie,
+\textit{rosbridge} constitue la passerelle principale entre la plateforme
+CYBEL et le système de navigation du robot. Les échanges reposent sur le
+protocole WebSocket et permettent la réception des données de télémétrie,
 l'abonnement aux topics ROS, l'appel de services, ainsi que l'envoi de
 commandes de navigation et de mouvement.
 
-\subsubsection*{ROSBridge \texorpdfstring{$\leftrightarrow$}{<->} Backend}
+\subsubsection{rosbridge \texorpdfstring{$\leftrightarrow$}{<->} Backend}
 
-Le backend agit comme intermédiaire entre ROSBridge et les interfaces
-utilisateur. Il collecte les informations provenant du robot, les traite
-puis les redistribue vers les clients connectés. Il assure également la
-gestion des commandes envoyées par les utilisateurs.
+Le backend agit comme intermédiaire entre \textit{rosbridge} et les
+interfaces utilisateur. Il collecte les informations provenant du robot,
+les traite puis les redistribue vers les clients connectés. Il assure
+également la gestion des commandes envoyées par les utilisateurs.
 
-\subsubsection*{Backend \texorpdfstring{$\leftrightarrow$}{<->} Interfaces utilisateur}
+\subsubsection{Backend \texorpdfstring{$\leftrightarrow$}{<->} Interfaces utilisateur}
 
 Les interfaces communiquent avec le backend à travers des requêtes REST
 pour les actions ponctuelles et des WebSockets pour les mises à jour
 temps réel. Cette architecture garantit une supervision réactive et une
 faible latence lors de l'affichage des données.
 
-\subsubsection*{Backend \texorpdfstring{$\leftrightarrow$}{<->} Applications Android}
+\subsubsection{Backend \texorpdfstring{$\leftrightarrow$}{<->} Applications Android}
 
 Les applications Android développées dans le cadre du projet permettent
 d'étendre les fonctionnalités du système, notamment pour la synthèse
@@ -279,11 +308,13 @@ embarquée.
 \subsection{Conclusion}
 
 Ce chapitre a permis de présenter l'analyse fonctionnelle et la conception
-générale du système CYBEL. Les besoins identifiés ont conduit à la
-définition d'une architecture modulaire organisée autour d'un SDK robot,
-d'une API centralisée et de plusieurs interfaces utilisateur. Les
-différents diagrammes présentés permettent de visualiser les interactions
-entre les acteurs et les composants du système ainsi que les flux de
-communication mis en \oe uvre. Cette phase de conception constitue la base
-des développements réalisés dans le chapitre suivant, consacré à la
-méthodologie et à l'implémentation de la solution proposée.
+générale du système CYBEL. Les besoins identifiés, repris et détaillés à
+partir du cahier des charges du chapitre 2, ont conduit à la définition
+d'une architecture modulaire organisée autour d'un SDK robot, d'une API
+centralisée et de plusieurs interfaces utilisateur. Les différents
+diagrammes présentés permettent de visualiser les interactions entre les
+acteurs et les composants du système ainsi que les flux de communication
+mis en \oe uvre. Cette phase de conception constitue la base de la
+démarche méthodologique présentée au chapitre 5, puis des développements
+réalisés au chapitre 6, consacré à la réalisation et à l'implémentation de
+la solution proposée.
