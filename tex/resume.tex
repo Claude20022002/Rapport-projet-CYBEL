@@ -1,0 +1,30 @@
+\section*{\centering RÉSUMÉ}
+\addcontentsline{toc}{section}{RÉSUMÉ}
+
+Les robots de service mobiles sont généralement livrés avec un écosystème 
+logiciel \textbf{fermé} : application propriétaire, absence de documentation 
+et de protocole de communication publié. Ce constat limite toute 
+personnalisation par l'utilisateur final. Le projet \textbf{CYBEL}, mené dans 
+le cadre d'un stage de fin d'année (PFA), vise à concevoir une 
+\textbf{plateforme de commande et d'interaction indépendante} pour un robot 
+de réception mobile \textit{CIOT TY1251D-03195}.
+
+La démarche adoptée repose sur une \textbf{rétro-ingénierie} incrémentale et 
+non destructive du protocole de communication interne : balayage des services 
+réseau exposées, introspection des topics et services \textbf{ROS} via 
+\textit{rosbridge/rosapi}, et vérification systématique de l'effectivité de 
+chaque commande. Sur cette base, une \textbf{architecture en trois couches} 
+a été conçue : un \textbf{SDK Python} proposant une implémentation simulée 
+(\textit{mock}) et réelle interchangeables, une \textbf{API FastAPI} 
+(REST + WebSocket) et une \textbf{interface web} Vite/TypeScript.
+
+À ce stade, la connectivité avec le robot est établie, le protocole de 
+\textbf{télémétrie}, de \textbf{commande de vitesse} et de 
+\textbf{navigation autonome} a été reconstruit et intégré. La principale 
+difficulté concerne le canal de \textbf{synthèse vocale (TTS)}, non exposé 
+par ROS et nécessitant un accès complémentaire au sous-système Android.
+
+\vspace{0.5cm}
+\noindent\textbf{Mots-clés :} robotique de service, rétro-ingénierie de 
+protocole, ROS, rosbridge, FastAPI, interface homme-robot, navigation 
+autonome, synthèse vocale.

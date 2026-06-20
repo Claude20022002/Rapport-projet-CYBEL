@@ -1,0 +1,128 @@
+\documentclass[a4paper,12pt]{extarticle}
+
+%---------------- PACKAGES ----------------
+\usepackage[utf8x]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage{amsmath}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{indentfirst}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+\usepackage{url}
+\usepackage{booktabs}
+\usepackage[hypcap=false]{caption}
+
+\setlength{\parindent}{1cm}
+
+%---------------- HEADER STYLE ----------------
+\setlength{\headheight}{15.72pt}
+\addtolength{\topmargin}{-3.72pt}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{HESTIM}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+
+\begin{document}
+
+%================================================
+% PAGE DE TITRE
+%================================================
+\begin{titlepage}
+\centering
+\includegraphics[width=0.9\textwidth]{images/1.png}\\[1cm]
+
+{\Large Hautes Études des Sciences et Techniques de l’Ingénierie et du Management}\\[0.3cm]
+{\large Projet de fin d’année}\\[1cm]
+\textsc{\large Filière : Génie Informatique et Intelligence Artificielle}\\[0.3cm]
+
+\rule{\linewidth}{0.5mm}\\[0.4cm]
+{\Large \textbf{\textsc{Conception et développement d'une plateforme
+    de commande et d'interaction autonome\\[0.2cm]
+    pour un robot de service Android}}}\\[1.2cm]
+\rule{\linewidth}{0.5mm}\\[1.5cm]
+
+% Auteurs / Encadrant
+    \begin{minipage}{0.45\textwidth}
+        \begin{flushleft}\large
+            \emph{Réalisé par :}\\[0.2cm]
+            Claudia \textsc{Lusamote Kimfuta}\\
+            Ghassane \textsc{KHALIFI}
+        \end{flushleft}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.45\textwidth}
+        \begin{flushright}\large
+            \emph{Encadrante pédagogique :}\\[0.2cm]
+            Mme \textsc{MESKINI} Fatime Zahra
+        \end{flushright}
+    \end{minipage}\\[1.2cm]
+
+\vfill
+Filière : \textsc{\normalsize 1\textsuperscript{ère} cycle du ingénieur}\\[0.2cm]
+\textbf{Année universitaire : 2025 - 2026}
+
+\end{titlepage}
+
+%================================================
+% PAGES PRÉLIMINAIRES
+%================================================
+\pagenumbering{roman}
+
+\input{tex/remerciements}
+\newpage
+\input{tex/resume}
+\newpage
+\input{tex/abstract}
+
+%---------------- SOMMAIRE ----------------
+\newpage
+\tableofcontents
+
+%---------------- LISTES ----------------
+\newpage
+\listoffigures
+
+\newpage
+\listoftables
+
+\newpage
+\input{tex/list_abreviation}
+
+%================================================
+% CORPS DU RAPPORT
+%================================================
+\clearpage
+\pagenumbering{arabic}
+
+\pagestyle{fancy}
+
+%================ INTRODUCTION =================
+\input{tex/intro}
+
+%================================================
+% PARTIE 1 : CONTEXTE ET ANALYSE
+%================================================
+\input{tex/chapters/chap1}
+\input{tex/chapters/chap2}
+\input{tex/chapters/chap3}
+
+%================================================
+% PARTIE 2 : CONCEPTION ET DÉVELOPPEMENT
+%================================================
+\input{tex/chapters/chap4}
+%================================================
+% PARTIE 3 : RÉSULTATS ET VALIDATION
+%================================================
+
+
+%================================================
+% CONCLUSION + BIBLIOGRAPHIE
+%================================================
+\input{tex/conclusion}
+
+\end{document}

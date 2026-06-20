@@ -1,0 +1,157 @@
+\newpage
+\section{ État de l'art}
+\label{chap:etat_art}
+
+Ce chapitre situe le projet CYBEL par rapport aux travaux et solutions
+existants. Il présente les fondements théoriques de la robotique de service
+ainsi que les solutions logicielles et matérielles comparables, afin de
+mettre en évidence les limites des approches actuelles et de justifier les
+choix architecturaux retenus.
+
+\subsection{Fondements théoriques}
+\label{subsec:fondements_theoriques}
+
+La conception de la plateforme s'appuie sur plusieurs corpus de référence :
+
+\begin{itemize}
+    \item \textbf{Architecture logicielle robotique} : le modèle ROS
+    (topics, services, actions) proposé par Quigley et al. constitue le
+    paradigme de communication analysé dans ce projet.
+
+    \item \textbf{Navigation autonome} : les concepts de cartes
+    d'occupation et de planification (costmaps, DWA) décrits dans
+    \textit{Probabilistic Robotics} (Thrun, Burgard \& Fox, 2005)
+    servent de base à l'interprétation du module \texttt{move\_base}.
+
+    \item \textbf{Protocole rosbridge} : le standard JSON de communication
+    ROS (subscribe, publish, call\_service) est utilisé comme référence pour
+    la reconstruction des échanges observés.
+
+    \item \textbf{Interaction homme-robot (HRI)} : les principes de
+    supervision en temps réel et de sécurité opérationnelle (priorité à
+    l'arrêt d'urgence) guident la conception de l'interface CYBEL.
+
+    \item \textbf{Sécurité IoT} : les recommandations de l'OWASP IoT Top 10
+    permettent d'analyser les risques liés aux canaux non authentifiés
+    observés sur le système.
+\end{itemize}
+
+\subsection{État des solutions existantes}
+\label{subsec:solutions_existantes}
+
+Les solutions suivantes représentent les principales approches disponibles
+dans l'écosystème robotique et du robot étudié.
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{|p{0.28\textwidth}|p{0.38\textwidth}|p{0.24\textwidth}|}
+\hline
+\textbf{Solution} & \textbf{Description} & \textbf{Accessibilité} \\
+\hline
+Application propriétaire (upper body Android) &
+Interface tactile constructeur pour accueil et navigation &
+Fermée, sans API ni documentation \\
+\hline
+Interface web embarquée (\texttt{:8082}) &
+Outil de gestion des cartes SLAM &
+Accessible localement, non documenté \\
+\hline
+Interface de debug (\texttt{:8088}) &
+Interface interne de diagnostic &
+Non documentée, usage inconnu \\
+\hline
+rosbridge / RViz / Foxglove &
+Outils ROS de visualisation et contrôle &
+Open-source mais génériques \\
+\hline
+SDK robots commerciaux (Temi, Pepper, etc.) &
+SDK propriétaires pour robots de service &
+Documentés mais verrouillés \\
+\hline
+\end{tabular}
+\caption{Panorama des solutions existantes comparables}
+\label{tab:solutions_existantes}
+\end{table}
+
+\subsection{Analyse comparative}
+\label{subsec:benchmark}
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{|p{0.28\textwidth}|p{0.20\textwidth}|p{0.20\textwidth}|p{0.20\textwidth}|}
+\hline
+\textbf{Critère} &
+\textbf{App. propriétaire} &
+\textbf{RViz / Foxglove} &
+\textbf{CYBEL} \\
+\hline
+Documentation &
+Aucune &
+Open-source &
+Documenté (rapport + code) \\
+\hline
+Accès distant web &
+Non &
+Partiel &
+Oui \\
+\hline
+Personnalisation scénarios &
+Non &
+Non &
+Oui \\
+\hline
+Mode simulation &
+Non &
+Partiel &
+Oui (mock) \\
+\hline
+Navigation interactive &
+Oui &
+Oui &
+Oui + logique métier \\
+\hline
+Interaction vocale &
+Oui &
+Non &
+Partiel / évolutif \\
+\hline
+\end{tabular}
+\caption{Benchmark comparatif des solutions}
+\label{tab:benchmark_cybel}
+\end{table}
+
+\subsection{Limites des solutions existantes}
+\label{subsec:limites}
+
+Les solutions étudiées présentent plusieurs limites majeures :
+
+\begin{itemize}
+    \item Absence d'extensibilité des systèmes propriétaires
+    \item Outils ROS trop bas niveau pour des usages métier
+    \item Aucune solution ne propose de mode déconnecté du robot
+    \item Documentation constructeur insuffisante nécessitant rétro-ingénierie
+\end{itemize}
+
+\subsection{Synthèse}
+\label{subsec:synthese_etat_art}
+
+L'analyse met en évidence un manque de solutions adaptées à un usage
+orienté \textbf{scénarios d'accueil personnalisés} et \textbf{supervision
+haut niveau}. Ces limites justifient le développement de la plateforme
+CYBEL, détaillée dans le chapitre suivant.
+
+\subsection{Conclusion}
+\label{subsec:conclusion_etat_art}
+
+Ce chapitre a permis de situer le projet CYBEL par rapport aux fondements
+théoriques de la robotique de service architecture ROS, navigation
+autonome, protocole \texttt{rosbridge}, interaction homme-robot et sécurité
+des objets connectés ainsi qu'aux solutions existantes, qu'elles soient
+propriétaires (application Android constructeur) ou génériques (rosbridge,
+RViz, Foxglove, SDK de robots commerciaux). L'analyse comparative a montré
+qu'aucune de ces solutions ne répond pleinement aux besoins identifiés au
+Chapitre 2 : extensibilité, logique métier orientée accueil, supervision
+de haut niveau et mode de développement déconnecté du robot physique. Ces
+limites confirment la pertinence du projet CYBEL et orientent directement
+les choix de conception présentés au Chapitre 4, qui détaille l'analyse
+fonctionnelle et l'architecture logicielle de la solution retenue.
