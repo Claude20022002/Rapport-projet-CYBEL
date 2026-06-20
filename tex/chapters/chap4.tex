@@ -60,61 +60,47 @@ déclenchement des services associés à la navigation et à l'interaction.
 
 \subsubsection{Besoins fonctionnels}
 
-À partir de l'analyse du besoin, plusieurs fonctionnalités principales ont
-été identifiées.
+L'analyse des besoins réalisée au cours des phases préliminaires du projet a
+permis d'identifier les principales fonctionnalités que le système CYBEL doit
+assurer afin de répondre aux attentes des utilisateurs et aux contraintes du
+robot. Les besoins fonctionnels retenus sont présentés dans le tableau
+\ref{tab:besoins_fonctionnels}.
 
-\paragraph{Supervision du robot.}
-Le système doit permettre la consultation en temps réel du niveau de
-batterie, de la position du robot, de son état de navigation, des données
-LiDAR, des visiteurs détectés et des messages de diagnostic.
-
-\paragraph{Navigation autonome.}
-Le système doit permettre l'envoi du robot vers un point prédéfini, la
-navigation vers une position sélectionnée sur la carte, l'annulation d'une
-mission en cours, ainsi que le suivi de l'avancement de la navigation.
-
-\paragraph{Téléopération.}
-L'opérateur doit pouvoir contrôler manuellement les déplacements du robot
-à travers une interface de commande ou un clavier virtuel.
-
-\paragraph{Interaction Homme-Robot.}
-Le système doit permettre le déclenchement d'annonces vocales, la
-diffusion de messages d'accueil, l'utilisation de commandes vocales
-opérateur, ainsi que l'affichage d'informations destinées aux visiteurs.
-
-\paragraph{Configuration du système.}
-L'opérateur doit pouvoir modifier certains paramètres de fonctionnement
-tels que les vitesses de déplacement, les paramètres de navigation et les
-réglages de communication.
-
-\paragraph{Mode simulation.}
-Le système doit être capable de fonctionner sans robot physique grâce à un
-mode simulé permettant le développement et les tests des fonctionnalités.
-
-\subsubsection{Besoins non fonctionnels}
-
-Outre les fonctionnalités attendues, plusieurs contraintes de qualité ont
-été retenues.
-
-\paragraph{Performance.}
-La plateforme doit assurer une mise à jour rapide des informations afin de
-garantir une supervision efficace du robot.
-
-\paragraph{Fiabilité.}
-Le système doit maintenir la continuité des communications et assurer une
-reconnexion automatique après une interruption réseau.
-
-\paragraph{Maintenabilité.}
-L'architecture doit favoriser l'évolution et la réutilisation du code
-grâce à une séparation claire des responsabilités.
-
-\paragraph{Sécurité.}
-Les commandes critiques doivent pouvoir être annulées rapidement afin
-d'éviter tout comportement indésirable du robot.
-
-\paragraph{Ergonomie.}
-Les interfaces doivent être simples d'utilisation et adaptées aussi bien
-aux opérateurs qu'aux visiteurs.
+\begin{table}[H]
+\centering
+\caption{Besoins fonctionnels du système CYBEL}
+\label{tab:besoins_fonctionnels}
+\begin{tabular}{|p{4cm}|p{10cm}|}
+\hline
+\textbf{Fonctionnalité} & \textbf{Description} \\
+\hline
+Supervision du robot &
+Consultation en temps réel du niveau de batterie, de la position du robot,
+de son état de navigation, des données LiDAR, des visiteurs détectés et des
+messages de diagnostic. \\
+\hline
+Navigation autonome &
+Envoi du robot vers un point prédéfini, navigation vers une position
+sélectionnée sur la carte, suivi de mission et annulation d'une tâche en
+cours. \\
+\hline
+Téléopération &
+Contrôle manuel des déplacements du robot via une interface de commande. \\
+\hline
+Interaction Homme-Robot &
+Déclenchement d'annonces vocales, diffusion de messages d'accueil,
+commandes vocales et affichage d'informations destinées aux visiteurs. \\
+\hline
+Configuration du système &
+Modification des paramètres de fonctionnement tels que les vitesses de
+déplacement, les paramètres de navigation et les réglages de communication. \\
+\hline
+Mode simulation &
+Exécution du système sans robot physique afin de faciliter les phases de
+développement et de test. \\
+\hline
+\end{tabular}
+\end{table}
 
 \subsection{Architecture générale de CYBEL}
 
