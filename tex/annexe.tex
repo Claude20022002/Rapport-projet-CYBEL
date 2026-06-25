@@ -3,36 +3,45 @@
 \addcontentsline{toc}{section}{ANNEXES}
 
 \subsection*{Annexe 1 : Capture d'écran}
-\addcontentsline{toc}{subsection}{Annexe 1 : Capture d'écran}
+\addcontentsline{toc}{subsection}{Annexe 1 : Capture d'écran de la carte}
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=0.8\textwidth]{images/organigramme.png}
-    \caption{Organigramme de l’entreprise}
+    \includegraphics[width=0.8\textwidth]{captures_ecran/Capture1.png}
+    \caption{Carte du laboratoir}
+\end{figure}
+
+\addcontentsline{toc}{subsection}{Annexe 1 : Capture d'écran de la terminale}
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.8\textwidth]{captures_ecran/Capture2.png}
+    \caption{Génération de clé SSH}
 \end{figure}
 
 \subsection*{Annexe 2 : Commandes utilisées}
 \addcontentsline{toc}{subsection}{Annexe 2 : Commandes utilisées}
-\begin{verbatim}
-# Vérification réseau
+\begin{lstlisting}[style=terminal, language=bash, caption={Commandes de lancement}]
+# Verification reseau
 ping 10.42.0.1
-python scripts\robot_status.py
+python scripts/robot_status.py
 
-# Lancement développement
-python scripts\dev.py
+# Lancement developpement
+python scripts/dev.py
 
 # Tests
 python -m pytest tests/ -v
 
-# TTS test (USB branché)
+# TTS test (USB branche)
 adb shell am broadcast -n com.cybel.ttsbridge/.SpeakReceiver -a com.cybel.ttsbridge.SPEAK --es text "Test HESTIM"
 
-# Déploiement tablette
-python scripts\deploy_termux.py --skip-kiosk-build --lite-only --host <IP> --password <mdp>
+# Deploiement tablette
+python scripts/deploy_termux.py --skip-kiosk-build --lite-only --host <IP> --password <mdp>
+\end{lstlisting}
 
-# Termux (tablette)
-cd ~/cybel/scripts/termux
-./stop_cybel.sh && ./start_cybel.sh
-curl http://127.0.0.1:8000/api/health
+\begin{verbatim}
+    # Termux (tablette)
+    cd ~/cybel/scripts/termux
+    ./stop_cybel.sh && ./start_cybel.sh
+    curl http://127.0.0.1:8000/api/health
 \end{verbatim}
 
 \subsection*{Annexe 3 : Code source (extrait)}
