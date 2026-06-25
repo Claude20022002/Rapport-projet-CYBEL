@@ -1,30 +1,42 @@
 \section*{\centering RÉSUMÉ}
 \addcontentsline{toc}{section}{RÉSUMÉ}
 
-Les robots de service mobiles sont généralement livrés avec un écosystème 
-logiciel \textbf{fermé} : application propriétaire, absence de documentation 
-et de protocole de communication publié. Ce constat limite toute 
-personnalisation par l'utilisateur final. Le projet \textbf{CYBEL}, mené dans 
-le cadre d'un stage de fin d'année (PFA), vise à concevoir une 
-\textbf{plateforme de commande et d'interaction indépendante} pour un robot 
-de réception mobile \textit{CIOT TY1251D-03195}.
+Les robots de service mobiles sont généralement livrés avec un écosystème logiciel fermé :
+application propriétaire, absence de documentation et de protocole de communication publié.
+Ce constat limite toute personnalisation par l'utilisateur final. Le projet \textsc{Cybel}, mené
+dans le cadre d'un stage de fin d'année (PFA), vise à concevoir une plateforme de commande et
+d'interaction indépendante pour un robot de réception mobile CIOT TY1251D-03195, composé d'un
+châssis de navigation sous ROS et d'un \emph{« upper body »} Android.
 
-La démarche adoptée repose sur une \textbf{rétro-ingénierie} incrémentale et 
-non destructive du protocole de communication interne : balayage des services 
-réseau exposés, introspection des topics et services \textbf{ROS} via 
-\textit{rosbridge/rosapi}, et vérification systématique de l'effectivité de 
-chaque commande. Sur cette base, une \textbf{architecture en trois couches} 
-a été conçue : un \textbf{SDK Python} proposant une implémentation simulée 
-(\textit{mock}) et réelle interchangeables, une \textbf{API FastAPI} 
-(REST + WebSocket) et une \textbf{interface web} Vite/TypeScript.
+La démarche adoptée repose sur une rétro-ingénierie incrémentale et non destructive du protocole
+de communication interne du robot : balayage des services réseau exposés, introspection des
+topics et services ROS via \texttt{rosbridge}/\texttt{rosapi}, et vérification systématique de
+l'effectivité de chaque commande avant de la considérer comme fonctionnelle. Sur cette base, une
+architecture en trois couches a été conçue~:
+\begin{itemize}
+    \item un SDK Python proposant une implémentation simulée (\emph{mock}) et une implémentation
+    réelle interchangeables ;
+    \item une API FastAPI (REST~+~WebSocket) ;
+    \item une interface web Vite/TypeScript opérateur ;
+\end{itemize}
+complétée par une interface visiteur kiosque (\texttt{frontend-kiosk/}) et deux applications
+Android natives légères (\texttt{CybelTTSBridge}, \texttt{CybelVisitorKiosk}).
 
-À ce stade, la connectivité avec le robot est établie, le protocole de 
-\textbf{télémétrie}, de \textbf{commande de vitesse} et de 
-\textbf{navigation autonome} a été reconstruit et intégré. La principale 
-difficulté concerne le canal de \textbf{synthèse vocale (TTS)}, non exposé 
-par ROS et nécessitant un accès complémentaire au sous-système Android.
+À ce stade du stage, la connectivité avec le robot est établie, le protocole de télémétrie, de
+commande de vitesse et de navigation autonome a été reconstruit et intégré, la synthèse vocale
+(TTS) fonctionne via une application Android dédiée déclenchée par \texttt{am broadcast}, une
+interface opérateur complète (carte SLAM, LiDAR, visiteurs détectés, gestion du parcours de
+visite, arrêt d'urgence pendant une visite) est opérationnelle, et un déploiement embarqué sur
+Termux (\emph{backend lite} + kiosque) est validé sur la tablette. L'interface visiteur a été
+recentrée sur une visite guidée autonome du laboratoire : huit arrêts synchronisés depuis
+\texttt{data/knowledgeV2-lab.json} vers \texttt{data/lab\_tour.json}, navigation par coordonnées
+(\texttt{/navi\_goal}) et annonces vocales séquentielles.
 
-\vspace{0.5cm}
-\noindent\textbf{Mots-clés :} robotique de service, rétro-ingénierie de 
-protocole, ROS, rosbridge, FastAPI, interface homme-robot, navigation 
-autonome, synthèse vocale.
+Ce rapport présente le contexte, la problématique, l'état de l'art, la conception, la
+méthodologie, l'implémentation réalisée, les résultats obtenus, ainsi qu'une analyse critique des
+limites et perspectives du projet.
+
+\bigskip
+\noindent\textbf{Mots-clés :} robotique de service, rétro-ingénierie de protocole, ROS,
+rosbridge, FastAPI, interface homme-robot, navigation autonome, synthèse vocale, Termux, WebView
+Android.

@@ -1,31 +1,40 @@
 \section*{\centering ABSTRACT}
 \addcontentsline{toc}{section}{ABSTRACT}
 
-Mobile service robots are typically delivered with a \textbf{closed} software
-ecosystem: proprietary application, undocumented communication protocol, and
-no public API. This situation prevents end users from customising the robot's
-behaviour to suit their specific needs. The \textbf{CYBEL} project, carried
-out as part of a final-year internship (PFA), aims to design an
-\textbf{independent command and interaction platform} for a mobile reception
-robot \textit{CIOT TY1251D-03195}.
+Mobile service robots are typically delivered with a closed software ecosystem: a proprietary
+application, no documentation, and no published communication protocol. This severely limits any
+customization by the end user. The \textsc{Cybel} project, carried out as part of a final-year
+internship (PFA), aims to design an independent control and interaction platform for a CIOT
+TY1251D-03195 mobile reception robot, consisting of a ROS-based navigation chassis and an Android
+\emph{« upper body »}.
 
-The approach relies on an incremental, non-destructive \textbf{reverse
-engineering} of the robot's internal communication protocol: scanning of
-exposed network services, introspection of \textbf{ROS} topics and services
-via \textit{rosbridge/rosapi}, and systematic verification of each command's
-effectiveness. On this basis, a \textbf{three-layer architecture} was
-designed: a \textbf{Python SDK} offering interchangeable simulated
-(\textit{mock}) and real implementations, a \textbf{FastAPI} backend
-(REST + WebSocket), and a \textbf{Vite/TypeScript} web interface.
+The approach adopted relies on an incremental, non-destructive reverse engineering of the robot's
+internal communication protocol: scanning of exposed network services, introspection of ROS
+topics and services via \texttt{rosbridge}/\texttt{rosapi}, and systematic verification of the
+actual effect of each command before considering it functional. On this basis, a three-layer
+architecture was designed:
+\begin{itemize}
+    \item a Python SDK offering interchangeable simulated (\emph{mock}) and real implementations;
+    \item a FastAPI backend (REST~+~WebSocket);
+    \item a Vite/TypeScript operator web interface;
+\end{itemize}
+complemented by a visitor kiosk interface (\texttt{frontend-kiosk/}) and two lightweight native
+Android applications (\texttt{CybelTTSBridge}, \texttt{CybelVisitorKiosk}).
 
-At this stage, connectivity with the robot has been established, and the
-\textbf{telemetry}, \textbf{velocity control}, and \textbf{autonomous
-navigation} protocols have been reconstructed and integrated. The main
-remaining challenge concerns the \textbf{text-to-speech (TTS)} channel,
-which is not exposed through ROS and requires additional access to the
-Android subsystem.
+At this stage of the internship, connectivity with the robot has been established; the
+telemetry, speed control, and autonomous navigation protocols have been reverse-engineered and
+integrated; text-to-speech (TTS) works through a dedicated Android application triggered via
+\texttt{am broadcast}; a complete operator interface (SLAM map, LiDAR, detected visitors, tour
+management, emergency stop during a visit) is operational; and an embedded deployment on Termux
+(\emph{backend lite} + kiosk) has been validated on the tablet. The visitor interface has been
+refocused on an autonomous guided tour of the laboratory: eight stops synchronized from
+\texttt{data/knowledgeV2-lab.json} to \texttt{data/lab\_tour.json}, coordinate-based navigation
+(\texttt{/navi\_goal}), and sequential voice announcements.
 
-\vspace{0.5cm}
-\noindent\textbf{Keywords:} service robotics, protocol reverse engineering,
-ROS, rosbridge, FastAPI, human-robot interaction, autonomous navigation,
-text-to-speech.
+This report presents the context, problem statement, state of the art, design, methodology,
+implementation carried out, results obtained, as well as a critical analysis of the project's
+limitations and perspectives.
+
+\bigskip
+\noindent\textbf{Keywords:} service robotics, protocol reverse engineering, ROS, rosbridge,
+FastAPI, human–robot interface, autonomous navigation, text-to-speech, Termux, Android WebView.
