@@ -1,7 +1,42 @@
 \newpage
-% Placeholder conclusion — fichier déplacé vers tex/ (à compléter)
 \section*{\centering CONCLUSION GÉNÉRALE}
 \addcontentsline{toc}{section}{CONCLUSION GÉNÉRALE}
 
-% Le contenu original de `conclusion.tex` était vide. Complétez cette section
-% avec la synthèse et les perspectives.
+Le projet CYBEL, réalisé dans le cadre de notre projet de fin d'année à
+HESTIM, visait à concevoir une plateforme tierce de commande et d'interaction
+pour le robot de réception CIOT TY1251D-03195, en l'absence de toute
+documentation officielle du constructeur. Cette problématique — doublement
+exigeante sur le plan technique (protocole inconnu) et organisationnel
+(robot peu disponible) — a orienté l'ensemble de notre démarche.
+
+La rétro-ingénierie incrémentale et non destructive du protocole ROS, menée
+via \textit{rosbridge}, MQTT et ADB, a permis de reconstruire un modèle de
+communication fiable et documenté. Sur cette base, nous avons livré une
+architecture en couches — SDK Python, API FastAPI, interfaces web opérateur
+et visiteur, applications Android complémentaires — validée en mode simulé et
+partiellement sur le terrain.
+
+Les résultats obtenus confirment la faisabilité de l'objectif initial : une
+interface opérateur complète (carte SLAM, LiDAR, téléopération, gestion de
+visite), un kiosque visiteur bilingue déployé sur la tablette Termux, un
+canal de synthèse vocale opérationnel et un parcours pédagogique de huit
+arrêts configuré. Les soixante-dix-huit tests unitaires automatisés et les
+scénarios terrain validés (T1 à T7, T9, T10) attestent de la robustesse
+logicielle ; la visite guidée complète sans interruption (scénario T8) reste
+le jalon final, en cours de calibrage des coordonnées sur la carte réelle du
+laboratoire.
+
+Ce travail démontre qu'un robot de service «~fermé~» peut être intégré dans
+un écosystème pédagogique personnalisé, à condition d'accepter une phase
+d'investigation protocolaire substantielle et de maintenir une discipline
+stricte de validation sur le matériel réel. Les compétences mobilisées —
+réseaux, ROS/\textit{rosbridge}, développement full-stack, Android embarqué,
+robotique mobile — correspondent au profil visé par la filière Génie
+Informatique et Intelligence Artificielle à HESTIM.
+
+Les perspectives identifiées (calibrage terrain, parité backend lite/embarqué,
+tests d'intégration réseau simulés) constituent une feuille de route pour
+une exploitation durable de CYBEL au FabLab. Au-delà du livrable technique,
+le projet laisse une documentation reproductible (\texttt{docs/}, scripts,
+diagrammes) permettant à d'autres étudiants ou chercheurs de reprendre le
+travail sans repartir de zéro sur la rétro-ingénierie du robot.

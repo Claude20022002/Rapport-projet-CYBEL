@@ -2,69 +2,130 @@
 \section*{ANNEXES}
 \addcontentsline{toc}{section}{ANNEXES}
 
-\subsection*{Annexe 1 : Capture d'écran}
-\addcontentsline{toc}{subsection}{Annexe 1 : Capture d'écran de la carte}
+\subsection*{Annexe A — Captures d'écran}
+\addcontentsline{toc}{subsection}{Annexe A — Captures d'écran}
+
 \begin{figure}[h!]
     \centering
     \includegraphics[width=0.8\textwidth]{captures_ecran/Capture1.png}
-    \caption{Carte du laboratoir}
+    \caption{Carte SLAM du laboratoire — interface opérateur}
 \end{figure}
 
-\addcontentsline{toc}{subsection}{Annexe 1 : Capture d'écran de la terminale}
 \begin{figure}[h!]
     \centering
     \includegraphics[width=0.8\textwidth]{captures_ecran/Capture2.png}
-    \caption{Génération de clé SSH}
+    \caption{Terminal — vérification de connectivité et scripts d'exploration}
 \end{figure}
 
-\subsection*{Annexe 2 : Commandes utilisées}
-\addcontentsline{toc}{subsection}{Annexe 2 : Commandes utilisées}
-\begin{lstlisting}[style=terminal, language=bash, caption={Commandes de lancement}]
+\subsection*{Annexe B — Commandes utiles}
+\addcontentsline{toc}{subsection}{Annexe B — Commandes utiles}
+
+\begin{lstlisting}[style=terminal, language=bash, caption={Commandes PC (PowerShell)}]
 # Verification reseau
 ping 10.42.0.1
-python scripts/robot_status.py
+python scripts\robot_status.py
 
 # Lancement developpement
-python scripts/dev.py
+python scripts\dev.py
 
-# Tests
+# Tests unitaires
 python -m pytest tests/ -v
 
 # TTS test (USB branche)
-adb shell am broadcast -n com.cybel.ttsbridge/.SpeakReceiver -a com.cybel.ttsbridge.SPEAK --es text "Test HESTIM"
+adb shell am broadcast -n com.cybel.ttsbridge/.SpeakReceiver ^
+  -a com.cybel.ttsbridge.SPEAK --es text "Test HESTIM"
 
 # Deploiement tablette
-python scripts/deploy_termux.py --skip-kiosk-build --lite-only --host <IP> --password <mdp>
+python scripts\deploy_termux.py --skip-kiosk-build --lite-only --host <IP>
 \end{lstlisting}
 
+\begin{lstlisting}[style=terminal, language=bash, caption={Commandes Termux (tablette)}]
+cd ~/cybel/scripts/termux
+./stop_cybel.sh && ./start_cybel.sh
+curl http://127.0.0.1:8000/api/health
+\end{lstlisting}
+
+\subsection*{Annexe C — Extraits de code significatifs}
+\addcontentsline{toc}{subsection}{Annexe C — Extraits de code significatifs}
+
+\paragraph{C.1 — Annulation de navigation (\texttt{sdk/real\_robot.py}).}
+
 \begin{verbatim}
-    # Termux (tablette)
-    cd ~/cybel/scripts/termux
-    ./stop_cybel.sh && ./start_cybel.sh
-    curl http://127.0.0.1:8000/api/health
+async def _cancel_navigation(self) -> None:
+    for args in [{"command": "stop"}, ...]:
+        await self._client.call_service(
+            ROS_SERVICES["poi"], args, timeout=3.0)
+    await call_service_first(self._client, ...)
+    await self._publish_velocity(0.0, 0.0)
 \end{verbatim}
 
-\subsection*{Annexe 3 : Code source (extrait)}
-\addcontentsline{toc}{subsection}{Annexe 3 : Code source (extrait)}
+\paragraph{C.2 — Publication d'un objectif de navigation.}
+
 \begin{verbatim}
-function hello() {
-    console.log("Bonjour !");
+await self._client.publish(ROS_TOPICS["navi_goal"], {
+    "header": {"frame_id": "map"},
+    "pose": {
+        "position": {"x": x, "y": y, "z": 0.0},
+        "orientation": {"z": sin(theta/2), "w": cos(theta/2)},
+    },
+})
+\end{verbatim}
+
+\paragraph{C.3 — Structure d'un arrêt (\texttt{data/lab\_tour.json}).}
+
+\begin{verbatim}
+{
+  "id": "cnc_router",
+  "equipment_fr": "Routeur CNC",
+  "x": -8.38, "y": 1.45, "theta": 0.88,
+  "speech_fr": "Le routeur CNC permet d'usiner...",
+  "dwell_seconds": 12
 }
 \end{verbatim}
 
+\subsection*{Annexe D — Diagrammes détaillés}
+\addcontentsline{toc}{subsection}{Annexe D — Diagrammes détaillés}
 
-\subsection*{Annexe 4 : Diagrammes détaillés}
-\addcontentsline{toc}{subsection}{Annexe 4 : Diagrammes détaillés}
+Les diagrammes Mermaid suivants sont versionnés dans
+\texttt{docs/Sujet de stage/diagrammes/} du dépôt CYBEL et exportés en PNG
+pour le rapport :
+
+\begin{itemize}
+    \item architecture générale et architecture en couches ;
+    \item topologie réseau ;
+    \item séquences : navigation, visite guidée, TTS, télémétrie ;
+    \item cas d'utilisation et diagramme de classes SDK.
+\end{itemize}
+
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=0.8\textwidth]{images/organigramme.png}
-    \caption{Organigramme de l’entreprise}
+    \includegraphics[width=0.85\textwidth]{diagramme/diagramme_composant.png}
+    \caption{Diagramme de composants CYBEL (source dépôt projet)}
 \end{figure}
 
-\subsection*{Annexe 5 : Documentation technique complémentaire}
-\addcontentsline{toc}{subsection}{Annexe 5 : Documentation technique complémentaire}
-\begin{figure}[h!]
-    \centering
-    \includegraphics[width=0.8\textwidth]{images/organigramme.png}
-    \caption{Organigramme de l’entreprise}
-\end{figure}
+\subsection*{Annexe E — Documentation technique complémentaire}
+\addcontentsline{toc}{subsection}{Annexe E — Documentation technique complémentaire}
+
+\begin{table}[h!]
+\centering
+\caption{Index de la documentation technique CYBEL}
+\begin{tabular}{|p{5cm}|p{8cm}|}
+\hline
+\textbf{Document} & \textbf{Chemin dans le dépôt} \\
+\hline
+README projet & \texttt{README.md} \\
+\hline
+Guide interface opérateur & \texttt{docs/INTERFACE.md} \\
+\hline
+Pont TTS & \texttt{docs/TTS\_BRIDGE.md} \\
+\hline
+Kiosque visiteur & \texttt{docs/VISITOR\_KIOSK.md} \\
+\hline
+Déploiement Termux & \texttt{docs/TERMUX\_DEPLOY.md} \\
+\hline
+Connexion robot & \texttt{docs/ROBOT\_CONNECTION.md} \\
+\hline
+Procédure terrain & \texttt{docs/labo/TERRAIN.md} \\
+\hline
+\end{tabular}
+\end{table}

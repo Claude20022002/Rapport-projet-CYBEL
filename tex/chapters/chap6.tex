@@ -2,26 +2,206 @@
 \section{Réalisation et implémentation}
 \label{chap:realisation_implementation}
 
+Ce chapitre présente la mise en \oe uvre concrète de la plateforme CYBEL :
+environnement de développement, travaux de rétro-ingénierie, développement
+du backend, des applications Android et des interfaces web, intégration du TTS
+et assemblage des modules en un système opérationnel.
+
+
 \subsection{Mise en place de l'environnement}
 
+\subsubsection{Poste de développement}
+
+L'environnement de développement repose sur un PC sous Windows~11 avec
+Python~3.13, Node.js LTS, l'Android SDK en ligne de commande (\texttt{adb},
+\texttt{javac}, \texttt{d8}) et l'IDE Cursor. Les dépendances Python sont
+installées via \texttt{pip install -r backend/requirements.txt} ; les
+frontends via \texttt{npm install} dans \texttt{frontend/} et
+\texttt{frontend-kiosk/}.
+
+Le lancement unifié s'effectue par :
+\begin{verbatim}
+cd cybel
+python scripts\dev.py
+\end{verbatim}
+Ce script démarre le backend sur le port 8000, l'interface opérateur sur
+5173 et le kiosque sur 5174. La configuration robot se trouve dans
+\texttt{backend/.env} (\texttt{ROBOT\_MOCK=false},
+\texttt{ROBOT\_HOST=10.42.0.1} pour les tests depuis le PC connecté au
+Wi-Fi du robot).
+
+\subsubsection{Environnement tablette (Termux)}
+
+Sur la tablette Android du robot, Termux héberge une version allégée du
+backend (\texttt{cybel\_lite.py}). Le bootstrap est assuré par
+\texttt{scripts/termux/bootstrap\_lite.sh}, le déploiement par
+\texttt{python scripts/deploy\_termux.py --lite-only} et le démarrage par
+\texttt{~/cybel/scripts/termux/start\_cybel.sh}.
+
+
 \subsection{Découverte et analyse du robot}
+
+Le robot CIOT TY1251D-03195 combine un châssis Linux/ROS (localisation,
+planification, exécution) et une tête Android~7.1 (RK3399, 2~Go RAM, écran
+tactile 15,6"). L'application constructeur d'accueil constitue une boîte noire
+sans API publique ; notre travail a donc porté sur les canaux réseau exposés
+(\textit{rosbridge}, MQTT, ADB).
+
+L'analyse a confirmé que le châssis publie une télémétrie riche (pose,
+statut, LiDAR filtré, personnes détectées) et accepte des commandes de
+vitesse, de navigation par coordonnées (\texttt{/navi\_goal}) et par points
+d'intérêt (service \texttt{/poi}), sous réserve du mode de contrôle approprié.
+
 
 \subsection{Reverse Engineering du système}
 
 \subsubsection{Analyse réseau}
 
+La cartographie réseau a révélé trois segments interconnectés : le Wi-Fi AP
+du robot (\texttt{10.42.0.0/24}), le DHCP de la tête Android
+(\texttt{172.16.0.0/16}) et la liaison interne \texttt{eth0}
+(\texttt{192.168.20.0/24}). Cette découverte explique pourquoi une même
+commande peut fonctionner depuis le PC mais échouer depuis Termux si
+\texttt{ROBOT\_HOST} n'est pas adapté.
+
 \subsubsection{Identification des protocoles}
+
+Quatre protocoles ont été identifiés et hiérarchisés :
+\begin{enumerate}
+    \item \textbf{\textit{rosbridge} v2} — canal principal (JSON sur WebSocket) ;
+    \item \textbf{MQTT} — télémétrie odométrique, observation passive ;
+    \item \textbf{HTTP} — interfaces constructeur (non exploitées par CYBEL) ;
+    \item \textbf{ADB} — accès à la tête Android pour le TTS.
+\end{enumerate}
 
 \subsubsection{Étude des commandes}
 
+Le tableau~\ref{tab:commandes_validees} synthétise les mécanismes validés sur
+matériel réel.
+
+\begin{table}[H]
+\centering
+\caption{Commandes validées sur le robot CIOT}
+\label{tab:commandes_validees}
+\begin{tabular}{|p{3.5cm}|p{9.5cm}|}
+\hline
+\textbf{Action} & \textbf{Mécanisme} \\
+\hline
+Téléopération & Publication \texttt{/mobile\_base/commands/velocity} (mode manuel requis) \\
+\hline
+Navigation point nommé & Service \texttt{/poi} — \texttt{command: go} \\
+\hline
+Navigation coordonnée & Publication \texttt{/navi\_goal} \\
+\hline
+Annuler navigation & \texttt{/poi stop} + \texttt{/path\_follower/cancel} + arrêt vitesses \\
+\hline
+Mode manuel/auto & Service \texttt{/change\_location\_mode} — \texttt{mode: 0/1} \\
+\hline
+Relocalisation & Service \texttt{/global\_localization} \\
+\hline
+Parole & Broadcast \texttt{com.cybel.ttsbridge.SPEAK} (hors ROS) \\
+\hline
+\end{tabular}
+\end{table}
+
+
 \subsection{Développement du backend CYBEL}
+
+Le backend suit l'architecture en couches définie au chapitre~4. Le module
+\texttt{sdk/} encapsule la communication \textit{rosbridge}
+(\texttt{rosbridge.py}), l'implémentation réelle (\texttt{real\_robot.py}) et
+simulée (\texttt{mock\_robot.py}). Le service \texttt{robot\_service.py}
+expose une interface unique aux routers FastAPI.
+
+Les domaines API couverts sont : statut et mouvement du robot, navigation
+(\texttt{/api/navigation/goto}, \texttt{/goto-coordinate}, \texttt{/cancel}),
+carte SLAM, visite guidée (\texttt{/api/tour/start}, CRUD des arrêts), parole
+et réception. Le WebSocket \texttt{/ws/telemetry} diffuse pose, statut, carte
+et nuage LiDAR en temps réel.
+
+Le client \textit{rosbridge} implémente une connexion avec timeout de 20~s,
+trois tentatives, keepalive et reconnexion automatique en cas de silence
+prolongé. Le moteur \texttt{TourEngine} orchestre la visite : navigation
+séquentielle vers chaque arrêt de \texttt{data/lab\_tour.json}, annonces
+vocales et gestion des erreurs (\texttt{nav\_status} 604).
+
 
 \subsection{Développement de l'application Android}
 
+\subsubsection{CybelTTSBridge}
+
+Application légère installée sur la tête Android du robot. Un
+\texttt{BroadcastReceiver} écoute l'action \texttt{com.cybel.ttsbridge.SPEAK},
+initialise \texttt{TextToSpeech} (moteur Google TTS) et gère une file
+d'attente (\texttt{pendingText}) pour les messages reçus avant l'initialisation
+du moteur vocal.
+
+\subsubsection{CybelVisitorKiosk}
+
+Application WebView plein écran chargeant \texttt{http://<ip-tablette>:8000/kiosk/}.
+Un \texttt{BootReceiver} permet le démarrage automatique optionnel. Des
+correctifs \texttt{viewport-fit=cover} et \texttt{network\_security\_config}
+assurent l'affichage sur Android~7.1 et l'accès HTTP local à Termux.
+
+
 \subsection{Développement de l'interface Web}
+
+\subsubsection{Interface opérateur (\texttt{frontend/})}
+
+L'interface opérateur regroupe :
+\begin{itemize}
+    \item une carte SLAM avec grille, LiDAR, pose, objectif et visiteurs détectés ;
+    \item un panneau Points pour la navigation et la gestion des points locaux ;
+    \item une téléopération (D-pad, bascule mode manuel, arrêt) ;
+    \item une page Visite pour le CRUD de \texttt{lab\_tour.json} et le suivi d'état ;
+    \item une page Accueil pour les actions vocales et la FAQ.
+\end{itemize}
+
+\subsubsection{Interface visiteur (\texttt{frontend-kiosk/})}
+
+Le kiosque propose un parcours en trois écrans (accueil, visite en cours,
+fin ou erreur), une bascule FR/EN et un polling de \texttt{/api/tour/status}
+pendant la visite. La visite guidée autonome du laboratoire constitue le
+scénario principal : huit arrêts synchronisés depuis
+\texttt{knowledgeV2-lab.json}.
+
 
 \subsection{Mise en place du système TTS}
 
+La synthèse vocale ne transite pas par ROS. Le flux est le suivant :
+\begin{enumerate}
+    \item le backend appelle \texttt{sdk/speech.py} ;
+    \item depuis le PC : subprocess ADB exécutant \texttt{am broadcast} vers
+    \texttt{CybelTTSBridge} ;
+    \item depuis la tablette : \texttt{speak\_local()} dans \texttt{cybel\_lite.py}
+    sans dépendance au PC.
+\end{enumerate}
+
+Ce choix architectural a été imposé par l'absence de tout canal réseau ou ROS
+pour déclencher la parole sur la tête Android.
+
+
 \subsection{Intégration des différents modules}
 
+L'intégration bout en bout de la visite guidée suit la chaîne : kiosque
+tablette $\rightarrow$ \texttt{POST /api/tour/start} $\rightarrow$
+\texttt{TourEngine} $\rightarrow$ \texttt{RealRobot.navigate\_to\_coordinate}
+$\rightarrow$ \textit{rosbridge} $\rightarrow$ annonce vocale à chaque arrêt
+(\texttt{nav\_status} 602$\rightarrow$603).
+
+Le script \texttt{scripts/deploy\_termux.py} automatise le pipeline de
+déploiement : build du kiosque, upload SFTP, bootstrap Termux et redémarrage
+de \texttt{cybel\_lite}. Le script \texttt{preflight\_labo.ps1} vérifie avant
+chaque session terrain la connectivité, la santé de l'API et la présence du
+TTS.
+
+
 \subsection{Conclusion}
+
+L'implémentation CYBEL couvre l'intégralité de la chaîne du protocole robot
+aux interfaces utilisateur, en passant par une API structurée et un déploiement
+embarqué sur tablette. L'architecture en couches (SDK / API / UI) a absorbé
+les évolutions (visite guidée, TTS, Termux) sans remise en cause du cœur
+logiciel. Le principal travail restant porte sur l'alignement des coordonnées
+de \texttt{lab\_tour.json} avec la carte SLAM réelle du laboratoire, objet
+du chapitre~7.

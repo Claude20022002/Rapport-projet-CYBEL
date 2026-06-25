@@ -2,35 +2,102 @@
 \section{Méthodologie et planification}
 \label{chap:methodologie_planification}
 
-La planification opérationnelle est un processus essentiel pour structurer et coordonner l’exécution des tâches dans une organisation ou un projet. 
-Elle repose sur des méthodes rigoureuses, des applications pratiques et des outils spécialisés pour assurer une gestion efficace des ressources, des délais et des objectifs.
+Dans le cadre de notre projet de fin d'année, nous avons adopté une démarche
+méthodique combinant \textbf{rétro-ingénierie incrémentale non destructive}
+et \textbf{développement logiciel itératif mock-first}. Cette approche répond
+directement à l'absence de documentation constructeur et à la disponibilité
+limitée du robot physique au laboratoire HESTIM.
 
-Ce glossaire définit les principaux concepts liés à la planification opérationnelle et explore les méthodes, applications et outils qui permettent d’optimiser son exécution.
-
-Dans le cadre de notre stage, nous avons appliqué une démarche méthodique et structuré notre travail pour atteindre les objectifs fixés. 
-Ce chapitre détaille notre mode de travail, la planification, les outils employés ainsi que les étapes concrètes de mise en œuvre.
+Ce chapitre détaille notre mode de travail, la planification retenue, les
+outils employés, les premières découvertes sur le robot, la documentation
+produite, les apports du projet ainsi que les difficultés rencontrées durant
+la phase d'investigation.
 
 
 \subsection{Mode de travail et organisation}
-Dans le besoin d’un travail optimale, le mode de travail qui s’est avéré étant la plus optimale pour notre stage fut la répartition des tâches en optant sur nos points fort. 
-Cette méthode nous auras permis de renforcer nos acquis sans pour autant rester dans notre zone de confort car malgré cette méthode de travail, il y a eu derrière un grand travail d’autonomie pour approfondir la documentation ou le développement des scripts Python présent au sein du compte GitHub \textbf{Claude20022002} sur lesquelles nous devions travailler.
-Notre superviseur ainsi que tous les membres du laboratoire nous ont supervisés à travers des réunions, compte rendus journalier et hebdomadaire. Pour organiser notre travail, nous avons utilisé un planning détaillé et avons tenu des comptes rendus partagés sur Github où l'on présentait nos problèmes, hypothèses et solutions.
+
+Face à la complexité du système, le mode de travail retenu a consisté en une
+\textbf{répartition des tâches selon nos compétences respectives}, tout en
+maintenant une autonomie individuelle sur l'exploration documentaire et le
+développement des scripts Python du dépôt \texttt{cybel}. Cette organisation
+nous a permis de renforcer nos acquis sans rester dans une zone de confort
+exclusive, chaque membre de l'équipe devant approfondir des domaines moins
+familiers (réseau, ROS, Android embarqué, interfaces web).
+
+Notre encadrant de stage, le Dr.~Sridath Tula, ainsi que les membres du
+laboratoire nous ont accompagnés par des réunions régulières et des comptes
+rendus journaliers et hebdomadaires. Pour structurer l'avancement, nous avons
+maintenu un planning détaillé et centralisé nos hypothèses, blocages et
+solutions dans le dépôt Git du projet.
+
+\subsubsection{Démarche de découverte protocolaire}
+
+Chaque hypothèse sur le protocole du robot a suivi le cycle suivant :
+\begin{enumerate}
+    \item \textbf{Observation passive} — écoute MQTT et introspection \texttt{rosbridge}
+    avant toute publication ;
+    \item \textbf{Test isolé} — script Python dédié dans \texttt{scripts/} ;
+    \item \textbf{Vérification de l'effet réel} — une commande acceptée par
+    \textit{rosbridge} n'est pas forcément exécutée sur le châssis ;
+    \item \textbf{Intégration SDK} — portage dans \texttt{MockRobot} puis
+    \texttt{RealRobot} ;
+    \item \textbf{Documentation} — mise à jour de \texttt{docs/} et des constantes
+    dans \texttt{sdk/constants.py}.
+\end{enumerate}
+
+Les principes directeurs ont été : simuler d'abord, sécuriser le matériel
+(E-Stop accessible, pas de commandes destructives), et documenter au fil de
+l'eau chaque découverte reproductible.
+
+\subsubsection{Organisation hebdomadaire type}
+
+\begin{table}[H]
+\centering
+\caption{Organisation hebdomadaire indicative du projet}
+\label{tab:org_hebdo}
+\begin{tabular}{|p{2.5cm}|p{5.5cm}|p{5.5cm}|}
+\hline
+\textbf{Jours} & \textbf{Activité principale} & \textbf{Environnement} \\
+\hline
+Lundi--Mercredi & Développement mock, documentation, tests unitaires & PC, sans robot \\
+\hline
+Jeudi & Tests sur robot réel (si disponible) & Wi-Fi \texttt{TY1251D-03195} \\
+\hline
+Vendredi & Intégration, déploiement tablette Termux, rédaction & PC + tablette \\
+\hline
+\end{tabular}
+\end{table}
 
 
 \subsection{Planning du projet}
-Afin d'assurer une progression cohérente tout au long du stage et de respecter les objectifs fixés, un planning prévisionnel a été établi dès le début du projet sous la forme d'un diagramme de Gantt. Celui-ci a permis de répartir les différentes activités sur toute la durée du stage, d'identifier les dépendances entre les tâches et de suivre l'avancement du projet.
 
-Le déroulement du projet a été organisé en quatre grandes phases successives.
+Afin d'assurer une progression cohérente tout au long du projet et de respecter
+les objectifs fixés, un planning prévisionnel a été établi dès le début sous la
+forme d'un diagramme de Gantt. Celui-ci a permis de répartir les différentes
+activités, d'identifier les dépendances entre les tâches et de suivre
+l'avancement.
 
-La première phase, consacrée à la \textbf{connectivité}, avait pour objectif de comprendre l'architecture matérielle et réseau du robot. Cette étape a consisté à analyser la topologie du système, identifier les différents équipements présents sur le réseau et réaliser un balayage des ports afin de découvrir les services accessibles.
+Le déroulement a été organisé en quatre grandes phases successives.
 
-La deuxième phase concernait l'\textbf{investigation du système}. Durant cette étape, plusieurs travaux de rétro-ingénierie ont été réalisés afin d'identifier les mécanismes de communication utilisés par le robot. Les services ROS ont été explorés grâce à \texttt{rosapi}, les échanges MQTT ont été analysés afin de comprendre les commandes disponibles, tandis que le fonctionnement du système de synthèse vocale a été étudié à l'aide d'ADB et d'un pont de communication Android.
+La première phase, consacrée à la \textbf{connectivité}, avait pour objectif de
+comprendre l'architecture matérielle et réseau du robot : analyse de la
+topologie, identification des équipements et balayage des ports ouverts.
 
-La troisième phase correspond au \textbf{développement de la plateforme CYBEL}. Cette étape a constitué la partie la plus importante du projet. Elle a conduit au développement d'un SDK Python permettant de communiquer avec le robot en mode simulé ou réel, à la réalisation du backend avec FastAPI et WebSocket, à la conception de l'interface web destinée aux opérateurs ainsi qu'au développement du moteur de visite guidée, du kiosque interactif destiné aux visiteurs et de la solution de déploiement sur la tablette Android via Termux.
+La deuxième phase concernait l'\textbf{investigation du système}. Des travaux de
+rétro-ingénierie ont permis d'identifier les mécanismes de communication :
+exploration \texttt{rosapi}, analyse MQTT passive, étude du TTS via ADB et
+développement du pont Android \texttt{CybelTTSBridge}.
 
-Enfin, la quatrième phase est dédiée à la \textbf{validation du système}. Elle comprend les essais de navigation sur le robot réel, l'ajustement des coordonnées des différents points du parcours de visite, les tests d'intégration de l'ensemble des modules développés ainsi que la rédaction du rapport de stage et la préparation de la soutenance.
+La troisième phase correspond au \textbf{développement de la plateforme CYBEL} :
+SDK Python (mock et réel), backend FastAPI avec WebSocket, interface opérateur,
+moteur de visite guidée (\texttt{TourEngine}), kiosque visiteur et déploiement
+Termux sur la tablette.
 
-La Figure~\ref{fig:gantt} présente le planning global du projet et l'enchaînement des différentes phases de réalisation.
+Enfin, la quatrième phase est dédiée à la \textbf{validation du système} : essais
+de navigation terrain, ajustement des coordonnées du parcours
+\texttt{lab\_tour.json}, tests d'intégration et rédaction du présent rapport.
+
+La Figure~\ref{fig:gantt} présente le planning global du projet.
 
 \begin{figure}[H]
     \centering
@@ -39,24 +106,241 @@ La Figure~\ref{fig:gantt} présente le planning global du projet et l'enchaînem
     \label{fig:gantt}
 \end{figure}
 
-Comme le montre ce planning, plusieurs activités ont été menées en parallèle, notamment durant la phase de développement. Cette organisation a permis d'exploiter efficacement le temps disponible pendant les périodes où le robot n'était pas accessible, en poursuivant le développement de l'interface web, du backend ou des modules de simulation avant leur intégration sur le robot réel.
+Plusieurs activités ont été menées en parallèle durant la phase de
+développement, ce qui a permis d'avancer sur l'interface web et le backend
+lorsque le robot n'était pas accessible.
+
+\begin{table}[H]
+\centering
+\caption{Jalons principaux atteints (fin juin 2026)}
+\label{tab:jalons}
+\begin{tabular}{|p{5.5cm}|p{3cm}|p{4.5cm}|}
+\hline
+\textbf{Jalon} & \textbf{Période} & \textbf{Statut} \\
+\hline
+Connectivité \textit{rosbridge} depuis le PC & mi-juin 2026 & Atteint \\
+\hline
+TTS fonctionnel (ADB + \texttt{CybelTTSBridge}) & mi-juin 2026 & Atteint \\
+\hline
+Interface opérateur complète & fin juin 2026 & Atteint \\
+\hline
+Kiosque affiché sur tablette Termux & fin juin 2026 & Atteint \\
+\hline
+Parcours huit arrêts configuré & fin juin 2026 & Atteint \\
+\hline
+Visite guidée complète sans erreur 604 & juillet 2026 & En cours \\
+\hline
+\end{tabular}
+\end{table}
 
 
-\subsection{Outils, Langage et Technologie utilisés}
+\subsection{Outils, langages et technologies utilisés}
 
-\subsubsection{ROS}
+\subsubsection{ROS (Robot Operating System)}
+
+Le châssis du robot exécute ROS pour la localisation SLAM, la planification
+(\texttt{move\_base}) et l'exécution des trajectoires. CYBEL n'accède pas à
+ROS natif (C++/Python ROS) mais via \textbf{\textit{rosbridge}} — pont WebSocket
+JSON sur le port 9090.
+
+\begin{table}[H]
+\centering
+\caption{Éléments ROS principaux utilisés par CYBEL}
+\label{tab:ros_elements}
+\small
+\begin{tabular}{|p{3.2cm}|p{10.8cm}|}
+\hline
+\textbf{Catégorie} & \textbf{Exemples} \\
+\hline
+Topics lecture & \texttt{/robot\_pose}, \texttt{/robot\_status}, \texttt{/scan\_filter},
+\texttt{/detected\_people\_array} \\
+\hline
+Topics commande & \texttt{/mobile\_base/commands/velocity}, \texttt{/navi\_goal},
+\texttt{/path\_follower/cancel} \\
+\hline
+Services & \texttt{/poi}, \texttt{/change\_location\_mode}, \texttt{/global\_localization} \\
+\hline
+Introspection & \texttt{/rosapi/topics}, \texttt{/rosapi/services},
+\texttt{/rosapi/subscribers} \\
+\hline
+\end{tabular}
+\end{table}
+
+Les codes \texttt{nav\_status} documentés sont : 600 (initialisation), 601
+(prêt), 602 (en navigation), 603 (arrivé), 604 (erreur).
+
 \subsubsection{FastAPI}
-\subsubsection{TypeScript}
-\subsubsection{Android}
-\subsubsection{ADB}
-\subsubsection{ROS}
 
-\subsection{Découverte du Robot CIOT TY1251D-03195 "CYBEL"}
+FastAPI constitue le backend principal sur poste opérateur : API REST, WebSocket
+\texttt{/ws/telemetry}, routers (\texttt{robot}, \texttt{navigation}, \texttt{tour},
+\texttt{speech}, etc.) et configuration via \texttt{pydantic-settings}
+(\texttt{ROBOT\_MOCK}, \texttt{ROBOT\_HOST}). Sur tablette Termux, \textbf{Starlette}
+(\texttt{cybel\_lite.py}) remplace FastAPI car \texttt{pydantic-core} ne compile
+pas sur Python~3.13 Termux.
+
+\subsubsection{TypeScript et Vite}
+
+Deux applications web sans framework lourd :
+\begin{itemize}
+    \item \texttt{frontend/} (port 5173) — interface opérateur ;
+    \item \texttt{frontend-kiosk/} (port 5174) — kiosque visiteur bilingue FR/EN.
+\end{itemize}
+Le kiosque est compilé en bundle \textbf{IIFE} pour compatibilité WebView Chrome~49
+(Android~7.1).
+
+\subsubsection{Android}
+
+Deux APK Java compilées sans Gradle (\texttt{javac}, \texttt{d8}, \texttt{apksigner}) :
+\begin{itemize}
+    \item \texttt{CybelTTSBridge} — synthèse vocale via \texttt{TextToSpeech} ;
+    \item \texttt{CybelVisitorKiosk} — WebView plein écran vers \texttt{/kiosk/}.
+\end{itemize}
+
+\subsubsection{ADB (Android Debug Bridge)}
+
+ADB permet de déclencher le TTS depuis le PC développeur vers la tête Android
+(câble USB requis sur ce modèle). Sur tablette autonome, le broadcast local
+remplace ADB.
+
+\subsubsection{rosbridge et communication réseau}
+
+\begin{table}[H]
+\centering
+\caption{Canaux de communication du projet}
+\label{tab:canaux}
+\begin{tabular}{|p{2.5cm}|p{4.5cm}|p{2.5cm}|p{3.5cm}|}
+\hline
+\textbf{Canal} & \textbf{Adresse typique} & \textbf{Protocole} & \textbf{Usage} \\
+\hline
+\textit{rosbridge} & \texttt{10.42.0.1:9090} (PC) & WebSocket JSON & Principal \\
+\hline
+\textit{rosbridge} & \texttt{192.168.20.22:9090} (Termux) & WebSocket JSON & Tablette \\
+\hline
+MQTT & \texttt{10.42.0.1:1883} & MQTT 3.1.1 & Télémétrie passive \\
+\hline
+ADB & USB & Android Debug Bridge & TTS depuis PC \\
+\hline
+HTTP Termux & IP tablette :8000 & HTTP & Kiosque embarqué \\
+\hline
+\end{tabular}
+\end{table}
+
+
+\subsection{Découverte du Robot CIOT TY1251D-03195 «~CYBEL~»}
+
+La phase initiale a permis d'identifier le matériel et les services réseau
+exposés sans accès shell au châssis (SSH verrouillé).
+
+\begin{table}[H]
+\centering
+\caption{Services réseau découverts sur le robot}
+\label{tab:services_reseau}
+\begin{tabular}{|c|p{9cm}|}
+\hline
+\textbf{Port} & \textbf{Service} \\
+\hline
+9090 & \textit{rosbridge} WebSocket \\
+\hline
+1883 & Broker MQTT \\
+\hline
+8082 & Interface déploiement constructeur \\
+\hline
+8088 & Interface debug CSST \\
+\hline
+21 & FTP \\
+\hline
+22 & SSH (accès refusé) \\
+\hline
+\end{tabular}
+\end{table}
+
+La topologie réseau s'est révélée dual-stack : le châssis est joignable en
+\texttt{10.42.0.1} depuis le Wi-Fi du robot, tandis que la tablette Android
+utilise un segment DHCP \texttt{172.16.0.0/16} et une liaison interne
+\texttt{eth0} sur \texttt{192.168.20.0/24}. Depuis Termux, \textit{rosbridge}
+est accessible sur \texttt{192.168.20.22:9090} et non sur \texttt{10.42.0.1}.
+
 
 \subsection{Proposition de documentation technique}
 
-\subsection{Apports du stage}
+Au fil du projet, nous avons structuré une documentation technique dans le
+répertoire \texttt{docs/} du dépôt, complétée par des scripts reproductibles
+dans \texttt{scripts/}. Les guides principaux sont :
+
+\begin{itemize}
+    \item \texttt{ROBOT\_CONNECTION.md} — topologie réseau et paramètres de connexion ;
+    \item \texttt{INTERFACE.md} — interface opérateur ;
+    \item \texttt{TTS\_BRIDGE.md} — pont de synthèse vocale Android ;
+    \item \texttt{VISITOR\_KIOSK.md} et \texttt{TERMUX\_DEPLOY.md} — kiosque et déploiement embarqué ;
+    \item \texttt{labo/TERRAIN.md} — procédure de validation terrain.
+\end{itemize}
+
+Les diagrammes Mermaid (architecture, séquences, cas d'utilisation) sont
+versionnés dans \texttt{docs/Sujet de stage/diagrammes/} et exportés en PNG
+pour le rapport. Cette documentation constitue la référence opérationnelle pour
+toute reprise du projet au laboratoire.
+
+
+\subsection{Apports du projet}
+
+Le projet CYBEL apporte à HESTIM une \textbf{plateforme tierce de commande et
+d'interaction}, indépendante de l'application propriétaire du constructeur.
+Les apports concrets sont :
+
+\begin{itemize}
+    \item un protocole de communication ROS/\textit{rosbridge} documenté et
+    intégré dans un SDK Python testable en mode simulé ;
+    \item une interface opérateur web (carte SLAM, LiDAR, téléopération, visite
+    guidée, accueil vocal) ;
+    \item un kiosque visiteur bilingue déployable sur la tablette du robot ;
+    \item un canal TTS Android (\texttt{CybelTTSBridge}) absent du protocole ROS ;
+    \item une base de connaissances laboratoire (\texttt{knowledgeV2-lab.json})
+    transformée en parcours navigable (\texttt{lab\_tour.json}).
+\end{itemize}
+
 
 \subsection{Difficultés rencontrées durant la phase d'investigation}
 
+\begin{table}[H]
+\centering
+\caption{Synthèse des difficultés et solutions (phase d'investigation)}
+\label{tab:difficultes}
+\small
+\begin{tabular}{|p{2.8cm}|p{4.5cm}|p{5.7cm}|}
+\hline
+\textbf{Domaine} & \textbf{Difficulté} & \textbf{Solution retenue} \\
+\hline
+Réseau & Topologie multi-IP, DHCP instable sur la tête Android & Documentation
+\texttt{ROBOT\_HOST} distinct PC/Termux \\
+\hline
+Réseau & Latence Wi-Fi variable, timeouts \textit{rosbridge} & Timeout 20~s,
+3 tentatives, pas de \texttt{--reload} par défaut \\
+\hline
+Protocole & Commande publiée sans abonné ROS & Vérification via
+\texttt{/rosapi/subscribers} \\
+\hline
+Protocole & Mode auto (\texttt{control\_state: 30}) bloque la téléop & Service
+\texttt{/change\_location\_mode} avant navigation \\
+\hline
+Protocole & Annulation navigation incomplète & \texttt{/poi stop} + cancel service
++ arrêt vitesses \\
+\hline
+TTS & Aucun topic ROS pour la parole & Application \texttt{CybelTTSBridge} + ADB \\
+\hline
+Système fermé & SSH verrouillé, app constructeur boîte noire & Rétro-ingénierie
+non destructive uniquement \\
+\hline
+\end{tabular}
+\end{table}
+
+
 \subsection{Conclusion}
+
+La méthodologie adoptée — observation, vérification, simulation puis intégration —
+s'est avérée indispensable face à un système fermé et partiellement documenté.
+Le planning en quatre phases a été globalement respecté, avec une avance sur le
+déploiement tablette et un retard acceptable sur la validation navigation
+complète du parcours laboratoire. Les outils retenus (Python/FastAPI,
+TypeScript/Vite, \textit{rosbridge}, ADB, Termux) forment un écosystème
+cohérent pour un projet d'équipe à contraintes matérielles fortes. Le
+chapitre suivant détaille la réalisation concrète de cette architecture.

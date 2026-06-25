@@ -2,26 +2,241 @@
 \section{Validation, résultats et analyse critique}
 \label{chap:Validation_result_ana_critique}
 
+Ce chapitre présente la stratégie de validation adoptée, les scénarios de
+tests exécutés, les résultats obtenus, les indicateurs de performance
+observés, nos contributions, les difficultés résolues, les limites du projet
+et les perspectives d'amélioration.
+
+
 \subsection{Stratégie de validation}
+
+La validation s'organise sur quatre niveaux complémentaires :
+
+\begin{table}[H]
+\centering
+\caption{Niveaux de validation du projet CYBEL}
+\label{tab:niveaux_validation}
+\begin{tabular}{|p{2.5cm}|p{4cm}|p{6.5cm}|}
+\hline
+\textbf{Niveau} & \textbf{Méthode} & \textbf{Périmètre} \\
+\hline
+Unitaire & \texttt{pytest} & SDK, utils, tour, \textit{rosbridge}, persistance \\
+\hline
+Intégration mock & \texttt{ROBOT\_MOCK=true} & API + frontends sans robot \\
+\hline
+Intégration réelle & Tests manuels terrain & Navigation, TTS, télémétrie \\
+\hline
+Acceptation & Visite complète 8 arrêts & Tablette + laboratoire FabLab \\
+\hline
+\end{tabular}
+\end{table}
+
+Les critères de succès de la visite guidée sont : (1)~démarrage depuis le
+kiosque sans erreur ; (2)~atteinte de chaque coordonnée (\texttt{nav\_status}
+$\rightarrow$ 603) ; (3)~annonces vocales audibles ; (4)~arrêt visiteur et
+E-Stop opérateur fonctionnels.
+
 
 \subsection{Scénarios de tests}
 
+Le tableau~\ref{tab:scenarios_tests} recense les scénarios principaux et leur
+statut à fin juin 2026.
+
+\begin{table}[H]
+\centering
+\caption{Scénarios de tests et résultats}
+\label{tab:scenarios_tests}
+\small
+\begin{tabular}{|c|p{4.5cm}|p{4cm}|c|}
+\hline
+\textbf{ID} & \textbf{Scénario} & \textbf{Résultat attendu} & \textbf{Statut} \\
+\hline
+T1 & Ping + \texttt{robot\_status.py} & Messages JSON \texttt{/robot\_status} & OK \\
+\hline
+T2 & Téléopération mode manuel & Déplacement au D-pad & OK \\
+\hline
+T3 & Navigation vers point carte & \texttt{nav\_status} 602$\rightarrow$603 & OK \\
+\hline
+T4 & Annulation navigation & Arrêt + disparition trajectoire & OK \\
+\hline
+T5 & TTS via ADB & Audio audible & OK \\
+\hline
+T6 & TTS tablette (broadcast) & Audio sans PC & OK \\
+\hline
+T7 & Kiosque WebView & Écran d'accueil CYBEL & OK \\
+\hline
+T8 & Visite 8 arrêts complète & Sans erreur 604 & En cours \\
+\hline
+T9 & Relâcher E-Stop sans reprise nav & Robot immobile & OK \\
+\hline
+T10 & \texttt{pytest tests/} & Tous les tests passés & OK (78 tests) \\
+\hline
+\end{tabular}
+\end{table}
+
+
 \subsection{Résultats obtenus}
+
+\subsubsection{Fonctionnalités livrées}
+
+À ce stade du projet, les livrables suivants sont opérationnels en
+démonstration :
+\begin{itemize}
+    \item plateforme opérateur complète (carte, LiDAR, visiteurs, visite, accueil) ;
+    \item kiosque visiteur bilingue déployé sur tablette Termux ;
+    \item protocole ROS documenté dans \texttt{sdk/constants.py} ;
+    \item pont TTS Android (\texttt{CybelTTSBridge}) ;
+    \item parcours laboratoire huit arrêts dans \texttt{data/lab\_tour.json}.
+\end{itemize}
+
+\subsubsection{Incidents terrain documentés}
+
+\begin{table}[H]
+\centering
+\caption{Incidents terrain et résolutions}
+\label{tab:incidents}
+\begin{tabular}{|p{3.5cm}|p{4.5cm}|p{5cm}|}
+\hline
+\textbf{Incident} & \textbf{Cause} & \textbf{Résolution} \\
+\hline
+Erreur 604 en visite & Coordonnée dans obstacle ou chemin bloqué & Ajustement
+\texttt{lab\_tour.json} sur carte réelle \\
+\hline
+Timeout handshake \textit{rosbridge} & Wi-Fi ou connexions saturées & Retries,
+pas de reload, redémarrage robot \\
+\hline
+Objectif conservé après annulation & Télémétrie non effacée & Masquage objectif
++ \texttt{/poi stop} \\
+\hline
+Bouton Arrêt kiosque inefficace & Appel \texttt{haltTour} au lieu de \texttt{cancel} & Correction frontend \\
+\hline
+\end{tabular}
+\end{table}
+
 
 \subsection{Indicateurs de performance}
 
-Tableau avec :
-Temps de réponse
-Fiabilité
-Stabilité des communications
-Robustesse
+Le tableau~\ref{tab:perf} présente les indicateurs mesurés en conditions réelles
+et en développement local.
+
+\begin{table}[H]
+\centering
+\caption{Indicateurs de performance observés}
+\label{tab:perf}
+\begin{tabular}{|p{4.5cm}|p{3.5cm}|p{5cm}|}
+\hline
+\textbf{Indicateur} & \textbf{Valeur observée} & \textbf{Commentaire} \\
+\hline
+Temps de réponse API REST & $<$ 100~ms & Localhost PC, hors \textit{rosbridge} \\
+\hline
+Connexion \textit{rosbridge} & 2--60~s & Selon qualité Wi-Fi ; 3$\times$ timeout 20~s max \\
+\hline
+Fiabilité connexion \textit{rosbridge} & $\sim$90~\% & Session stable, dépend du Wi-Fi \\
+\hline
+Stabilité communications & Reconnexion auto & Watchdog après 25~s de silence \\
+\hline
+Fréquence télémétrie pose & $\sim$10~Hz & Topic \texttt{/robot\_pose} \\
+\hline
+Fréquence LiDAR & $\sim$25~Hz & Topic \texttt{/scan\_filter} \\
+\hline
+Latence Wi-Fi (ping robot) & 89--1654~ms & Très variable \\
+\hline
+Robustesse navigation & Erreurs 604 ponctuelles & Coordonnées à calibrer terrain \\
+\hline
+Tests unitaires & 78/78 passés & Juin 2026 \\
+\hline
+\end{tabular}
+\end{table}
+
 
 \subsection{Contributions personnelles}
 
+En tant qu'équipe chargée du projet CYBEL, nos contributions principales
+incluent :
+
+\begin{enumerate}
+    \item la \textbf{rétro-ingénierie} du protocole de communication du CIOT
+    TY1251D, sans documentation constructeur ;
+    \item la \textbf{conception et le développement} de l'architecture CYBEL
+    (SDK, API, deux interfaces web) ;
+    \item la \textbf{résolution du canal TTS} par \texttt{CybelTTSBridge} et
+    l'investigation ADB/broadcast ;
+    \item le \textbf{déploiement embarqué} Termux et kiosque sur la tablette ;
+    \item la \textbf{conception du parcours pédagogique} laboratoire depuis
+    \texttt{knowledgeV2-lab.json} ;
+    \item la \textbf{documentation technique} (\texttt{docs/}, scripts,
+    diagrammes) ;
+    \item les \textbf{corrections itératives} terrain (annulation navigation,
+    rosbridge, erreurs 604).
+\end{enumerate}
+
+
 \subsection{Difficultés rencontrées et solutions apportées}
+
+Au-delà des difficultés d'investigation (chapitre~5), la phase de
+développement et de validation a nécessité des correctifs spécifiques :
+
+\begin{itemize}
+    \item \textbf{FastAPI sur Termux} — remplacement par Starlette
+    (\texttt{cybel\_lite.py}) ;
+    \item \textbf{Écran blanc WebView} — build IIFE et correctifs safe-area ;
+    \item \textbf{Saturations \textit{rosbridge}} — \texttt{dev.py} sans
+    \texttt{--reload} par défaut, instance unique du backend ;
+    \item \textbf{Navigation 604} — affinage progressif des coordonnées sur
+    carte SLAM réelle via sessions terrain documentées dans
+    \texttt{docs/labo/TERRAIN.md}.
+\end{itemize}
+
 
 \subsection{Limites du projet}
 
+\begin{enumerate}
+    \item Dépendance au Wi-Fi du robot — pas de contrôle hors réseau
+    \texttt{TY1251D-03195}.
+    \item Un seul robot de test — généralisation à d'autres modèles CIOT non
+    garantie.
+    \item Coordonnées du parcours — calibrage manuel sur carte SLAM.
+    \item Pas de ROS natif — dépendance totale à \textit{rosbridge}.
+    \item Android~7.1 — contraintes WebView, pas de modules ES modernes.
+    \item Backend lite Termux — sous-ensemble des fonctions opérateur.
+    \item Pas de CI/CD ni déploiement industrialisé.
+    \item Reconnaissance vocale visiteur — non implémentée en v1.
+\end{enumerate}
+
+
 \subsection{Perspectives d'amélioration}
 
+\begin{table}[H]
+\centering
+\caption{Perspectives d'amélioration priorisées}
+\label{tab:perspectives}
+\begin{tabular}{|p{2.5cm}|p{10.5cm}|}
+\hline
+\textbf{Priorité} & \textbf{Amélioration} \\
+\hline
+Haute & Calibrer les huit arrêts sur carte réelle (éliminer les erreurs 604) \\
+\hline
+Haute & Connexion \textit{rosbridge} non bloquante au démarrage FastAPI \\
+\hline
+Moyenne & Aligner \texttt{cybel\_lite.py} sur toute la logique de
+\texttt{real\_robot.py} \\
+\hline
+Moyenne & Tests d'intégration \textit{rosbridge} simulé ; boot auto Termux \\
+\hline
+Basse & Synchronisation POI robot $\leftrightarrow$ \texttt{lab\_tour.json} ;
+reconnaissance vocale visiteur \\
+\hline
+\end{tabular}
+\end{table}
+
+
 \subsection{Conclusion}
+
+La validation démontre que CYBEL atteint son objectif principal : \textbf{commander
+et faire interagir le robot sans l'application propriétaire}. Les tests
+unitaires et d'intégration mock sont au vert ; les tests terrain confirment
+téléopération, TTS, télémétrie et navigation ponctuelle. La visite guidée
+complète sur huit arrêts reste le dernier jalon de validation, conditionnée
+par l'affinage des coordonnées et la stabilité réseau. Les limites identifiées
+sont connues et documentées ; les perspectives constituent une feuille de
+route pour la suite du projet au laboratoire HESTIM.
