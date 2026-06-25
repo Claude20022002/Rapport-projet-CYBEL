@@ -14,6 +14,26 @@
 \usepackage{booktabs}
 \usepackage[hypcap=false]{caption}
 \usepackage{float}
+\usepackage{listings}
+\usepackage{minted}
+
+
+\definecolor{bgcolor}{RGB}{30, 30, 30}
+\definecolor{codegreen}{RGB}{152, 195, 121}
+\definecolor{codeblue}{RGB}{97, 175, 239}
+\definecolor{codewhite}{RGB}{248, 248, 242}
+
+\lstdefinestyle{terminal}{
+    backgroundcolor=\color{bgcolor},
+    basicstyle=\ttfamily\small\color{codewhite},
+    keywordstyle=\color{codeblue},
+    commentstyle=\color{codegreen},
+    showstringspaces=false,
+    breaklines=true,
+    frame=single,
+    rulecolor=\color{black}
+}
+
 
 \setlength{\parindent}{1cm}
 

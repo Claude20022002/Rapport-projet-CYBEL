@@ -1,3 +1,4 @@
+
 \section*{ANNEXES}
 \addcontentsline{toc}{section}{ANNEXES}
 
@@ -11,17 +12,28 @@
 
 \subsection*{Annexe 2 : Commandes utilisées}
 \addcontentsline{toc}{subsection}{Annexe 2 : Commandes utilisées}
-\begin{center}
-\begin{tabular}{|c|c|c|}
-\hline
-Étape & Date début & Date fin \\
-\hline
-Analyse & 01/03/2026 & 15/03/2026 \\
-Développement & 16/03/2026 & 30/04/2026 \\
-Tests & 01/05/2026 & 15/05/2026 \\
-\hline
-\end{tabular}
-\end{center}
+\begin{verbatim}
+# Vérification réseau
+ping 10.42.0.1
+python scripts\robot_status.py
+
+# Lancement développement
+python scripts\dev.py
+
+# Tests
+python -m pytest tests/ -v
+
+# TTS test (USB branché)
+adb shell am broadcast -n com.cybel.ttsbridge/.SpeakReceiver -a com.cybel.ttsbridge.SPEAK --es text "Test HESTIM"
+
+# Déploiement tablette
+python scripts\deploy_termux.py --skip-kiosk-build --lite-only --host <IP> --password <mdp>
+
+# Termux (tablette)
+cd ~/cybel/scripts/termux
+./stop_cybel.sh && ./start_cybel.sh
+curl http://127.0.0.1:8000/api/health
+\end{verbatim}
 
 \subsection*{Annexe 3 : Code source (extrait)}
 \addcontentsline{toc}{subsection}{Annexe 3 : Code source (extrait)}
