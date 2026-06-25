@@ -151,24 +151,27 @@ Tests unitaires & 78/78 passés & Juin 2026 \\
 
 \subsection{Contributions personnelles}
 
-En tant qu'équipe chargée du projet CYBEL, nos contributions principales
-incluent :
+Le présent rapport documente la plateforme CYBEL. Les contributions des deux
+stagiaires sont distinctes et complémentaires.
 
+\paragraph{Claudia Lusamote Kimfuta — plateforme CYBEL (branche \texttt{main}).}
+L'ensemble des travaux décrits dans ce rapport relève de sa contribution :
 \begin{enumerate}
-    \item la \textbf{rétro-ingénierie} du protocole de communication du CIOT
-    TY1251D, sans documentation constructeur ;
-    \item la \textbf{conception et le développement} de l'architecture CYBEL
-    (SDK, API, deux interfaces web) ;
-    \item la \textbf{résolution du canal TTS} par \texttt{CybelTTSBridge} et
-    l'investigation ADB/broadcast ;
-    \item le \textbf{déploiement embarqué} Termux et kiosque sur la tablette ;
-    \item la \textbf{conception du parcours pédagogique} laboratoire depuis
-    \texttt{knowledgeV2-lab.json} ;
-    \item la \textbf{documentation technique} (\texttt{docs/}, scripts,
-    diagrammes) ;
-    \item les \textbf{corrections itératives} terrain (annulation navigation,
-    rosbridge, erreurs 604).
+    \item rétro-ingénierie du protocole de communication du CIOT TY1251D ;
+    \item conception et développement de l'architecture CYBEL (SDK, API FastAPI,
+    interfaces web TypeScript/Vite) ;
+    \item résolution du canal TTS (\texttt{CybelTTSBridge}, ADB/broadcast) ;
+    \item déploiement embarqué Termux et kiosque visiteur ;
+    \item conception du parcours laboratoire (\texttt{lab\_tour.json}) ;
+    \item documentation technique (\texttt{docs/}, scripts, diagrammes) ;
+    \item corrections itératives terrain (navigation, \textit{rosbridge}, erreurs 604).
 \end{enumerate}
+
+\paragraph{Ghassane Khalifi — module chatbot (branche \texttt{chatbot-cybel-projet-2026}).}
+Il a développé, sur une branche séparée du dépôt GitHub du projet, un module
+\textbf{chatbot} d'interaction conversationnelle pour le robot. Ce travail
+constitue une extension parallèle au périmètre CYBEL décrit dans les chapitres
+précédents et n'est pas intégré à la branche \texttt{main} à ce stade.
 
 
 \subsection{Difficultés rencontrées et solutions apportées}
