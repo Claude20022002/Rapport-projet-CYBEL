@@ -16,13 +16,17 @@ la phase d'investigation.
 
 \subsection{Mode de travail et organisation}
 
-Face à la complexité du système, le mode de travail retenu a consisté en une
-\textbf{répartition des tâches selon nos compétences respectives}, tout en
-maintenant une autonomie individuelle sur l'exploration documentaire et le
-développement des scripts Python du dépôt \texttt{cybel}. Cette organisation
-nous a permis de renforcer nos acquis sans rester dans une zone de confort
-exclusive, chaque membre de l'équipe devant approfondir des domaines moins
-familiers (réseau, ROS, Android embarqué, interfaces web).
+Le stage a réuni deux stagiaires aux \textbf{périmètres distincts} : la
+plateforme CYBEL (contenu technique du présent rapport, réalisée par
+Claudia Lusamote Kimfuta sur la branche \texttt{main}) et un module
+\textbf{chatbot} développé en parallèle par Ghassane Khalifi sur la branche
+\texttt{chatbot-cybel-projet-2026}, hors périmètre des chapitres de
+réalisation.
+
+Pour la partie CYBEL, le mode de travail a reposé sur une démarche
+\textbf{incrémentale et autonome} : exploration documentaire, scripts Python
+de validation dans le dépôt \texttt{cybel}, développement mock-first puis
+tests terrain lorsque le robot était disponible.
 
 Notre encadrante pédagogique, Mme~\textsc{MESKINI}, notre encadrant en
 entreprise, M.~\textsc{TULA}, ainsi que les membres du laboratoire nous ont
@@ -35,14 +39,14 @@ solutions dans le dépôt Git du projet.
 
 Chaque hypothèse sur le protocole du robot a suivi le cycle suivant :
 \begin{enumerate}
-    \item \textbf{Observation passive} — écoute MQTT et introspection \texttt{rosbridge}
+    \item \textbf{Observation passive}écoute MQTT et introspection \texttt{rosbridge}
     avant toute publication ;
-    \item \textbf{Test isolé} — script Python dédié dans \texttt{scripts/} ;
-    \item \textbf{Vérification de l'effet réel} — une commande acceptée par
+    \item \textbf{Test isolé}script Python dédié dans \texttt{scripts/} ;
+    \item \textbf{Vérification de l'effet réel}une commande acceptée par
     \textit{rosbridge} n'est pas forcément exécutée sur le châssis ;
-    \item \textbf{Intégration SDK} — portage dans \texttt{MockRobot} puis
+    \item \textbf{Intégration SDK} portage dans \texttt{MockRobot} puis
     \texttt{RealRobot} ;
-    \item \textbf{Documentation} — mise à jour de \texttt{docs/} et des constantes
+    \item \textbf{Documentation}mise à jour de \texttt{docs/} et des constantes
     dans \texttt{sdk/constants.py}.
 \end{enumerate}
 
@@ -141,7 +145,7 @@ Visite guidée complète sans erreur 604 & juillet 2026 & En cours \\
 
 Le châssis du robot exécute ROS pour la localisation SLAM, la planification
 (\texttt{move\_base}) et l'exécution des trajectoires. CYBEL n'accède pas à
-ROS natif (C++/Python ROS) mais via \textbf{\textit{rosbridge}} — pont WebSocket
+ROS natif (C++/Python ROS) mais via \textbf{\textit{rosbridge}}pont WebSocket
 JSON sur le port 9090.
 
 \begin{table}[H]
@@ -183,8 +187,8 @@ pas sur Python~3.13 Termux.
 
 Deux applications web sans framework lourd :
 \begin{itemize}
-    \item \texttt{frontend/} (port 5173) — interface opérateur ;
-    \item \texttt{frontend-kiosk/} (port 5174) — kiosque visiteur bilingue FR/EN.
+    \item \texttt{frontend/} (port 5173)interface opérateur ;
+    \item \texttt{frontend-kiosk/} (port 5174)kiosque visiteur bilingue FR/EN.
 \end{itemize}
 Le kiosque est compilé en bundle \textbf{IIFE} pour compatibilité WebView Chrome~49
 (Android~7.1).
@@ -193,8 +197,8 @@ Le kiosque est compilé en bundle \textbf{IIFE} pour compatibilité WebView Chro
 
 Deux APK Java compilées sans Gradle (\texttt{javac}, \texttt{d8}, \texttt{apksigner}) :
 \begin{itemize}
-    \item \texttt{CybelTTSBridge} — synthèse vocale via \texttt{TextToSpeech} ;
-    \item \texttt{CybelVisitorKiosk} — WebView plein écran vers \texttt{/kiosk/}.
+    \item \texttt{CybelTTSBridge}synthèse vocale via \texttt{TextToSpeech} ;
+    \item \texttt{CybelVisitorKiosk}WebView plein écran vers \texttt{/kiosk/}.
 \end{itemize}
 
 \subsubsection{ADB (Android Debug Bridge)}
@@ -269,11 +273,11 @@ répertoire \texttt{docs/} du dépôt, complétée par des scripts reproductible
 dans \texttt{scripts/}. Les guides principaux sont :
 
 \begin{itemize}
-    \item \texttt{ROBOT\_CONNECTION.md} — topologie réseau et paramètres de connexion ;
-    \item \texttt{INTERFACE.md} — interface opérateur ;
-    \item \texttt{TTS\_BRIDGE.md} — pont de synthèse vocale Android ;
-    \item \texttt{VISITOR\_KIOSK.md} et \texttt{TERMUX\_DEPLOY.md} — kiosque et déploiement embarqué ;
-    \item \texttt{labo/TERRAIN.md} — procédure de validation terrain.
+    \item \texttt{ROBOT\_CONNECTION.md}topologie réseau et paramètres de connexion ;
+    \item \texttt{INTERFACE.md}interface opérateur ;
+    \item \texttt{TTS\_BRIDGE.md}pont de synthèse vocale Android ;
+    \item \texttt{VISITOR\_KIOSK.md} et \texttt{TERMUX\_DEPLOY.md}kiosque et déploiement embarqué ;
+    \item \texttt{labo/TERRAIN.md}procédure de validation terrain.
 \end{itemize}
 
 Les diagrammes Mermaid (architecture, séquences, cas d'utilisation) sont
@@ -337,11 +341,11 @@ non destructive uniquement \\
 
 \subsection{Conclusion}
 
-La méthodologie adoptée — observation, vérification, simulation puis intégration —
+La méthodologie adoptéeobservation, vérification, simulation puis intégration
 s'est avérée indispensable face à un système fermé et partiellement documenté.
 Le planning en quatre phases a été globalement respecté, avec une avance sur le
 déploiement tablette et un retard acceptable sur la validation navigation
 complète du parcours laboratoire. Les outils retenus (Python/FastAPI,
 TypeScript/Vite, \textit{rosbridge}, ADB, Termux) forment un écosystème
-cohérent pour un projet d'équipe à contraintes matérielles fortes. Le
+cohérent pour un stage à contraintes matérielles fortes. Le
 chapitre suivant détaille la réalisation concrète de cette architecture.

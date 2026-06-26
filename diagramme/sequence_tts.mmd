@@ -1,0 +1,25 @@
+%% Export : sequence_tts.png
+sequenceDiagram
+    actor Operateur as Opérateur
+    participant UI as Frontend opérateur
+    participant API as Backend FastAPI
+    participant SDK as RobotSpeech
+    participant ADB as ADB USB ou broadcast local
+    participant TTS as CybelTTSBridge
+    participant ENG as Google TTS
+
+  Note over Operateur,ENG: Depuis le PC — chemin ADB USB
+    Operateur->>UI: Saisie texte + « Faire parler »
+    UI->>API: POST /api/speech/say { text }
+    API->>SDK: speak(text)
+    Note over SDK: Aucun topic ROS pour la parole
+    SDK->>ADB: am broadcast SPEAK --es text
+    ADB->>TTS: SpeakReceiver (Intent)
+    TTS->>ENG: TextToSpeech.speak()
+    ENG-->>TTS: audio haut-parleurs robot
+    SDK-->>API: { ok: true }
+    API-->>UI: 200 OK
+    UI-->>Operateur: Confirmation visuelle
+
+  Note over API,TTS: Depuis Termux — speak_local() sans PC
+    API->>TTS: broadcast local com.cybel.ttsbridge.SPEAK

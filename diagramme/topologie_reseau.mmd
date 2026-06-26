@@ -1,0 +1,32 @@
+%% Export : topologie_reseau.png
+flowchart TB
+    subgraph PC["Poste développeur — Wi-Fi TY1251D-03195"]
+        DEV["PC opérateur<br/>10.42.0.x"]
+    end
+
+    subgraph WIFI["Réseau Wi-Fi du robot"]
+        CHASSIS_WIFI["Châssis ROS<br/>10.42.0.1<br/>rosbridge :9090 · MQTT :1883"]
+        TETE_WIFI["Tête Android wlan0<br/>172.16.0.x — DHCP"]
+    end
+
+    subgraph ETH0["Liaison interne eth0 — 192.168.20.0/24"]
+        TETE_ETH["Tête Android<br/>192.168.20.1"]
+        CHASSIS_ETH["Châssis ROS<br/>192.168.20.22<br/>rosbridge :9090"]
+    end
+
+    subgraph TERMUX["Tablette — Termux"]
+        LITE["cybel_lite :8000<br/>kiosque /kiosk/"]
+    end
+
+    DEV <-->|Wi-Fi direct| CHASSIS_WIFI
+    DEV <-->|Wi-Fi — IP variable| TETE_WIFI
+    DEV -.->|ADB USB — TTS| TETE_WIFI
+    TETE_WIFI --- TETE_ETH
+    TETE_ETH <-->|route locale OK| CHASSIS_ETH
+    LITE --> TETE_WIFI
+    LITE <-->|WebSocket JSON| CHASSIS_ETH
+
+    style CHASSIS_WIFI fill:#e8f4e8
+    style CHASSIS_ETH fill:#e8f4e8
+    style TETE_WIFI fill:#e8eef8
+    style DEV fill:#f5f5f5

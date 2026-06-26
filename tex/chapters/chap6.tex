@@ -44,7 +44,7 @@ backend (\texttt{cybel\_lite.py}). Le bootstrap est assuré par
 Le robot CIOT TY1251D-03195 combine un châssis Linux/ROS (localisation,
 planification, exécution) et une tête Android~7.1 (RK3399, 2~Go RAM, écran
 tactile 15,6"). L'application constructeur d'accueil constitue une boîte noire
-sans API publique ; notre travail a donc porté sur les canaux réseau exposés
+sans API publique ; le travail de rétro-ingénierie a donc porté sur les canaux réseau exposés
 (\textit{rosbridge}, MQTT, ADB).
 
 L'analyse a confirmé que le châssis publie une télémétrie riche (pose,
@@ -68,10 +68,10 @@ commande peut fonctionner depuis le PC mais échouer depuis Termux si
 
 Quatre protocoles ont été identifiés et hiérarchisés :
 \begin{enumerate}
-    \item \textbf{\textit{rosbridge} v2} — canal principal (JSON sur WebSocket) ;
-    \item \textbf{MQTT} — télémétrie odométrique, observation passive ;
-    \item \textbf{HTTP} — interfaces constructeur (non exploitées par CYBEL) ;
-    \item \textbf{ADB} — accès à la tête Android pour le TTS.
+    \item \textbf{\textit{rosbridge} v2} canal principal (JSON sur WebSocket) ;
+    \item \textbf{MQTT} télémétrie odométrique, observation passive ;
+    \item \textbf{HTTP} interfaces constructeur (non exploitées par CYBEL) ;
+    \item \textbf{ADB} accès à la tête Android pour le TTS.
 \end{enumerate}
 
 \subsubsection{Étude des commandes}
@@ -89,13 +89,13 @@ matériel réel.
 \hline
 Téléopération & Publication \texttt{/mobile\_base/commands/velocity} (mode manuel requis) \\
 \hline
-Navigation point nommé & Service \texttt{/poi} — \texttt{command: go} \\
+Navigation point nommé & Service \texttt{/poi} \texttt{command: go} \\
 \hline
 Navigation coordonnée & Publication \texttt{/navi\_goal} \\
 \hline
 Annuler navigation & \texttt{/poi stop} + \texttt{/path\_follower/cancel} + arrêt vitesses \\
 \hline
-Mode manuel/auto & Service \texttt{/change\_location\_mode} — \texttt{mode: 0/1} \\
+Mode manuel/auto & Service \texttt{/change\_location\_mode} \texttt{mode: 0/1} \\
 \hline
 Relocalisation & Service \texttt{/global\_localization} \\
 \hline

@@ -1,0 +1,46 @@
+%% Export : architecture_couches.png
+flowchart TB
+    subgraph PRESENTATION["Couche présentation"]
+        FE["frontend/ — opérateur<br/>TypeScript + Vite :5173"]
+        KFE["frontend-kiosk/ — visiteur<br/>TypeScript + Vite :5174"]
+        KAPP["CybelVisitorKiosk APK<br/>WebView plein écran"]
+    end
+
+    subgraph API_LAYER["Couche API"]
+        FAST["FastAPI — poste développeur<br/>REST + WebSocket :8000"]
+        LITE["cybel_lite — Termux<br/>Starlette :8000"]
+        WS["WebSocket /ws/telemetry"]
+    end
+
+    subgraph SDK_LAYER["Couche SDK Python"]
+        MOCK["MockRobot<br/>simulation hors robot"]
+        REAL["RealRobot<br/>connexion terrain"]
+        RBCLIENT["RosbridgeClient"]
+        TOUR["TourEngine<br/>lab_tour.json"]
+        SPEECH["RobotSpeech"]
+    end
+
+    subgraph ANDROID_LAYER["Couche Android native"]
+        TTS["CybelTTSBridge<br/>TextToSpeech"]
+    end
+
+    subgraph ROBOT_LAYER["Couche robot CIOT"]
+        ROS["ROS — SLAM, move_base, capteurs"]
+        RB["rosbridge WebSocket :9090"]
+    end
+
+    FE --> FAST
+    KFE --> LITE
+    KAPP --> KFE
+    FAST --> WS
+    FAST --> MOCK
+    FAST --> REAL
+    FAST --> TOUR
+    LITE --> REAL
+    LITE --> TOUR
+    REAL --> RBCLIENT
+    REAL --> SPEECH
+    TOUR --> REAL
+    SPEECH --> TTS
+    RBCLIENT --> RB
+    RB --> ROS

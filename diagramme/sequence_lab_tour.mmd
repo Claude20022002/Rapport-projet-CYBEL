@@ -1,0 +1,38 @@
+%% Export : sequence_lab_tour.png
+sequenceDiagram
+    actor Visiteur
+    participant KUI as frontend-kiosk
+    participant API as cybel_lite :8000
+    participant ENG as TourEngine
+    participant ROB as RealRobot
+    participant ROS as rosbridge :9090
+    participant TTS as CybelTTSBridge
+
+    Visiteur->>KUI: Appui « Démarrer la visite »
+    KUI->>API: POST /api/tour/start?lang=fr
+    API->>ENG: start(lang)
+    ENG->>TTS: speak(intro_speech_fr)
+    API-->>KUI: 200 { state: running }
+
+    loop Pour chaque arrêt de lab_tour.json
+        ENG->>TTS: speak(approach_speech)
+        ENG->>ROB: navigate_to_coordinate(x, y, θ)
+        ROB->>ROS: /change_location_mode auto
+        ROB->>ROS: publish /navi_goal
+        ROS-->>ROB: nav_status 602 en navigation
+        ROS-->>ROB: nav_status 603 arrivé
+        alt nav_status 603
+            ENG->>TTS: speak(speech_fr équipement)
+            ENG->>ENG: pause(dwell_seconds)
+        else nav_status 604 erreur
+            ENG-->>API: state error
+            API-->>KUI: phase error
+            KUI-->>Visiteur: Écran erreur
+        end
+    end
+
+    ENG->>TTS: speak(outro_speech_fr)
+    ENG-->>API: state completed
+    KUI->>API: GET /api/tour/status (polling)
+    API-->>KUI: { state: completed }
+    KUI-->>Visiteur: Écran « Visite terminée »

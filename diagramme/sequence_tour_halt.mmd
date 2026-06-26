@@ -1,0 +1,22 @@
+%% Export : sequence_tour_halt.png
+sequenceDiagram
+    actor Operateur as Opérateur
+    participant CTRL as Frontend opérateur
+    participant API as FastAPI :8000
+    participant TAB as cybel_lite tablette
+    participant ENG as TourEngine
+    participant SDK as RealRobot
+    participant ROS as rosbridge
+    participant TTS as CybelTTSBridge
+
+    Operateur->>CTRL: ARRÊT TOTAL / E-Stop
+    CTRL->>API: POST /api/tour/halt
+    API->>ENG: stop()
+    API->>SDK: cancel_navigation + emergency_stop
+    SDK->>ROS: /poi stop + /path_follower/cancel
+    SDK->>TTS: stop speech
+    API->>TAB: POST /api/tour/halt
+    TAB->>ENG: stop()
+    TAB->>SDK: cancel_navigation
+    API-->>CTRL: 200 OK
+    CTRL-->>Operateur: Journal « Arrêt total effectué »

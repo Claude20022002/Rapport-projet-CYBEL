@@ -1,0 +1,25 @@
+%% Export : diagramme_cas_usage.png
+flowchart TD
+    Operateur((Opérateur))
+    Visiteur((Visiteur))
+    Systeme((Système CYBEL))
+
+    Operateur --> UC1[Superviser télémétrie temps réel]
+    Operateur --> UC2[Naviguer vers un point nommé]
+    Operateur --> UC3[Naviguer vers une coordonnée]
+    Operateur --> UC4[Téléopérer le robot]
+    Operateur --> UC5[Déclencher TTS / accueil vocal]
+    Operateur --> UC6[Commande vocale opérateur]
+    Operateur --> UC7[Arrêt d'urgence / halt visite]
+    Operateur --> UC8[Configurer paramètres]
+    Operateur --> UC9[Gérer le parcours lab_tour.json]
+
+    Visiteur --> UC11[Lancer la visite guidée]
+    Visiteur --> UC12[Consulter actions d'accueil]
+    Visiteur --> UC13[Consulter FAQ / S'informer]
+    Visiteur --> UC14[Basculer langue FR/EN]
+    Visiteur --> UC15[Arrêter la visite en cours]
+
+    Systeme --> UC20[Reconnexion automatique rosbridge]
+    Systeme --> UC21[Diffuser télémétrie WebSocket]
+    Systeme --> UC22[Exécuter visite séquentielle TourEngine]

@@ -1,0 +1,39 @@
+%% Export : diagramme_composant.png
+flowchart LR
+    subgraph Poste["Poste opérateur PC"]
+        FE["Frontend opérateur<br/>TypeScript + Vite :5173"]
+    end
+
+    subgraph Backend["Backend CYBEL"]
+        API["FastAPI / cybel_lite :8000"]
+        WS["WebSocket /ws/telemetry"]
+        KIOSK["/kiosk/ static dist"]
+        SDKM["MockRobot"]
+        SDKR["RealRobot"]
+        TOUR["TourEngine"]
+    end
+
+    subgraph Tablette["Tête Android — Termux"]
+        TERMUX["cybel_lite.py"]
+        KAPP["CybelVisitorKiosk"]
+        TTS["CybelTTSBridge"]
+    end
+
+    subgraph Robot["Châssis CIOT"]
+        RB["rosbridge :9090<br/>192.168.20.22"]
+        MQTT["MQTT :1883"]
+    end
+
+    FE -->|REST| API
+    FE -->|WebSocket| WS
+    KAPP -->|HTTP local| TERMUX
+    TERMUX --> KIOSK
+    API --> SDKM
+    API --> SDKR
+    API --> TOUR
+    TERMUX --> SDKR
+    TERMUX --> TOUR
+    TOUR --> SDKR
+    SDKR -->|WebSocket JSON| RB
+    SDKR -.->|broadcast TTS| TTS
+    SDKR -.-> MQTT

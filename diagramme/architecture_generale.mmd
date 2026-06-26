@@ -1,0 +1,43 @@
+%% Export : architecture_generale.png
+flowchart TB
+    subgraph UTILISATEURS["Utilisateurs"]
+        OP((Opérateur))
+        VIS((Visiteur))
+    end
+
+    subgraph INTERFACES["Interfaces utilisateur"]
+        FE["Interface opérateur<br/>frontend/ — navigateur :5173"]
+        KFE["Interface visiteur<br/>frontend-kiosk/ — /kiosk/"]
+    end
+
+    subgraph BACKEND["Backend CYBEL"]
+        API["FastAPI PC ou cybel_lite Termux<br/>REST + WebSocket :8000"]
+        SDK["SDK Python<br/>MockRobot / RealRobot / TourEngine"]
+    end
+
+    subgraph ANDROID["Tête Android RK3399"]
+        TTS["CybelTTSBridge"]
+        KAPP["CybelVisitorKiosk"]
+        TERMUX["Termux — cybel_lite.py"]
+    end
+
+    subgraph ROBOT["Robot CIOT TY1251D-03195"]
+        CHASSIS["Châssis Linux / ROS<br/>rosbridge :9090"]
+        MQTT["Broker MQTT :1883"]
+        TABLETTE["Upper body Android 7.1<br/>écran 15,6 pouces"]
+    end
+
+    OP --> FE
+    VIS --> KFE
+    FE <-->|REST + WS| API
+    KFE <-->|HTTP| TERMUX
+    KAPP --> KFE
+    TERMUX --> API
+    API --> SDK
+    SDK <-->|WebSocket JSON| CHASSIS
+    SDK -.->|broadcast TTS| TTS
+    SDK -.->|télémétrie passive| MQTT
+    TTS --> TABLETTE
+    KAPP --> TABLETTE
+    TERMUX --> TABLETTE
+    CHASSIS --- TABLETTE
