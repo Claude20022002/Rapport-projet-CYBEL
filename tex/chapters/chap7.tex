@@ -65,7 +65,7 @@ T6 & TTS tablette (broadcast) & Audio sans PC & OK \\
 \hline
 T7 & Kiosque WebView & Écran d'accueil CYBEL & OK \\
 \hline
-T8 & Visite 8 arrêts complète & Sans erreur 604 & En cours \\
+T8 & Visite 9 arrêts complète & Sans erreur 604 & OK \\
 \hline
 T9 & Relâcher E-Stop sans reprise nav & Robot immobile & OK \\
 \hline
@@ -86,7 +86,7 @@ démonstration :
     \item kiosque visiteur bilingue déployé sur tablette Termux ;
     \item protocole ROS documenté dans \texttt{sdk/constants.py} ;
     \item pont TTS Android (\texttt{CybelTTSBridge}) ;
-    \item parcours laboratoire huit arrêts dans \texttt{data/lab\_tour.json}.
+    \item parcours laboratoire neuf arrêts dans \texttt{data/lab\_tour.json}.
 \end{itemize}
 
 \subsubsection{Incidents terrain documentés}
@@ -139,7 +139,7 @@ Fréquence télémétrie pose & $\sim$10~Hz & Topic \texttt{/robot\_pose} \\
 \hline
 Fréquence LiDAR & $\sim$25~Hz & Topic \texttt{/scan\_filter} \\
 \hline
-Latence Wi-Fi (ping robot) & 89--1654~ms & Très variable \\
+Latence Wi-Fi (ping robot) & 89-91654~ms & Très variable \\
 \hline
 Robustesse navigation & Erreurs 604 ponctuelles & Coordonnées à calibrer terrain \\
 \hline
@@ -154,7 +154,8 @@ Tests unitaires & 78/78 passés & Juin 2026 \\
 Le présent rapport documente la plateforme CYBEL. Les contributions des deux
 stagiaires sont distinctes et complémentaires.
 
-\paragraph{Claudia Lusamote Kimfuta — plateforme CYBEL (branche \texttt{main}).}
+\paragraph{Claudia LUSAMOTE - plateforme CYBEL (branche \texttt{main}).}
+
 L'ensemble des travaux décrits dans ce rapport relève de sa contribution :
 \begin{enumerate}
     \item rétro-ingénierie du protocole de communication du CIOT TY1251D ;
@@ -167,7 +168,7 @@ L'ensemble des travaux décrits dans ce rapport relève de sa contribution :
     \item corrections itératives terrain (navigation, \textit{rosbridge}, erreurs 604).
 \end{enumerate}
 
-\paragraph{Ghassane Khalifi — module chatbot (branche \texttt{chatbot-cybel-projet-2026}).}
+\paragraph{Ghassane KHALIFI - module chatbot (branche \texttt{chatbot-cybel-projet-2026}).}
 Il a développé, sur une branche séparée du dépôt GitHub du projet, un module
 \textbf{chatbot} d'interaction conversationnelle pour le robot. Ce travail
 constitue une extension parallèle au périmètre CYBEL décrit dans les chapitres
@@ -180,12 +181,12 @@ Au-delà des difficultés d'investigation (chapitre~5), la phase de
 développement et de validation a nécessité des correctifs spécifiques :
 
 \begin{itemize}
-    \item \textbf{FastAPI sur Termux} — remplacement par Starlette
+    \item \textbf{FastAPI sur Termux}: remplacement par Starlette
     (\texttt{cybel\_lite.py}) ;
-    \item \textbf{Écran blanc WebView} — build IIFE et correctifs safe-area ;
-    \item \textbf{Saturations \textit{rosbridge}} — \texttt{dev.py} sans
+    \item \textbf{Écran blanc WebView}: build IIFE et correctifs safe-area ;
+    \item \textbf{Saturations \textit{rosbridge}}: \texttt{dev.py} sans
     \texttt{--reload} par défaut, instance unique du backend ;
-    \item \textbf{Navigation 604} — affinage progressif des coordonnées sur
+    \item \textbf{Navigation 604}: affinage progressif des coordonnées sur
     carte SLAM réelle via sessions terrain documentées dans
     \texttt{docs/labo/TERRAIN.md}.
 \end{itemize}
@@ -194,16 +195,16 @@ développement et de validation a nécessité des correctifs spécifiques :
 \subsection{Limites du projet}
 
 \begin{enumerate}
-    \item Dépendance au Wi-Fi du robot — pas de contrôle hors réseau
+    \item Dépendance au Wi-Fi du robot, pas de contrôle hors réseau
     \texttt{TY1251D-03195}.
-    \item Un seul robot de test — généralisation à d'autres modèles CIOT non
+    \item Un seul robot de test, généralisation à d'autres modèles CIOT non
     garantie.
-    \item Coordonnées du parcours — calibrage manuel sur carte SLAM.
-    \item Pas de ROS natif — dépendance totale à \textit{rosbridge}.
-    \item Android~7.1 — contraintes WebView, pas de modules ES modernes.
-    \item Backend lite Termux — sous-ensemble des fonctions opérateur.
+    \item Coordonnées du parcours, calibrage manuel sur carte SLAM.
+    \item Pas de ROS natif, dépendance totale à \textit{rosbridge}.
+    \item Android~7.1, contraintes WebView, pas de modules ES modernes.
+    \item Backend lite Termux, sous-ensemble des fonctions opérateur.
     \item Pas de CI/CD ni déploiement industrialisé.
-    \item Reconnaissance vocale visiteur — non implémentée en v1.
+    \item Reconnaissance vocale visiteur, non implémentée en v1.
 \end{enumerate}
 
 
