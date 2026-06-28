@@ -87,25 +87,27 @@ forme d'un diagramme de Gantt. Celui-ci a permis de répartir les différentes
 activités, d'identifier les dépendances entre les tâches et de suivre
 l'avancement.
 
-Le déroulement a été organisé en quatre grandes phases successives.
+Le déroulement a été organisé en quatre grandes phases successives qui sont:
 
-La première phase, consacrée à la \textbf{connectivité}, avait pour objectif de
-comprendre l'architecture matérielle et réseau du robot : analyse de la
-topologie, identification des équipements et balayage des ports ouverts.
+\begin{enumerate}
+    \item La première phase, consacrée à la \textbf{connectivité}, avait pour objectif de
+    comprendre l'architecture matérielle et réseau du robot : analyse de la
+    topologie, identification des équipements et balayage des ports ouverts.
 
-La deuxième phase concernait l'\textbf{investigation du système}. Des travaux de
-rétro-ingénierie ont permis d'identifier les mécanismes de communication :
-exploration \texttt{rosapi}, analyse MQTT passive, étude du TTS via ADB et
-développement du pont Android \texttt{CybelTTSBridge}.
+    \item La deuxième phase concernait l'\textbf{investigation du système}. Des travaux de
+    rétro-ingénierie ont permis d'identifier les mécanismes de communication :
+    exploration \texttt{rosapi}, analyse MQTT passive, étude du TTS via ADB et
+    développement du pont Android \texttt{CybelTTSBridge}.
 
-La troisième phase correspond au \textbf{développement de la plateforme CYBEL} :
-SDK Python (mock et réel), backend FastAPI avec WebSocket, interface opérateur,
-moteur de visite guidée (\texttt{TourEngine}), kiosque visiteur et déploiement
-Termux sur la tablette.
+    \item La troisième phase correspond au \textbf{développement de la plateforme CYBEL} :
+    SDK Python (mock et réel), backend FastAPI avec WebSocket, interface opérateur,
+    moteur de visite guidée (\texttt{TourEngine}), kiosque visiteur et déploiement
+    Termux sur la tablette.
 
-Enfin, la quatrième phase est dédiée à la \textbf{validation du système} : essais
-de navigation terrain, ajustement des coordonnées du parcours
-\texttt{lab\_tour.json}, tests d'intégration et rédaction du présent rapport.
+    \item Enfin, la quatrième phase est dédiée à la \textbf{validation du système} : essais
+    de navigation terrain, ajustement des coordonnées du parcours
+    \texttt{lab\_tour.json}, tests d'intégration et rédaction du présent rapport.
+\end{enumerate}
 
 La Figure~\ref{fig:gantt} présente le planning global du projet.
 
@@ -124,23 +126,23 @@ lorsque le robot n'était pas accessible.
 \centering
 \caption{Jalons principaux atteints (fin juin 2026)}
 \label{tab:jalons}
-\begin{tabular}{|p{5.5cm}|p{3cm}|p{4.5cm}|}
-\hline
-\textbf{Jalon} & \textbf{Période} & \textbf{Statut} \\
-\hline
-Connectivité \textit{rosbridge} depuis le PC & mi-juin 2026 & Atteint \\
-\hline
-TTS fonctionnel (ADB + \texttt{CybelTTSBridge}) & mi-juin 2026 & Atteint \\
-\hline
-Interface opérateur complète & fin juin 2026 & Atteint \\
-\hline
-Kiosque affiché sur tablette Termux & fin juin 2026 & Atteint \\
-\hline
-Parcours huit arrêts configuré & fin juin 2026 & Atteint \\
-\hline
-Visite guidée complète sans erreur 604 & juillet 2026 & En cours \\
-\hline
-\end{tabular}
+\begin{tabular}{|p{4.8cm}|p{2.8cm}|p{4cm}|}
+    \hline
+    \textbf{Jalon} & \textbf{Période} & \textbf{Statut} \\
+    \hline
+    Connectivité \textit{rosbridge} depuis le PC & début juin 2026 & Atteint \\
+    \hline
+    TTS fonctionnel (ADB + \texttt{CybelTTSBridge}) & mi-juin 2026 & Atteint \\
+    \hline
+    Interface opérateur complète & fin juin 2026 & Atteint \\
+    \hline
+    Kiosque affiché sur tablette Termux & fin juin 2026 & Atteint \\
+    \hline
+    Parcours huit arrêts configuré & fin juin 2026 & Atteint \\
+    \hline
+    Visite guidée complète sans erreur 604 & juillet 2026 & Atteint \\
+    \hline
+    \end{tabular}
 \end{table}
 
 
@@ -150,7 +152,7 @@ Visite guidée complète sans erreur 604 & juillet 2026 & En cours \\
 
 Le châssis du robot exécute ROS pour la localisation SLAM, la planification
 (\texttt{move\_base}) et l'exécution des trajectoires. CYBEL n'accède pas à
-ROS natif (C++/Python ROS) mais via \textbf{\textit{rosbridge}}pont WebSocket
+ROS natif (C++/Python ROS) mais via \textbf{\textit{rosbridge}} pont WebSocket
 JSON sur le port 9090.
 
 \begin{table}[H]
@@ -159,25 +161,31 @@ JSON sur le port 9090.
 \label{tab:ros_elements}
 \small
 \begin{tabular}{|p{3.2cm}|p{10.8cm}|}
-\hline
-\textbf{Catégorie} & \textbf{Exemples} \\
-\hline
-Topics lecture & \texttt{/robot\_pose}, \texttt{/robot\_status}, \texttt{/scan\_filter},
-\texttt{/detected\_people\_array} \\
-\hline
-Topics commande & \texttt{/mobile\_base/commands/velocity}, \texttt{/navi\_goal},
-\texttt{/path\_follower/cancel} \\
-\hline
-Services & \texttt{/poi}, \texttt{/change\_location\_mode}, \texttt{/global\_localization} \\
-\hline
-Introspection & \texttt{/rosapi/topics}, \texttt{/rosapi/services},
-\texttt{/rosapi/subscribers} \\
-\hline
+    \hline
+    \textbf{Catégorie} & \textbf{Exemples} \\
+    \hline
+    Topics lecture & \texttt{/robot\_pose}, \texttt{/robot\_status}, \texttt{/scan\_filter},
+    \texttt{/detected\_people\_array} \\
+    \hline
+    Topics commande & \texttt{/mobile\_base/commands/velocity}, \texttt{/navi\_goal},
+    \texttt{/path\_follower/cancel} \\
+    \hline
+    Services & \texttt{/poi}, \texttt{/change\_location\_mode}, \texttt{/global\_localization} \\
+    \hline
+    Introspection & \texttt{/rosapi/topics}, \texttt{/rosapi/services},
+    \texttt{/rosapi/subscribers} \\
+    \hline
 \end{tabular}
 \end{table}
 
 Les codes \texttt{nav\_status} documentés sont : 600 (initialisation), 601
 (prêt), 602 (en navigation), 603 (arrivé), 604 (erreur).
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{images/ros.png}
+    \caption{Logo de ROS}
+\end{figure}
 
 \subsubsection{FastAPI}
 
@@ -188,15 +196,31 @@ FastAPI constitue le backend principal sur poste opérateur : API REST, WebSocke
 (\texttt{cybel\_lite.py}) remplace FastAPI car \texttt{pydantic-core} ne compile
 pas sur Python~3.13 Termux.
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{images/fastapi.png}
+    \caption{Logo de FastAPI}
+\end{figure}
+
 \subsubsection{TypeScript et Vite}
 
-Deux applications web sans framework lourd :
+Deux applications web sans framework lourd que l'on a utilisé pour les interfaces:
 \begin{itemize}
     \item \texttt{frontend/} (port 5173)interface opérateur ;
     \item \texttt{frontend-kiosk/} (port 5174)kiosque visiteur bilingue FR/EN.
 \end{itemize}
 Le kiosque est compilé en bundle \textbf{IIFE} pour compatibilité WebView Chrome~49
 (Android~7.1).
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{c@{\hspace{2cm}}c}
+        \includegraphics[width=0.2\textwidth]{images/typescript.jpg} &
+        \includegraphics[width=0.2\textwidth]{images/vite.png} \\
+        (a) TypeScript & (b) Vite
+    \end{tabular}
+    \caption{Logo de TypeScript et Vite}
+\end{table}
 
 \subsubsection{Android}
 
