@@ -133,7 +133,7 @@ vocales et gestion des erreurs (\texttt{nav\_status} 604).
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.4\textwidth]{captures_ecran/arch_backenf.png}
+    \includegraphics[width=0.3\textwidth]{captures_ecran/arch_backenf.png}
     \caption{architecture Backend}
     \label{fig:back_arch}
 \end{figure}
@@ -155,6 +155,19 @@ Un \texttt{BootReceiver} permet le démarrage automatique optionnel. Des
 correctifs \texttt{viewport-fit=cover} et \texttt{network\_security\_config}
 assurent l'affichage sur Android~7.1 et l'accès HTTP local à Termux.
 
+\subsubsection{CybelVisitorKiosk}
+Application WebView plein écran chargeant \texttt{http://<ip-tablette>:8001/kiosktest/}.
+Un \texttt{BootReceiver} permet le démarrage automatique optionnel. Des
+correctifs \texttt{viewport-fit=cover} et \texttt{network\_security\_config}
+assurent l'affichage sur Android~7.1 et l'accès HTTP local à Termux. Cette application est la version utiliser pour tester l'approche POI, en récupérant les coordonnées des différents appareils depuis 
+l'application du constructeur "\textbf{Deployment tool}".
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.3\textwidth]{captures_ecran/android-arch.png}
+    \caption{architecture Android}
+    \label{fig:android_arch}
+\end{figure}
 
 \subsection{Développement de l'interface Web}
 
@@ -196,10 +209,13 @@ pour déclencher la parole sur la tête Android.
 \subsection{Intégration des différents modules}
 
 L'intégration bout en bout de la visite guidée suit la chaîne : kiosque
-tablette $\rightarrow$ \texttt{POST /api/tour/start} $\rightarrow$
-\texttt{TourEngine} $\rightarrow$ \texttt{RealRobot.navigate\_to\_coordinate}
-$\rightarrow$ \textit{rosbridge} $\rightarrow$ annonce vocale à chaque arrêt
-(\texttt{nav\_status} 602$\rightarrow$603).
+tablette:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{diagramme/processVisit.png}
+    \caption{Etape de la visite guidée}
+\end{figure}
 
 Le script \texttt{scripts/deploy\_termux.py} automatise le pipeline de
 déploiement : build du kiosque, upload SFTP, bootstrap Termux et redémarrage
