@@ -2,73 +2,62 @@
 \section*{ANNEXES}
 \addcontentsline{toc}{section}{ANNEXES}
 
-\subsection*{Annexe A — Captures d'écran}
+\subsection*{Annexe A - Captures d'écran}
 \addcontentsline{toc}{subsection}{Annexe A — Captures d'écran}
 
 % Remplacer chaque cadre par \includegraphics après ajout du fichier indiqué.
 
-\begin{figure}[h!]
+\begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\textwidth]{captures_ecran/Capture1.png}
-    \caption{Carte SLAM du laboratoire — interface opérateur
-    (\texttt{captures\_ecran/Capture1.png})}
+    \includegraphics[width=0.4\textwidth]{captures_ecran/Capture1.png}
+    \caption{Ancienne carte SLAM du laboratoire de l'interface opérateur}
     \label{fig:annexe_carte}
 \end{figure}
 
-\begin{figure}[h!]
+\begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\textwidth]{captures_ecran/Capture2.png}
-    \caption{Terminal — vérification de connectivité
-    (\texttt{captures\_ecran/Capture2.png})}
+    \includegraphics[width=0.5\textwidth]{captures_ecran/Capture2.png}
+    \caption{Terminal vérification de connectivité et génération de clé SSH}
     \label{fig:annexe_terminal}
 \end{figure}
 
-\begin{figure}[h!]
+\begin{figure}[H]
     \centering
-    \fbox{\parbox{0.75\textwidth}{\centering\vspace{2.5cm}
+    \fbox{\parbox{0.45\textwidth}{\centering\vspace{2.5cm}
     \textit{Capture à insérer}\\[0.3cm]
     \texttt{captures\_ecran/dashboard\_operateur.png}\vspace{2.5cm}}}
-    \caption{Dashboard opérateur — mode robot réel \textit{(à insérer)}}
+    \caption{Dashboard opérateur - mode robot réel \textit{(à insérer)}}
     \label{fig:annexe_dashboard}
 \end{figure}
 
-\begin{figure}[h!]
+\begin{figure}[H]
     \centering
     \fbox{\parbox{0.75\textwidth}{\centering\vspace{2.5cm}
     \textit{Capture à insérer}\\[0.3cm]
     \texttt{captures\_ecran/panneau\_visite.png}\vspace{2.5cm}}}
-    \caption{Panneau visite guidée — page Visite \textit{(à insérer)}}
+    \caption{Panneau visite guidée - page Visite \textit{(à insérer)}}
     \label{fig:annexe_visite}
 \end{figure}
 
-\begin{figure}[h!]
+\begin{figure}[H]
     \centering
     \fbox{\parbox{0.75\textwidth}{\centering\vspace{2.5cm}
     \textit{Capture à insérer}\\[0.3cm]
     \texttt{captures\_ecran/kiosque\_accueil.png}\vspace{2.5cm}}}
-    \caption{Kiosque visiteur — écran d'accueil FR \textit{(à insérer)}}
+    \caption{Kiosque visiteur - écran d'accueil FR \textit{(à insérer)}}
     \label{fig:annexe_kiosque_accueil}
 \end{figure}
 
-\begin{figure}[h!]
+\begin{figure}[H]
     \centering
     \fbox{\parbox{0.75\textwidth}{\centering\vspace{2.5cm}
     \textit{Capture à insérer}\\[0.3cm]
     \texttt{captures\_ecran/kiosque\_running.png}\vspace{2.5cm}}}
-    \caption{Kiosque visiteur — visite en cours \textit{(à insérer)}}
+    \caption{Kiosque visiteur - visite en cours \textit{(à insérer)}}
     \label{fig:annexe_kiosque_running}
 \end{figure}
 
-\begin{figure}[h!]
-    \centering
-    \fbox{\parbox{0.75\textwidth}{\centering\vspace{2.5cm}
-    \textit{Capture à insérer}\\[0.3cm]
-    \texttt{captures\_ecran/erreur\_604.png}\vspace{2.5cm}}}
-    \caption{Erreur de navigation 604 sur tablette \textit{(à insérer)}}
-    \label{fig:annexe_erreur_604}
-\end{figure}
-
-\begin{figure}[h!]
+\begin{figure}[H]
     \centering
     \fbox{\parbox{0.75\textwidth}{\centering\vspace{2.5cm}
     \textit{Capture à insérer}\\[0.3cm]
@@ -77,7 +66,7 @@
     \label{fig:annexe_apk}
 \end{figure}
 
-\subsection*{Annexe B — Dépôt source du projet}
+\subsection*{Annexe B - Dépôt source du projet}
 \addcontentsline{toc}{subsection}{Annexe B — Dépôt source du projet}
 
 \begin{itemize}
@@ -87,8 +76,8 @@
     \url{https://github.com/Claude20022002/Projet-Stage-2026-Cybel/tree/chatbot-cybel-projet-2026}
 \end{itemize}
 
-\subsection*{Annexe C — Commandes utiles}
-\addcontentsline{toc}{subsection}{Annexe C — Commandes utiles}
+\subsection*{Annexe C - Commandes utiles}
+\addcontentsline{toc}{subsection}{Annexe C - Commandes utiles}
 
 \begin{lstlisting}[style=terminal, language=bash, caption={Commandes PC (PowerShell)}]
 # Verification reseau
@@ -115,10 +104,10 @@ cd ~/cybel/scripts/termux
 curl http://127.0.0.1:8000/api/health
 \end{lstlisting}
 
-\subsection*{Annexe D — Extraits de code significatifs}
-\addcontentsline{toc}{subsection}{Annexe D — Extraits de code significatifs}
+\subsection*{Annexe D - Extraits de code significatifs}
+\addcontentsline{toc}{subsection}{Annexe D - Extraits de code significatifs}
 
-\paragraph{D.1 — Annulation de navigation (\texttt{sdk/real\_robot.py}).}
+\paragraph{D.1 - Annulation de navigation (\texttt{sdk/real\_robot.py}).}
 
 \begin{verbatim}
 async def _cancel_navigation(self) -> None:
@@ -129,7 +118,7 @@ async def _cancel_navigation(self) -> None:
     await self._publish_velocity(0.0, 0.0)
 \end{verbatim}
 
-\paragraph{D.2 — Publication d'un objectif de navigation.}
+\paragraph{D.2 - Publication d'un objectif de navigation.}
 
 \begin{verbatim}
 await self._client.publish(ROS_TOPICS["navi_goal"], {
@@ -141,7 +130,7 @@ await self._client.publish(ROS_TOPICS["navi_goal"], {
 })
 \end{verbatim}
 
-\paragraph{D.3 — Structure d'un arrêt (\texttt{data/lab\_tour.json}).}
+\paragraph{D.3 - Structure d'un arrêt (\texttt{data/lab\_tour.json}).}
 
 \begin{verbatim}
 {
@@ -153,30 +142,14 @@ await self._client.publish(ROS_TOPICS["navi_goal"], {
 }
 \end{verbatim}
 
-\subsection*{Annexe E — Diagrammes détaillés}
+\subsection*{Annexe E - Diagrammes détaillés}
 \addcontentsline{toc}{subsection}{Annexe E — Diagrammes détaillés}
 
 Sources Mermaid dans \texttt{docs/Sujet de stage/diagrammes/} du dépôt CYBEL.
 Remplacer chaque cadre par \texttt{\textbackslash includegraphics} après export PNG.
 
-\begin{figure}[h!]
-    \centering
-    \includegraphics[width=0.85\textwidth]{diagramme/diagramme_composant.png}
-    \caption{Diagramme de composants
-    (\texttt{diagramme/diagramme\_composant.png})}
-    \label{fig:annexe_composants}
-\end{figure}
 
-\begin{figure}[h!]
-    \centering
-    \fbox{\parbox{0.75\textwidth}{\centering\vspace{2.5cm}
-    \textit{Diagramme à insérer}\\[0.3cm]
-    \texttt{diagramme/architecture\_couches.png}\vspace{2.5cm}}}
-    \caption{Architecture en couches \textit{(à insérer)}}
-    \label{fig:annexe_archi_couches}
-\end{figure}
-
-\begin{figure}[h!]
+\begin{figure}[H]
     \centering
     \fbox{\parbox{0.75\textwidth}{\centering\vspace{2.5cm}
     \textit{Diagramme à insérer}\\[0.3cm]
@@ -185,28 +158,10 @@ Remplacer chaque cadre par \texttt{\textbackslash includegraphics} après export
     \label{fig:annexe_topologie}
 \end{figure}
 
-\begin{figure}[h!]
-    \centering
-    \fbox{\parbox{0.75\textwidth}{\centering\vspace{2.5cm}
-    \textit{Diagramme à insérer}\\[0.3cm]
-    \texttt{diagramme/sequence\_lab\_tour.png}\vspace{2.5cm}}}
-    \caption{Séquence — visite guidée laboratoire \textit{(à insérer)}}
-    \label{fig:annexe_seq_tour}
-\end{figure}
+\subsection*{Annexe F - Documentation technique complémentaire}
+\addcontentsline{toc}{subsection}{Annexe F - Documentation technique complémentaire}
 
-\begin{figure}[h!]
-    \centering
-    \fbox{\parbox{0.75\textwidth}{\centering\vspace{2.5cm}
-    \textit{Diagramme à insérer}\\[0.3cm]
-    \texttt{diagramme/sequence\_tts.png}\vspace{2.5cm}}}
-    \caption{Séquence — synthèse vocale (TTS) \textit{(à insérer)}}
-    \label{fig:annexe_seq_tts}
-\end{figure}
-
-\subsection*{Annexe F — Documentation technique complémentaire}
-\addcontentsline{toc}{subsection}{Annexe F — Documentation technique complémentaire}
-
-\begin{table}[h!]
+\begin{table}[H]
 \centering
 \caption{Index de la documentation technique CYBEL}
 \begin{tabular}{|p{5cm}|p{8cm}|}
