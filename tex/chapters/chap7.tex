@@ -16,7 +16,8 @@ La validation s'organise sur quatre niveaux complémentaires :
 \centering
 \caption{Niveaux de validation du projet CYBEL}
 \label{tab:niveaux_validation}
-\begin{tabular}{|p{2.5cm}|p{4cm}|p{6.5cm}|}
+\small
+\begin{tabular}{|p{2.2cm}|p{3.7cm}|p{5.3cm}|}
 \hline
 \textbf{Niveau} & \textbf{Méthode} & \textbf{Périmètre} \\
 \hline
@@ -47,7 +48,7 @@ statut à fin juin 2026.
 \caption{Scénarios de tests et résultats}
 \label{tab:scenarios_tests}
 \small
-\begin{tabular}{|c|p{4.5cm}|p{4cm}|c|}
+\begin{tabular}{|c|p{4cm}|p{3.5cm}|c|}
 \hline
 \textbf{ID} & \textbf{Scénario} & \textbf{Résultat attendu} & \textbf{Statut} \\
 \hline
@@ -95,18 +96,16 @@ démonstration :
 \centering
 \caption{Incidents terrain et résolutions}
 \label{tab:incidents}
-\begin{tabular}{|p{3.5cm}|p{4.5cm}|p{5cm}|}
+\small
+\begin{tabular}{|p{2.8cm}|p{3.8cm}|p{4.2cm}|}
 \hline
 \textbf{Incident} & \textbf{Cause} & \textbf{Résolution} \\
 \hline
-Erreur 604 en visite & Coordonnée dans obstacle ou chemin bloqué & Ajustement
-\texttt{lab\_tour.json} sur carte réelle \\
+Erreur 604 en visite & Coordonnée dans obstacle ou chemin bloqué & Ajustement \texttt{lab\_tour.json} \\
 \hline
-Timeout handshake \textit{rosbridge} & Wi-Fi ou connexions saturées & Retries,
-pas de reload, redémarrage robot \\
+Timeout handshake \textit{rosbridge} & Wi-Fi saturé & Retries, pas de reload \\
 \hline
-Objectif conservé après annulation & Télémétrie non effacée & Masquage objectif
-+ \texttt{/poi stop} \\
+Objectif conservé après annulation & Télémétrie non effacée & Masquage + \texttt{/poi stop} \\
 \hline
 Bouton Arrêt kiosque inefficace & Appel \texttt{haltTour} au lieu de \texttt{cancel} & Correction frontend \\
 \hline
@@ -123,7 +122,7 @@ et en développement local.
 \centering
 \caption{Indicateurs de performance observés}
 \label{tab:perf}
-\begin{tabular}{|p{4.5cm}|p{3.5cm}|p{5cm}|}
+\begin{tabular}{|p{4cm}|p{3cm}|p{4cm}|}
 \hline
 \textbf{Indicateur} & \textbf{Valeur observée} & \textbf{Commentaire} \\
 \hline
@@ -214,7 +213,8 @@ développement et de validation a nécessité des correctifs spécifiques :
 \centering
 \caption{Perspectives d'amélioration priorisées}
 \label{tab:perspectives}
-\begin{tabular}{|p{2.5cm}|p{10.5cm}|}
+\small
+\begin{tabular}{|p{2.3cm}|p{9.3cm}|}
 \hline
 \textbf{Priorité} & \textbf{Amélioration} \\
 \hline
@@ -222,13 +222,11 @@ Haute & Calibrer les huit arrêts sur carte réelle (éliminer les erreurs 604) 
 \hline
 Haute & Connexion \textit{rosbridge} non bloquante au démarrage FastAPI \\
 \hline
-Moyenne & Aligner \texttt{cybel\_lite.py} sur toute la logique de
-\texttt{real\_robot.py} \\
+Moyenne & Aligner \texttt{cybel\_lite.py} sur toute la logique de \texttt{real\_robot.py} \\
 \hline
 Moyenne & Tests d'intégration \textit{rosbridge} simulé ; boot auto Termux \\
 \hline
-Basse & Synchronisation POI robot $\leftrightarrow$ \texttt{lab\_tour.json} ;
-reconnaissance vocale visiteur \\
+Basse & Synchronisation POI robot $\leftrightarrow$ \texttt{lab\_tour.json} ; reconnaissance vocale visiteur \\
 \hline
 \end{tabular}
 \end{table}

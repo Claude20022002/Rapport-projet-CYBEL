@@ -87,25 +87,26 @@ matériel réel.
 
 \begin{table}[H]
 \centering
+\small
 \caption{Commandes validées sur le robot CIOT}
 \label{tab:commandes_validees}
-\begin{tabular}{|p{3.5cm}|p{9.5cm}|}
+\begin{tabular}{|p{3.0cm}|p{8.5cm}|}
 \hline
 \textbf{Action} & \textbf{Mécanisme} \\
 \hline
-Téléopération & Publication \texttt{/mobile\_base/commands/velocity} (mode manuel requis) \\
+{\raggedright Téléopération} & {\raggedright Publication \texttt{/mobile\_base/commands/velocity} (mode manuel requis)} \\
 \hline
-Navigation point nommé & Service \texttt{/poi} \texttt{command: go} \\
+{\raggedright Navigation point nommé} & {\raggedright Service \texttt{/poi}, \texttt{command: go}} \\
 \hline
-Navigation coordonnée & Publication \texttt{/navi\_goal} \\
+{\raggedright Navigation coordonnée} & {\raggedright Publication \texttt{/navi\_goal}} \\
 \hline
-Annuler navigation & \texttt{/poi stop} + \texttt{/path\_follower/cancel} + arrêt vitesses \\
+{\raggedright Annuler navigation} & {\raggedright \texttt{/poi stop} + \texttt{/path\_follower/cancel} + arrêt des vitesses} \\
 \hline
-Mode manuel/auto & Service \texttt{/change\_location\_mode} \texttt{mode: 0/1} \\
+{\raggedright Mode manuel/auto} & {\raggedright Service \texttt{/change\_location\_mode}, \texttt{mode: 0/1}} \\
 \hline
-Relocalisation & Service \texttt{/global\_localization} \\
+{\raggedright Relocalisation} & {\raggedright Service \texttt{/global\_localization}} \\
 \hline
-Parole & Broadcast \texttt{com.cybel.ttsbridge.SPEAK} (hors ROS) \\
+{\raggedright Parole} & {\raggedright Broadcast \texttt{com.cybel.ttsbridge.SPEAK} (hors ROS)} \\
 \hline
 \end{tabular}
 \end{table}
@@ -133,7 +134,7 @@ vocales et gestion des erreurs (\texttt{nav\_status} 604).
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.3\textwidth]{captures_ecran/arch_backenf.png}
+    \includegraphics[width=0.25\textwidth]{captures_ecran/arch_backenf.png}
     \caption{architecture Backend}
     \label{fig:back_arch}
 \end{figure}
@@ -213,7 +214,7 @@ tablette:
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\textwidth]{diagramme/processVisit.png}
+    \includegraphics[width=0.75\textwidth]{diagramme/processVisit.png}
     \caption{Etape de la visite guidée}
 \end{figure}
 
