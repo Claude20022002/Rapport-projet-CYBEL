@@ -232,19 +232,36 @@ Le kiosque est compilé en bundle \textbf{IIFE} pour compatibilité WebView Chro
     \caption{Logo de TypeScript et Vite}
 \end{table}
 
-\subsubsection{Android}
+\subsubsection{Android et Java}
 
-Deux APK Java compilées sans Gradle (\texttt{javac}, \texttt{d8}, \texttt{apksigner}) :
+Deux APK Java compilées sans Gradle (\texttt{java}, \texttt{d8}, \texttt{apksigner}) :
 \begin{itemize}
     \item \texttt{CybelTTSBridge}synthèse vocale via \texttt{TextToSpeech} ;
     \item \texttt{CybelVisitorKiosk}WebView plein écran vers \texttt{/kiosk/}.
 \end{itemize}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{c@{\hspace{2cm}}c}
+        \includegraphics[width=0.5\textwidth]{images/android.png} &
+        \includegraphics[width=0.2\textwidth]{images/java.png} \\
+        (a) Android & (b) Java
+    \end{tabular}
+    \caption{Logo de Android et Java}
+\end{table}
 
 \subsubsection{ADB (Android Debug Bridge)}
 
 ADB permet de déclencher le TTS depuis le PC développeur vers la tête Android
 (câble USB requis sur ce modèle). Sur tablette autonome, le broadcast local
 remplace ADB.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{images/adb.jpg}
+    \caption{Logo de ADB}
+\end{figure}
+
 
 \subsubsection{rosbridge et communication réseau}
 
@@ -268,6 +285,13 @@ HTTP Termux & IP tablette :8000 & HTTP & Kiosque embarqué \\
 \hline
 \end{tabular}
 \end{table}
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{diagramme/usingROS2.png}
+    \caption{Utilisation de rosbridge}
+\end{figure}
 
 
 \subsection{Découverte du Robot CIOT TY1251D-03195 «~CYBEL~»}
@@ -298,12 +322,54 @@ exposés sans accès shell au châssis (SSH verrouillé).
 \end{tabular}
 \end{table}
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.4\textwidth]{captures_ecran/port.png}
+    \caption{Identification de des services réseau avec Zenmmap}
+    \label{fig:zennmap}
+\end{figure}
+
 La topologie réseau s'est révélée dual-stack : le châssis est joignable en
 \texttt{10.42.0.1} depuis le Wi-Fi du robot, tandis que la tablette Android
 utilise un segment DHCP \texttt{172.16.0.0/16} et une liaison interne
 \texttt{eth0} sur \texttt{192.168.20.0/24}. Depuis Termux, \textit{rosbridge}
 est accessible sur \texttt{192.168.20.22:9090} et non sur \texttt{10.42.0.1}.
 
+\subsubsection{Zenmmap}
+Zennmap (figure~\ref{fig:zennmap}) est l’interface graphique officielle de Nmap, conçue pour rendre l’exploration et l’audit des réseaux plus accessibles. 
+Elle a permi de lancer des scans sans retenir toutes les options complexes de la ligne de commande, en offrant une présentation claire des résultats sous forme de tableaux et graphiques. 
+Grâce à ses profils de scan enregistrables, Zennmap facilite la répétition de tâches courantes et constitue un outil pratique pour les administrateurs réseau, les étudiants et les professionnels de la cybersécurité.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.3\textwidth]{images/nmap.png}
+    \caption{Logo de nmap}
+    \label{fig:nmap}
+\end{figure}
+
+\subsubsection{JADX}
+JADX est un outil open source qui a permit de désassembler et décompiler les fichiers APK du constructeur (issus de leurs applications Android) en code Java lisible. 
+Il nous a été particulièrement utile pour le développement, la cherche et pour analyser la structure interne des applications du constructeur, comprendre son fonctionnement et vérifier les comportements des APK. 
+Grâce à son interface graphique et ses options en ligne de commande, JADX a facilité l’exploration du bytecode Android et la conversion en code source plus compréhensible.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.3\textwidth]{images/JADX.png}
+    \caption{Logo de JADX}
+    \label{fig:jadx}
+\end{figure}
+
+\subsubsection{Termux}
+Termux est une application Android qui fournit un terminal Linux complet directement sur smartphone ou tablette. 
+Elle permet d’exécuter des commandes Unix, d’installer des paquets via son propre gestionnaire, et d’accéder à des outils de développement ou de sécurité comme Python, Git ou SSH. 
+Grâce à son environnement minimaliste mais puissant, Termux est utilisé aussi bien pour l’apprentissage de Linux que pour l’administration système ou le prototypage rapide sur mobile.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{images/termux.png}
+    \caption{Interface Termux}
+    \label{fig:termux}
+\end{figure}
 
 \subsection{Proposition de documentation technique}
 
@@ -312,11 +378,11 @@ répertoire \texttt{docs/} du dépôt, complétée par des scripts reproductible
 dans \texttt{scripts/}. Les guides principaux sont :
 
 \begin{itemize}
-    \item \texttt{ROBOT\_CONNECTION.md}topologie réseau et paramètres de connexion ;
-    \item \texttt{INTERFACE.md}interface opérateur ;
-    \item \texttt{TTS\_BRIDGE.md}pont de synthèse vocale Android ;
-    \item \texttt{VISITOR\_KIOSK.md} et \texttt{TERMUX\_DEPLOY.md}kiosque et déploiement embarqué ;
-    \item \texttt{labo/TERRAIN.md}procédure de validation terrain.
+    \item \texttt{ROBOT\_CONNECTION.md} topologie réseau et paramètres de connexion ;
+    \item \texttt{INTERFACE.md} interface opérateur ;
+    \item \texttt{TTS\_BRIDGE.md} pont de synthèse vocale Android ;
+    \item \texttt{VISITOR\_KIOSK.md} et \texttt{TERMUX\_DEPLOY.md} kiosque et déploiement embarqué ;
+    \item \texttt{labo/TERRAIN.md} procédure de validation terrain.
 \end{itemize}
 
 Les diagrammes Mermaid (architecture, séquences, cas d'utilisation) sont
@@ -373,6 +439,8 @@ TTS & Aucun topic ROS pour la parole & Application \texttt{CybelTTSBridge} + ADB
 \hline
 Système fermé & SSH verrouillé, app constructeur boîte noire & Rétro-ingénierie
 non destructive uniquement \\
+\hline
+Cartographie & Une carte du laboratoire incorrecte & Réconstruction de la Carte du laboratoire \\
 \hline
 \end{tabular}
 \end{table}

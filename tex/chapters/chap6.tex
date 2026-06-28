@@ -20,10 +20,10 @@ frontends via \texttt{npm install} dans \texttt{frontend/} et
 \texttt{frontend-kiosk/}.
 
 Le lancement unifié s'effectue par :
-\begin{verbatim}
-cd cybel
-python scripts\dev.py
-\end{verbatim}
+\begin{lstlisting}[style=terminal, language=bash, caption={Commandes pour lancer l'interface contrôleur}]
+    cd cybel
+    python scripts\dev.py
+\end{lstlisting}
 Ce script démarre le backend sur le port 8000, l'interface opérateur sur
 5173 et le kiosque sur 5174. La configuration robot se trouve dans
 \texttt{backend/.env} (\texttt{ROBOT\_MOCK=false},
@@ -51,6 +51,7 @@ L'analyse a confirmé que le châssis publie une télémétrie riche (pose,
 statut, LiDAR filtré, personnes détectées) et accepte des commandes de
 vitesse, de navigation par coordonnées (\texttt{/navi\_goal}) et par points
 d'intérêt (service \texttt{/poi}), sous réserve du mode de contrôle approprié.
+
 
 
 \subsection{Reverse Engineering du système}
