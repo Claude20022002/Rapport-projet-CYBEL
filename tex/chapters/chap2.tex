@@ -38,8 +38,8 @@ filaire \texttt{eth0} sur le segment \texttt{192.168.20.0/24}
 (\texttt{192.168.20.1} pour la tête, \texttt{192.168.20.22} pour le châssis),
 indépendante du réseau WiFi exposé à l'extérieur.
 
-\begin{center}
-    \includegraphics[width=0.4\textwidth]{images/cybel.jpeg}
+\begin{center}[H]
+    \includegraphics[width=0.3\textwidth]{images/cybel.jpeg}
     \captionof{figure}{Robot CIOT TY1251D-03195 "CYBEL"}
     \label{fig:robot}
 \end{center}
@@ -52,44 +52,31 @@ de présentation et d'interaction, une couche applicative et API, une couche
 de communication et de services réseau, et une couche matérielle.
 
 \paragraph{Couche de présentation et d'interaction (couche supérieure):}Au sommet de l'architecture se trouve la couche de présentation, qui regroupe
-l'ensemble des interfaces utilisateur permettant d'interagir avec le robot.
-On y distingue trois composants principaux : l'\textbf{application
-propriétaire Android}, considérée comme une boîte noire non documentée et
-hors du périmètre du projet ; l'\textbf{interface opérateur web (CYBEL)},
-développée dans le cadre du projet et permettant le contrôle et la
-supervision du robot ; et l'\textbf{interface visiteur (mode kiosque)},
-dédiée aux interactions simplifiées dans un contexte public. Cette couche
-constitue le point d'entrée principal des interactions homme-machine et
-repose sur des échanges réseau vers les couches inférieures, notamment via
-HTTP et WebSocket. Deux composants complémentaires y sont également présents
-côté Android : un module de \textbf{synthèse vocale (TTS natif)}, permettant
-les retours audio du robot, et un mode \textbf{WebView kiosque}, utilisé pour
-des interactions simplifiées embarquées.
+les interfaces utilisateur du robot. On y distingue trois composants :
+\textbf{l'application propriétaire Android}, boîte noire hors périmètre ;
+\textbf{l'interface opérateur web (CYBEL)}, développée dans le projet pour le
+contrôle et la supervision ; et \textbf{l'interface visiteur (mode kiosque)},
+qui offre une interaction simplifiée en contexte public. Cette couche sert de
+point d'entrée homme-machine et s'appuie sur des échanges réseau vers les
+niveaux inférieurs, notamment HTTP et WebSocket. Côté Android, un module de
+\textbf{synthèse vocale (TTS natif)} et un mode \textbf{WebView kiosque}
+complètent les interfaces embarquées.
 
 \paragraph{Couche applicative et API (couche intermédiaire):}
-La deuxième couche correspond à la logique applicative centrale du système,
-matérialisée par l'\textbf{API CYBEL développée en FastAPI}. Cette API joue
-un rôle d'orchestrateur entre les interfaces utilisateur et les mécanismes
-de communication avec le robot : elle expose des endpoints REST ainsi que
-des canaux WebSocket pour la supervision en temps réel. Elle est alimentée
-par deux types de clients un \textbf{SDK Python en mode réel}, qui assure
-la communication directe avec le robot, et un \textbf{SDK Python en mode
-simulé (\textit{mock})}, permettant le développement et les tests
-indépendamment du matériel. Ces deux modes convergent vers une interface
-commune abstraite (\texttt{RobotBackend}), garantissant la continuité
-fonctionnelle entre simulation et exécution réelle.
+La deuxième couche correspond à la logique applicative centrale, incarnée
+par l'\textbf{API CYBEL en FastAPI}. Elle orchestre les échanges entre
+interfaces et robot en exposant des endpoints REST et des flux WebSocket.
+Cette API utilise soit un \textbf{SDK Python réel} pour la communication
+directe avec le robot, soit un \textbf{SDK Python simulé (\textit{mock})}
+pour le développement et les tests, tous deux basés sur une interface
+abstraite commune (\texttt{RobotBackend}).
 
 \paragraph{Couche de communication et de services réseau:}
-La troisième couche représente les interfaces réseau exposées par le robot
-et utilisées comme points d'accès aux fonctionnalités internes. Elle
-comprend plusieurs services distincts : \textbf{rosbridge} (WebSocket, port
-9090), permettant l'envoi et la réception de messages ROS au format JSON ;
-\textbf{rosapi}, utilisé pour l'introspection des topics, services et
-abonnés ROS ; \textbf{MQTT} (port 1883), employé pour la communication
-événementielle et la télémétrie ; et \textbf{ADB} (\textit{Android Debug
-Bridge}), offrant un accès direct au sous-système Android. Cette couche
-constitue le point d'interconnexion critique entre la logique applicative
-CYBEL et le système robotique réel.
+La troisième couche regroupe les interfaces réseau du robot et les services
+qui exposent ses fonctionnalités internes, notamment \textbf{rosbridge}
+(WebSocket, port 9090), \textbf{rosapi}, \textbf{MQTT} (port 1883) et
+\textbf{ADB} (Android Debug Bridge). Elle fait le lien entre la logique
+applicative CYBEL et le système robotique réel.
 
 \paragraph{Couche matérielle et système robotique:}
 À la base de l'architecture se trouve la couche matérielle, composée des
@@ -101,34 +88,21 @@ reste accessible via l'adresse réseau interne \texttt{10.42.0.1}. D'autre
 part, le \textbf{module supérieur Android} constitue la partie interactive
 du robot : il regroupe l'écran tactile, les caméras, les haut-parleurs et
 les applications utilisateur, et reste accessible via un réseau interne
-distinct (\texttt{172.16.0.0/16}). Ces deux sous-systèmes communiquent entre
-eux via la liaison Ethernet interne décrite plus haut, assurant la
-synchronisation entre navigation et interaction utilisateur.
-
-\begin{center}
-    \includegraphics[width=0.7\textwidth]{diagramme/architecture_globale.jpeg}
+distinct (\texttt{172.16.0.0/16}).
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.55\textwidth]{diagramme/architecture_globale.jpeg}
     \captionof{figure}{Architecture système globale du robot CIOT TY1251D-03195}
     \label{fig:archi_robot}
-\end{center}
+\end{figure}
 
 \paragraph{Positionnement du système CYBEL dans l'architecture.}
-Le système CYBEL s'insère principalement dans les couches supérieures de
-l'architecture, en remplaçant et en étendant les capacités de l'application
-propriétaire. Il s'appuie sur la couche applicative (API FastAPI et SDK
-Python) pour structurer la logique de commande, sur la couche réseau
-(rosbridge, MQTT) pour l'interaction avec le robot, et sur les couches
-matérielles sous-jacentes pour l'exécution des actions physiques. Cette
-approche permet de découpler totalement l'interface utilisateur du système
-robotique, tout en garantissant une compatibilité avec l'infrastructure
-existante.
-
-L'architecture globale du système met ainsi en évidence une organisation en
-couches clairement séparées, allant de l'interface utilisateur jusqu'au
-matériel robotique. Cette structuration constitue le fondement de la
-solution CYBEL, qui s'inscrit comme une couche logicielle intermédiaire
-visant à unifier, simplifier et étendre l'accès aux fonctionnalités du robot
-CIOT TY1251D-03195.
-
+CYBEL se place dans les couches supérieures, en remplaçant l'application
+propriétaire et en ajoutant des fonctions. Il utilise l'API FastAPI et le SDK
+Python pour la logique de commande, rosbridge et MQTT pour la communication,
+et s'appuie sur le matériel robotique pour exécuter les actions. Cette
+solution intermédiaire sépare l'interface utilisateur du système robotique
+tout en conservant la compatibilité avec l'infrastructure existante.
 \subsubsection*{Cadre et déroulement du stage}
 
 L'établissement disposant de ce robot souhaite l'utiliser pour des scénarios
