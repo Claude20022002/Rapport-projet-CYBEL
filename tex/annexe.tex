@@ -9,14 +9,14 @@
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.4\textwidth]{captures_ecran/Capture1.png}
+    \includegraphics[width=0.45\textwidth]{captures_ecran/Capture1.png}
     \caption{Ancienne carte SLAM du laboratoire de l'interface opérateur}
     \label{fig:annexe_carte}
 \end{figure}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.5\textwidth]{captures_ecran/Capture2.png}
+    \includegraphics[width=0.45\textwidth]{captures_ecran/Capture2.png}
     \caption{Terminal vérification de connectivité et génération de clé SSH}
     \label{fig:annexe_terminal}
 \end{figure}
@@ -32,7 +32,7 @@
 
 \begin{figure}[H]
     \centering
-    \fbox{\parbox{0.75\textwidth}{\centering\vspace{2.5cm}
+    \fbox{\parbox{0.45\textwidth}{\centering\vspace{2.5cm}
     \textit{Capture à insérer}\\[0.3cm]
     \texttt{captures\_ecran/panneau\_visite.png}\vspace{2.5cm}}}
     \caption{Panneau visite guidée - page Visite \textit{(à insérer)}}
@@ -41,29 +41,11 @@
 
 \begin{figure}[H]
     \centering
-    \fbox{\parbox{0.75\textwidth}{\centering\vspace{2.5cm}
+    \fbox{\parbox{0.45\textwidth}{\centering\vspace{2.5cm}
     \textit{Capture à insérer}\\[0.3cm]
     \texttt{captures\_ecran/kiosque\_accueil.png}\vspace{2.5cm}}}
     \caption{Kiosque visiteur - écran d'accueil FR \textit{(à insérer)}}
     \label{fig:annexe_kiosque_accueil}
-\end{figure}
-
-\begin{figure}[H]
-    \centering
-    \fbox{\parbox{0.75\textwidth}{\centering\vspace{2.5cm}
-    \textit{Capture à insérer}\\[0.3cm]
-    \texttt{captures\_ecran/kiosque\_running.png}\vspace{2.5cm}}}
-    \caption{Kiosque visiteur - visite en cours \textit{(à insérer)}}
-    \label{fig:annexe_kiosque_running}
-\end{figure}
-
-\begin{figure}[H]
-    \centering
-    \fbox{\parbox{0.75\textwidth}{\centering\vspace{2.5cm}
-    \textit{Capture à insérer}\\[0.3cm]
-    \texttt{captures\_ecran/apk\_tablette.png}\vspace{2.5cm}}}
-    \caption{Application \texttt{CybelVisitorKiosk} sur tablette \textit{(à insérer)}}
-    \label{fig:annexe_apk}
 \end{figure}
 
 \subsection*{Annexe B - Dépôt source du projet}
@@ -79,7 +61,7 @@
 \subsection*{Annexe C - Commandes utiles}
 \addcontentsline{toc}{subsection}{Annexe C - Commandes utiles}
 
-\begin{lstlisting}[style=terminal, language=bash, caption={Commandes PC (PowerShell)}]
+\begin{lstlisting}[style=terminal, language=bash, caption={Commandes PC (PowerShell)}, basicstyle=\ttfamily\small, breaklines=true, xleftmargin=0.05\textwidth, xrightmargin=0.05\textwidth]
 # Verification reseau
 ping 10.42.0.1
 python scripts\robot_status.py
@@ -98,7 +80,7 @@ adb shell am broadcast -n com.cybel.ttsbridge/.SpeakReceiver ^
 python scripts\deploy_termux.py --skip-kiosk-build --lite-only --host <IP>
 \end{lstlisting}
 
-\begin{lstlisting}[style=terminal, language=bash, caption={Commandes Termux (tablette)}]
+\begin{lstlisting}[style=terminal, language=bash, caption={Commandes Termux (tablette)}, basicstyle=\ttfamily\small, breaklines=true, xleftmargin=0.05\textwidth, xrightmargin=0.05\textwidth]
 cd ~/cybel/scripts/termux
 ./stop_cybel.sh && ./start_cybel.sh
 curl http://127.0.0.1:8000/api/health
