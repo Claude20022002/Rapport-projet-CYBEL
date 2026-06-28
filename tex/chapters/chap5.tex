@@ -65,15 +65,15 @@ Les principes directeurs ont été : simuler d'abord, sécuriser le matériel
 \centering
 \caption{Organisation hebdomadaire indicative du projet}
 \label{tab:org_hebdo}
-\begin{tabular}{|p{2.5cm}|p{5.5cm}|p{5.5cm}|}
+\begin{tabular}{|p{2.2cm}|p{4.5cm}|p{4.5cm}|}
 \hline
 \textbf{Jours} & \textbf{Activité principale} & \textbf{Environnement} \\
 \hline
-Lundi--Mercredi & Développement mock, documentation, tests unitaires & PC, sans robot \\
+Lundi--Mercredi & {\raggedright Développement mock, documentation, tests unitaires\par} & {\raggedright PC, sans robot\par} \\
 \hline
-Jeudi & Tests sur robot réel (si disponible) & Wi-Fi \texttt{TY1251D-03195} \\
+Jeudi & {\raggedright Tests sur robot réel (si disponible)\par} & {\raggedright Wi-Fi \texttt{TY1251D\allowbreak-03195}\par} \\
 \hline
-Vendredi & Intégration, déploiement tablette Termux, rédaction & PC + tablette \\
+Vendredi & {\raggedright Intégration, déploiement tablette Termux, rédaction\par} & {\raggedright PC + tablette\par} \\
 \hline
 \end{tabular}
 \end{table}
@@ -113,7 +113,7 @@ La Figure~\ref{fig:gantt} présente le planning global du projet.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth]{diagramme/diagramme-gantt-transparent.png}
+    \includegraphics[width=0.8\textwidth]{diagramme/diagramme-gantt-transparent.png}
     \caption{Diagramme de Gantt du projet CYBEL}
     \label{fig:gantt}
 \end{figure}
@@ -126,7 +126,8 @@ lorsque le robot n'était pas accessible.
 \centering
 \caption{Jalons principaux atteints (fin juin 2026)}
 \label{tab:jalons}
-\begin{tabular}{|p{4.8cm}|p{2.8cm}|p{4cm}|}
+\small
+\begin{tabular}{|p{4.0cm}|p{2.4cm}|p{3.2cm}|}
     \hline
     \textbf{Jalon} & \textbf{Période} & \textbf{Statut} \\
     \hline
@@ -159,21 +160,18 @@ JSON sur le port 9090.
 \centering
 \caption{Éléments ROS principaux utilisés par CYBEL}
 \label{tab:ros_elements}
-\small
-\begin{tabular}{|p{3.2cm}|p{10.8cm}|}
+\footnotesize
+\begin{tabular}{|p{2.8cm}|p{8.8cm}|}
     \hline
     \textbf{Catégorie} & \textbf{Exemples} \\
     \hline
-    Topics lecture & \texttt{/robot\_pose}, \texttt{/robot\_status}, \texttt{/scan\_filter},
-    \texttt{/detected\_people\_array} \\
+    Topics lecture & \texttt{/robot\_pose}, \texttt{/robot\_status}, \texttt{/scan\_filter}, \texttt{/detected\_people\_array} \\
     \hline
-    Topics commande & \texttt{/mobile\_base/commands/velocity}, \texttt{/navi\_goal},
-    \texttt{/path\_follower/cancel} \\
+    Topics commande & \texttt{/mobile\_base/commands/velocity}, \texttt{/navi\_goal}, \texttt{/path\_follower/cancel} \\
     \hline
     Services & \texttt{/poi}, \texttt{/change\_location\_mode}, \texttt{/global\_localization} \\
     \hline
-    Introspection & \texttt{/rosapi/topics}, \texttt{/rosapi/services},
-    \texttt{/rosapi/subscribers} \\
+    Introspection & \texttt{/rosapi/topics}, \texttt{/rosapi/services}, \texttt{/rosapi/subscribers} \\
     \hline
 \end{tabular}
 \end{table}
@@ -183,7 +181,7 @@ Les codes \texttt{nav\_status} documentés sont : 600 (initialisation), 601
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.5\textwidth]{images/ros.png}
+    \includegraphics[width=0.35\textwidth]{images/ros.png}
     \caption{Logo de ROS}
 \end{figure}
 
@@ -198,7 +196,7 @@ pas sur Python~3.13 Termux.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.5\textwidth]{images/fastapi.png}
+    \includegraphics[width=0.35\textwidth]{images/fastapi.png}
     \caption{Logo de FastAPI}
 \end{figure}
 
@@ -208,7 +206,7 @@ bibliothèque nous avons pu concevoir le backend, les scripts, les SDK etc...
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.5\textwidth]{images/python.png}
+    \includegraphics[width=0.35\textwidth]{images/python.png}
     \caption{Logo de Python}
 \end{figure}
 
@@ -243,7 +241,7 @@ Deux APK Java compilées sans Gradle (\texttt{java}, \texttt{d8}, \texttt{apksig
 \begin{table}[H]
     \centering
     \begin{tabular}{c@{\hspace{2cm}}c}
-        \includegraphics[width=0.5\textwidth]{images/android.png} &
+        \includegraphics[width=0.4\textwidth]{images/android.png} &
         \includegraphics[width=0.2\textwidth]{images/java.png} \\
         (a) Android & (b) Java
     \end{tabular}
@@ -258,7 +256,7 @@ remplace ADB.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.5\textwidth]{images/adb.jpg}
+    \includegraphics[width=0.35\textwidth]{images/adb.jpg}
     \caption{Logo de ADB}
 \end{figure}
 
@@ -269,7 +267,8 @@ remplace ADB.
 \centering
 \caption{Canaux de communication du projet}
 \label{tab:canaux}
-\begin{tabular}{|p{2.5cm}|p{4.5cm}|p{2.5cm}|p{3.5cm}|}
+\small
+\begin{tabular}{|p{2.3cm}|p{3.9cm}|p{2.3cm}|p{2.9cm}|}
 \hline
 \textbf{Canal} & \textbf{Adresse typique} & \textbf{Protocole} & \textbf{Usage} \\
 \hline
@@ -281,7 +280,7 @@ MQTT & \texttt{10.42.0.1:1883} & MQTT 3.1.1 & Télémétrie passive \\
 \hline
 ADB & USB & Android Debug Bridge & TTS depuis PC \\
 \hline
-HTTP Termux & IP tablette :8000 & HTTP & Kiosque embarqué \\
+HTTP Termux & \texttt{IP tablette:8000} & HTTP & Kiosque embarqué \\
 \hline
 \end{tabular}
 \end{table}
@@ -289,7 +288,7 @@ HTTP Termux & IP tablette :8000 & HTTP & Kiosque embarqué \\
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.9\textwidth]{diagramme/usingROS2.png}
+    \includegraphics[width=0.80\textwidth]{diagramme/usingROS2.png}
     \caption{Utilisation de rosbridge}
 \end{figure}
 
@@ -324,7 +323,7 @@ exposés sans accès shell au châssis (SSH verrouillé).
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.4\textwidth]{captures_ecran/port.png}
+    \includegraphics[width=0.3\textwidth]{captures_ecran/port.png}
     \caption{Identification de des services réseau avec Zenmmap}
     \label{fig:zennmap}
 \end{figure}
@@ -354,7 +353,7 @@ Grâce à son interface graphique et ses options en ligne de commande, JADX a fa
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.3\textwidth]{images/JADX.png}
+    \includegraphics[width=0.25\textwidth]{images/JADX.png}
     \caption{Logo de JADX}
     \label{fig:jadx}
 \end{figure}
@@ -416,7 +415,8 @@ Les apports concrets sont :
 \caption{Synthèse des difficultés et solutions (phase d'investigation)}
 \label{tab:difficultes}
 \small
-\begin{tabular}{|p{2.8cm}|p{4.5cm}|p{5.7cm}|}
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{|p{2.4cm}|p{4.0cm}|p{4.4cm}|}
 \hline
 \textbf{Domaine} & \textbf{Difficulté} & \textbf{Solution retenue} \\
 \hline
