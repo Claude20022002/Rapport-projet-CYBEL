@@ -39,14 +39,14 @@ solutions dans le dépôt Github du projet.
 
 Chaque hypothèse sur le protocole du robot a suivi le cycle suivant :
 \begin{enumerate}
-    \item \textbf{Observation passive}écoute MQTT et introspection \texttt{rosbridge}
-    avant toute publication ;
-    \item \textbf{Test isolé}script Python dédié dans \texttt{scripts/} ;
-    \item \textbf{Vérification de l'effet réel}une commande acceptée par
+    \item \textbf{Observation passive} : écoute MQTT et introspection
+    \texttt{rosbridge} avant toute publication ;
+    \item \textbf{Test isolé} : script Python dédié dans \texttt{scripts/} ;
+    \item \textbf{Vérification de l'effet réel} : une commande acceptée par
     \textit{rosbridge} n'est pas forcément exécutée sur le châssis ;
-    \item \textbf{Intégration SDK} portage dans \texttt{MockRobot} puis
+    \item \textbf{Intégration SDK} : portage dans \texttt{MockRobot} puis
     \texttt{RealRobot} ;
-    \item \textbf{Documentation}mise à jour de \texttt{docs/} et des constantes
+    \item \textbf{Documentation} : mise à jour de \texttt{docs/} et des constantes
     dans \texttt{sdk/constants.py}.
 \end{enumerate}
 
@@ -324,7 +324,7 @@ exposés sans accès shell au châssis (SSH verrouillé).
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.3\textwidth]{captures_ecran/port.png}
-    \caption{Identification de des services réseau avec Zenmmap}
+    \caption{Identification des services réseau avec Zenmap}
     \label{fig:zennmap}
 \end{figure}
 
@@ -334,10 +334,8 @@ utilise un segment DHCP \texttt{172.16.0.0/16} et une liaison interne
 \texttt{eth0} sur \texttt{192.168.20.0/24}. Depuis Termux, \textit{rosbridge}
 est accessible sur \texttt{192.168.20.22:9090} et non sur \texttt{10.42.0.1}.
 
-\subsubsection{Zenmmap}
-Zennmap (figure~\ref{fig:zennmap}) est l’interface graphique officielle de Nmap, conçue pour rendre l’exploration et l’audit des réseaux plus accessibles. 
-Elle a permi de lancer des scans sans retenir toutes les options complexes de la ligne de commande, en offrant une présentation claire des résultats sous forme de tableaux et graphiques. 
-Grâce à ses profils de scan enregistrables, Zennmap facilite la répétition de tâches courantes et constitue un outil pratique pour les administrateurs réseau, les étudiants et les professionnels de la cybersécurité.
+\subsubsection{Zenmap}
+Zenmap (figure~\ref{fig:zennmap}) est l’interface graphique officielle de Nmap, conçue pour rendre l’exploration et l’audit des réseaux plus accessibles. Elle permet de lancer des scans sans retenir toutes les options complexes de la ligne de commande, en offrant une présentation claire des résultats sous forme de tableaux et de graphiques. Grâce à ses profils de scan enregistrables, Zenmap facilite la répétition de tâches courantes et constitue un outil pratique pour les administrateurs réseau, les étudiants et les professionnels de la cybersécurité.
 
 \begin{figure}[H]
     \centering
@@ -347,9 +345,7 @@ Grâce à ses profils de scan enregistrables, Zennmap facilite la répétition d
 \end{figure}
 
 \subsubsection{JADX}
-JADX est un outil open source qui a permit de désassembler et décompiler les fichiers APK du constructeur (issus de leurs applications Android) en code Java lisible. 
-Il nous a été particulièrement utile pour le développement, la cherche et pour analyser la structure interne des applications du constructeur, comprendre son fonctionnement et vérifier les comportements des APK. 
-Grâce à son interface graphique et ses options en ligne de commande, JADX a facilité l’exploration du bytecode Android et la conversion en code source plus compréhensible.
+JADX est un outil open source qui a permis de désassembler et de décompiler les fichiers APK du constructeur (issus de leurs applications Android) en code Java lisible. Il nous a été particulièrement utile pour le développement, la recherche et l’analyse de la structure interne des applications du constructeur, afin de comprendre leur fonctionnement et de vérifier certains comportements des APK. Grâce à son interface graphique et à ses options en ligne de commande, JADX a facilité l’exploration du bytecode Android et la conversion en code source plus compréhensible.
 
 \begin{figure}[H]
     \centering

@@ -66,7 +66,7 @@ T6 & TTS tablette (broadcast) & Audio sans PC & OK \\
 \hline
 T7 & Kiosque WebView & Écran d'accueil CYBEL & OK \\
 \hline
-T8 & Visite 9 arrêts complète & Sans erreur 604 & OK \\
+T8 & Visite 8 arrêts complète & Sans erreur 604 & OK \\
 \hline
 T9 & Relâcher E-Stop sans reprise nav & Robot immobile & OK \\
 \hline
@@ -87,7 +87,7 @@ démonstration :
     \item kiosque visiteur bilingue déployé sur tablette Termux ;
     \item protocole ROS documenté dans \texttt{sdk/constants.py} ;
     \item pont TTS Android (\texttt{CybelTTSBridge}) ;
-    \item parcours laboratoire neuf arrêts dans \texttt{data/lab\_tour.json}.
+    \item parcours laboratoire de huit arrêts dans \texttt{data/lab\_tour.json}.
 \end{itemize}
 
 \subsubsection{Incidents terrain documentés}
@@ -218,7 +218,7 @@ développement et de validation a nécessité des correctifs spécifiques :
 \hline
 \textbf{Priorité} & \textbf{Amélioration} \\
 \hline
-Haute & Calibrer les huit arrêts sur carte réelle (éliminer les erreurs 604) \\
+Haute & Calibrer les huit arrêts sur la carte réelle (éliminer les erreurs 604) \\
 \hline
 Haute & Connexion \textit{rosbridge} non bloquante au démarrage FastAPI \\
 \hline

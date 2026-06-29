@@ -151,17 +151,7 @@ du moteur vocal.
 
 \subsubsection{CybelVisitorKiosk}
 
-Application WebView plein écran chargeant \texttt{http://<ip-tablette>:8000/kiosk/}.
-Un \texttt{BootReceiver} permet le démarrage automatique optionnel. Des
-correctifs \texttt{viewport-fit=cover} et \texttt{network\_security\_config}
-assurent l'affichage sur Android~7.1 et l'accès HTTP local à Termux.
-
-\subsubsection{CybelVisitorKiosk}
-Application WebView plein écran chargeant \texttt{http://<ip-tablette>:8001/kiosktest/}.
-Un \texttt{BootReceiver} permet le démarrage automatique optionnel. Des
-correctifs \texttt{viewport-fit=cover} et \texttt{network\_security\_config}
-assurent l'affichage sur Android~7.1 et l'accès HTTP local à Termux. Cette application est la version utiliser pour tester l'approche POI, en récupérant les coordonnées des différents appareils depuis 
-l'application du constructeur "\textbf{Deployment tool}".
+Application WebView plein écran chargeant \texttt{http://<ip-tablette>:8000/kiosk/}. Une version de test, accessible via \texttt{http://<ip-tablette>:8001/kiosktest/}, a été utilisée pour valider l'approche POI à partir des coordonnées extraites de l'application constructeur \textit{Deployment Tool}. Un \texttt{BootReceiver} permet le démarrage automatique optionnel. Des correctifs \texttt{viewport-fit=cover} et \texttt{network\_security\_config} assurent l'affichage sur Android~7.1 et l'accès HTTP local à Termux.
 
 \begin{figure}[H]
     \centering
