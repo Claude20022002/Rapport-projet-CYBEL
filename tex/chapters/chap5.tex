@@ -262,7 +262,7 @@ remplace ADB.
 \end{figure}
 
 
-\subsubsection{rosbridge et communication réseau}
+\subsubsection{Rosbridge et communication réseau}
 
 \begin{table}[H]
 \centering
@@ -273,9 +273,9 @@ remplace ADB.
 \hline
 \textbf{Canal} & \textbf{Adresse typique} & \textbf{Protocole} & \textbf{Usage} \\
 \hline
-\textit{rosbridge} & \texttt{10.42.0.1:9090} (PC) & WebSocket JSON & Principal \\
+\textit{Rosbridge} & \texttt{10.42.0.1:9090} (PC) & WebSocket JSON & Principal \\
 \hline
-\textit{rosbridge} & \texttt{192.168.20.22:9090} (Termux) & WebSocket JSON & Tablette \\
+\textit{Rosbridge} & \texttt{192.168.20.22:9090} (Termux) & WebSocket JSON & Tablette \\
 \hline
 MQTT & \texttt{10.42.0.1:1883} & MQTT 3.1.1 & Télémétrie passive \\
 \hline
@@ -294,7 +294,7 @@ HTTP Termux & \texttt{IP tablette:8000} & HTTP & Kiosque embarqué \\
 \end{figure}
 
 
-\subsection{Découverte du Robot CIOT TY1251D-03195 «~CYBEL~»}
+\subsection{Outils d'identification du robot}
 
 La phase initiale a permis d'identifier le matériel et les services réseau
 exposés sans accès shell au châssis (SSH verrouillé).
@@ -405,7 +405,7 @@ Les apports concrets sont :
 \end{itemize}
 
 
-\subsection{Difficultés rencontrées durant la phase d'investigation}
+\subsection{Difficultés rencontrées}
 
 \begin{table}[H]
 \centering
@@ -445,11 +445,15 @@ Cartographie & Une carte du laboratoire incorrecte & Reconstruction de la carte 
 
 \subsection{Conclusion}
 
-La méthodologie adoptée — observation, vérification, simulation puis intégration —
-s'est avérée indispensable face à un système fermé et partiellement documenté.
-Le planning en quatre phases a été globalement respecté, avec une avance sur le
-déploiement tablette et un retard acceptable sur la validation navigation
-complète du parcours laboratoire. Les outils retenus (Python/FastAPI,
-TypeScript/Vite, \textit{rosbridge}, ADB, Termux) forment un écosystème
-cohérent pour un stage à contraintes matérielles fortes. Le
-chapitre suivant détaille la réalisation concrète de cette architecture.
+La méthodologie adoptée s’est articulée en cinq étapes successives : 
+\textbf{observation},\textbf{Test} ,\textbf{vérification}, \textbf{intégration} puis \textbf{Documentation}. 
+Elle s’est révélée indispensable face à un système fermé et partiellement documenté.
+Le calendrier prévu en quatre phases a été globalement respecté, 
+avec une avance notable sur le \textit{déploiement tablette} 
+et un léger retard acceptable concernant la validation complète de la 
+\textit{navigation dans le parcours laboratoire}.
+Les outils choisis (\texttt{Python/FastAPI}, \texttt{TypeScript/Vite}, 
+\texttt{Rosbridge}, \texttt{ADB}, \texttt{Termux}) 
+constituent un écosystème cohérent, adapté aux contraintes matérielles du stage.
+
+Le chapitre suivant présente en détail la mise en œuvre concrète de cette architecture.
