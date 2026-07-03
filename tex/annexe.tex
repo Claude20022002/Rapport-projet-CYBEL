@@ -19,20 +19,6 @@
     \label{fig:annexe_terminal}
 \end{figure}
 
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.45\textwidth]{captures_ecran/dashbordcontroleur.png}
-    \caption{Dashboard opérateur - mode robot réel}
-    \label{fig:annexe_dashboard}
-\end{figure}
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.45\textwidth]{images/appvisit.jpeg}
-    \caption{Panneau visite guidée - page Visite}
-    \label{fig:annexe_visite}
-\end{figure}
-
 \subsection*{Annexe B - Dépôt source du projet}
 \addcontentsline{toc}{subsection}{Annexe B - Dépôt source du projet}
 
@@ -46,28 +32,18 @@
 \subsection*{Annexe C - Commandes utiles}
 \addcontentsline{toc}{subsection}{Annexe C - Commandes utiles}
 
-\begin{lstlisting}[style=terminal, language=bash, caption={Commandes PC (PowerShell)}, basicstyle=\ttfamily\small, breaklines=true, xleftmargin=0.05\textwidth, xrightmargin=0.05\textwidth]
-# Verification reseau
+\begin{lstlisting}[style=terminal, language=bash, caption={Commandes PC (PowerShell)}, basicstyle=\ttfamily\footnotesize, breaklines=true, xleftmargin=0.05\textwidth, xrightmargin=0.05\textwidth]
 ping 10.42.0.1
 python scripts\robot_status.py
-
-# Lancement developpement
 python scripts\dev.py
-
-# Tests unitaires (78 tests)
 python -m pytest tests/ -v
-
-# TTS test (USB branche)
 adb shell am broadcast -n com.cybel.ttsbridge/.SpeakReceiver ^
   -a com.cybel.ttsbridge.SPEAK --es text "Test HESTIM"
-
-# Deploiement tablette
 python scripts\deploy_termux.py --skip-kiosk-build --lite-only --host <IP>
 \end{lstlisting}
 
-\begin{lstlisting}[style=terminal, language=bash, caption={Commandes Termux (tablette)}, basicstyle=\ttfamily\small, breaklines=true, xleftmargin=0.05\textwidth, xrightmargin=0.05\textwidth]
-cd ~/cybel/scripts/termux
-./stop_cybel.sh && ./start_cybel.sh
+\begin{lstlisting}[style=terminal, language=bash, caption={Commandes Termux (tablette)}, basicstyle=\ttfamily\footnotesize, breaklines=true, xleftmargin=0.05\textwidth, xrightmargin=0.05\textwidth]
+cd ~/cybel/scripts/termux && ./stop_cybel.sh && ./start_cybel.sh
 curl http://127.0.0.1:8000/api/health
 \end{lstlisting}
 
