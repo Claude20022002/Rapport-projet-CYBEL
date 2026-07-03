@@ -11,7 +11,7 @@ objectifs du projet ainsi que le cahier des charges fonctionnel et technique.
 \subsubsection*{Présentation du robot CIOT TY1251D-03195}
 
 Le robot étudié est un \textbf{robot de réception mobile} commercialisé sous la
-référence \textbf{CIOT TY1251D-03195} illustré sur la  figure~\ref{fig:robot}. Il est composé de deux sous-systèmes
+référence \textbf{CIOT TY1251D-03195} illustré sur la figure~\ref{fig:robot}. Il est composé de deux sous-systèmes
 matériels distincts, reliés en interne :
 
 \begin{itemize}
@@ -31,7 +31,7 @@ permettant à un poste externe de rejoindre son réseau local. La topologie
 réseau s'est révélée plus complexe que ne le laissait supposer une simple
 architecture à deux hôtes : le châssis est joignable à l'adresse fixe
 \texttt{10.42.0.1}, tandis que la tête Android obtient une adresse variable
-par DHCP sur un second segment \texttt{172.16.0.0/16} une première IP
+par DHCP sur un second segment \texttt{172.16.0.0/16} ; une première IP
 documentée (\texttt{172.16.0.88}) s'est révélée périmée en cours de projet.
 Les deux sous-systèmes sont par ailleurs reliés en interne par une liaison
 filaire \texttt{eth0} sur le segment \texttt{192.168.20.0/24}
@@ -52,7 +52,8 @@ couches superposées, illustrées en figure~\ref{fig:archi_robot} : une couche
 de présentation et d'interaction, une couche applicative et API, une couche
 de communication et de services réseau, et une couche matérielle.
 
-\paragraph{Couche de présentation et d'interaction (couche supérieure):}Au sommet de l'architecture se trouve la couche de présentation, qui regroupe
+\paragraph{Couche de présentation et d'interaction (couche supérieure):}
+Au sommet de l'architecture se trouve la couche de présentation, qui regroupe
 les interfaces utilisateur du robot. On y distingue trois composants :
 \textbf{l'application propriétaire Android}, boîte noire hors périmètre ;
 \textbf{l'interface opérateur web (CYBEL)}, développée dans le projet pour le

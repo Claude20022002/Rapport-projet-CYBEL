@@ -5,8 +5,6 @@
 \subsection*{Annexe A - Captures d'écran}
 \addcontentsline{toc}{subsection}{Annexe A - Captures d'écran}
 
-% Remplacer chaque cadre par \includegraphics après ajout du fichier indiqué.
-
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.45\textwidth]{captures_ecran/Capture1.png}
@@ -115,8 +113,6 @@ await self._client.publish(ROS_TOPICS["navi_goal"], {
 \addcontentsline{toc}{subsection}{Annexe E - Diagrammes détaillés}
 
 Sources Mermaid dans \texttt{docs/Sujet de stage/diagrammes/} du dépôt CYBEL.
-Remplacer chaque cadre par \texttt{\textbackslash includegraphics} après export PNG.
-
 
 \begin{figure}[H]
     \centering
@@ -131,7 +127,7 @@ Remplacer chaque cadre par \texttt{\textbackslash includegraphics} après export
 \begin{table}[H]
 \centering
 \caption{Index de la documentation technique CYBEL}
-\begin{tabular}{|p{5cm}|p{8cm}|}
+\begin{tabularx}{\textwidth}{|p{4.5cm}|X|}
 \hline
 \textbf{Document} & \textbf{Chemin dans le dépôt} \\
 \hline
@@ -149,5 +145,5 @@ Connexion robot & \texttt{docs/ROBOT\_CONNECTION.md} \\
 \hline
 Procédure terrain & \texttt{docs/labo/TERRAIN.md} \\
 \hline
-\end{tabular}
+\end{tabularx}
 \end{table}

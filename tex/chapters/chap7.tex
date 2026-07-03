@@ -138,7 +138,7 @@ Fréquence télémétrie pose & $\sim$10~Hz & Topic \texttt{/robot\_pose} \\
 \hline
 Fréquence LiDAR & $\sim$25~Hz & Topic \texttt{/scan\_filter} \\
 \hline
-Latence Wi-Fi (ping robot) & 89-91654~ms & Très variable \\
+Latence Wi-Fi (ping robot) & 7--1654~ms & Très variable \\
 \hline
 Robustesse navigation & Erreurs 604 ponctuelles & Coordonnées à calibrer terrain \\
 \hline
@@ -180,12 +180,12 @@ Au-delà des difficultés d'investigation (chapitre~5), la phase de
 développement et de validation a nécessité des correctifs spécifiques :
 
 \begin{itemize}
-    \item \textbf{FastAPI sur Termux}: remplacement par Starlette
+    \item \textbf{FastAPI sur Termux} : remplacement par Starlette
     (\texttt{cybel\_lite.py}) ;
-    \item \textbf{Écran blanc WebView}: build IIFE et correctifs safe-area ;
-    \item \textbf{Saturations \textit{rosbridge}}: \texttt{dev.py} sans
+    \item \textbf{Écran blanc WebView} : build IIFE et correctifs safe-area ;
+    \item \textbf{Saturations \textit{rosbridge}} : \texttt{dev.py} sans
     \texttt{--reload} par défaut, instance unique du backend ;
-    \item \textbf{Navigation 604}: affinage progressif des coordonnées sur
+    \item \textbf{Navigation 604} : affinage progressif des coordonnées sur
     carte SLAM réelle via sessions terrain documentées dans
     \texttt{docs/labo/TERRAIN.md}.
 \end{itemize}

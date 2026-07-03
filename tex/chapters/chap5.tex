@@ -18,7 +18,8 @@ la phase d'investigation.
 
 Le stage a réuni deux stagiaires aux \textbf{périmètres distincts} : la
 plateforme CYBEL (contenu technique du présent rapport, réalisée par
-Claudia LUSAMOTE KIMFUTA sur les branches \texttt{main, face presence et promote kisok poi main}) et un module
+Claudia LUSAMOTE KIMFUTA sur les branches \texttt{main}, \texttt{face-presence}
+et \texttt{promote-kiosk-poi}) et un module
 \textbf{chatbot} développé en parallèle par Ghassane KHALIFI sur la branche
 \texttt{chatbot-cybel-projet-2026}, hors périmètre des chapitres de
 réalisation.
@@ -87,7 +88,7 @@ forme d'un diagramme de Gantt. Celui-ci a permis de répartir les différentes
 activités, d'identifier les dépendances entre les tâches et de suivre
 l'avancement.
 
-Le déroulement a été organisé en quatre grandes phases successives qui sont:
+Le déroulement a été organisé en quatre grandes phases successives qui sont :
 
 \begin{enumerate}
     \item La première phase, consacrée à la \textbf{connectivité}, avait pour objectif de
@@ -201,8 +202,8 @@ pas sur Python~3.13 Termux.
 \end{figure}
 
 \subsubsection{Python}
-Python a constitué le langages de toute nos découvertes et un très puissant outils avec ces multiples 
-bibliothèque nous avons pu concevoir le backend, les scripts, les SDK etc...
+Python a constitué le langage de toutes nos découvertes et un outil très puissant : grâce à ses
+nombreuses bibliothèques, nous avons pu concevoir le backend, les scripts et les SDK, entre autres.
 
 \begin{figure}[H]
     \centering
@@ -212,10 +213,10 @@ bibliothèque nous avons pu concevoir le backend, les scripts, les SDK etc...
 
 \subsubsection{TypeScript et Vite}
 
-Deux applications web sans framework lourd que l'on a utilisé pour les interfaces:
+Deux applications web sans framework lourd ont été utilisées pour les interfaces :
 \begin{itemize}
-    \item \texttt{frontend/} (port 5173)interface opérateur ;
-    \item \texttt{frontend-kiosk/} (port 5174)kiosque visiteur bilingue FR/EN.
+    \item \texttt{frontend/} (port 5173) : interface opérateur ;
+    \item \texttt{frontend-kiosk/} (port 5174) : kiosque visiteur bilingue FR/EN.
 \end{itemize}
 Le kiosque est compilé en bundle \textbf{IIFE} pour compatibilité WebView Chrome~49
 (Android~7.1).
@@ -234,8 +235,8 @@ Le kiosque est compilé en bundle \textbf{IIFE} pour compatibilité WebView Chro
 
 Deux APK Java compilées sans Gradle (\texttt{java}, \texttt{d8}, \texttt{apksigner}) :
 \begin{itemize}
-    \item \texttt{CybelTTSBridge}synthèse vocale via \texttt{TextToSpeech} ;
-    \item \texttt{CybelVisitorKiosk}WebView plein écran vers \texttt{/kiosk/}.
+    \item \texttt{CybelTTSBridge} : synthèse vocale via \texttt{TextToSpeech} ;
+    \item \texttt{CybelVisitorKiosk} : WebView plein écran vers \texttt{/kiosk/}.
 \end{itemize}
 
 \begin{table}[H]
@@ -245,7 +246,7 @@ Deux APK Java compilées sans Gradle (\texttt{java}, \texttt{d8}, \texttt{apksig
         \includegraphics[width=0.2\textwidth]{images/java.png} \\
         (a) Android & (b) Java
     \end{tabular}
-    \caption{Logo de Android et Java}
+    \caption{Logo d'Android et de Java}
 \end{table}
 
 \subsubsection{ADB (Android Debug Bridge)}
@@ -257,7 +258,7 @@ remplace ADB.
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.35\textwidth]{images/adb.jpg}
-    \caption{Logo de ADB}
+    \caption{Logo d'ADB}
 \end{figure}
 
 
@@ -373,11 +374,11 @@ répertoire \texttt{docs/} du dépôt, complétée par des scripts reproductible
 dans \texttt{scripts/}. Les guides principaux sont :
 
 \begin{itemize}
-    \item \texttt{ROBOT\_CONNECTION.md} topologie réseau et paramètres de connexion ;
-    \item \texttt{INTERFACE.md} interface opérateur ;
-    \item \texttt{TTS\_BRIDGE.md} pont de synthèse vocale Android ;
-    \item \texttt{VISITOR\_KIOSK.md} et \texttt{TERMUX\_DEPLOY.md} kiosque et déploiement embarqué ;
-    \item \texttt{labo/TERRAIN.md} procédure de validation terrain.
+    \item \texttt{ROBOT\_CONNECTION.md} : topologie réseau et paramètres de connexion ;
+    \item \texttt{INTERFACE.md} : interface opérateur ;
+    \item \texttt{TTS\_BRIDGE.md} : pont de synthèse vocale Android ;
+    \item \texttt{VISITOR\_KIOSK.md} et \texttt{TERMUX\_DEPLOY.md} : kiosque et déploiement embarqué ;
+    \item \texttt{labo/TERRAIN.md} : procédure de validation terrain.
 \end{itemize}
 
 Les diagrammes Mermaid (architecture, séquences, cas d'utilisation) sont
@@ -436,7 +437,7 @@ TTS & Aucun topic ROS pour la parole & Application \texttt{CybelTTSBridge} + ADB
 Système fermé & SSH verrouillé, app constructeur boîte noire & Rétro-ingénierie
 non destructive uniquement \\
 \hline
-Cartographie & Une carte du laboratoire incorrecte & Réconstruction de la Carte du laboratoire \\
+Cartographie & Une carte du laboratoire incorrecte & Reconstruction de la carte du laboratoire \\
 \hline
 \end{tabular}
 \end{table}
@@ -444,7 +445,7 @@ Cartographie & Une carte du laboratoire incorrecte & Réconstruction de la Carte
 
 \subsection{Conclusion}
 
-La méthodologie adoptéeobservation, vérification, simulation puis intégration
+La méthodologie adoptée — observation, vérification, simulation puis intégration —
 s'est avérée indispensable face à un système fermé et partiellement documenté.
 Le planning en quatre phases a été globalement respecté, avec une avance sur le
 déploiement tablette et un retard acceptable sur la validation navigation

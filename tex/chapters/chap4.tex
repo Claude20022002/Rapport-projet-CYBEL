@@ -28,8 +28,8 @@ avec les différents composants matériels et logiciels du système.
 
 L'analyse fonctionnelle constitue ainsi une étape essentielle avant la
 conception détaillée de l'architecture, puisqu'elle permet de traduire les
-besoins exprimés dans le cahier des charges (section~\ref{tab:besoins_fonctionnels}
-et suivantes) en fonctionnalités concrètes, et de les rattacher explicitement
+besoins exprimés dans le cahier des charges (tableau~\ref{tab:besoins_fonctionnels}
+et suivants) en fonctionnalités concrètes, et de les rattacher explicitement
 aux exigences EF/ENF formulées au chapitre 2.
 
 \subsubsection{Identification des acteurs}
@@ -76,7 +76,7 @@ identifiées par la suite (EF-10 à EF-11).
 \centering
 \caption{Besoins fonctionnels du système CYBEL, synthèse par fonctionnalité}
 \label{tab:besoins_fonctionnels_synth}
-\begin{tabular}{|p{1.3cm}|p{3.3cm}|p{9.4cm}|}
+\begin{tabularx}{\textwidth}{|p{1.3cm}|p{3.3cm}|X|}
 \hline
 \textbf{Réf.} & \textbf{Fonctionnalité} & \textbf{Description} \\
 \hline
@@ -115,7 +115,7 @@ EF-11 & Déploiement autonome &
 Exécution de la plateforme directement sur la tablette du robot, sans
 dépendance à un poste de développement externe. \\
 \hline
-\end{tabular}
+\end{tabularx}
 \end{table}
 
 \subsubsection{Besoins non fonctionnels}
@@ -130,7 +130,7 @@ utilisabilité. Les besoins non fonctionnels identifiés, repris du chapitre 2
 \centering
 \caption{Besoins non fonctionnels du système CYBEL, synthèse par critère}
 \label{tab:besoins_non_fonctionnels_synth}
-\begin{tabular}{|p{1.3cm}|p{3.3cm}|p{9.4cm}|}
+\begin{tabularx}{\textwidth}{|p{1.3cm}|p{3.3cm}|X|}
 \hline
 \textbf{Réf.} & \textbf{Critère} & \textbf{Description} \\
 \hline
@@ -160,7 +160,7 @@ aucun cas perturber le fonctionnement normal du robot. \\
 Interfaces intuitives et adaptées aussi bien aux opérateurs qu'aux
 visiteurs. \\
 \hline
-\end{tabular}
+\end{tabularx}
 \end{table}
 
 \subsection{Architecture générale de CYBEL}
@@ -172,7 +172,7 @@ L'objectif principal de cette architecture est de découpler les interfaces
 utilisateur du système robotique afin de faciliter les tests, la
 maintenance et l'évolution de la plateforme.
 
-\begin{figure}[h!]
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.9\textwidth]{diagramme/architecture_generale.png}
     \caption{Architecture générale du système CYBEL}
@@ -217,7 +217,7 @@ Cette couche regroupe l'interface opérateur, l'interface visiteur et les
 applications Android complémentaires. Elle permet l'interaction entre les
 utilisateurs et le système.
 
-\begin{figure}[h!]
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{diagramme/architecture_couches.png}
     \caption{Architecture en couches du système CYBEL}
@@ -234,7 +234,7 @@ Android embarqué ainsi que les modules TTS. Cette représentation permet de
 visualiser clairement la répartition des responsabilités entre les
 différents composants.
 
-\begin{figure}[h!]
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.85\textwidth]{diagramme/diagramme_composant.png}
     \caption{Diagramme de composants du système CYBEL}
@@ -266,7 +266,7 @@ facilitent la compréhension des mécanismes internes mis en \oe uvre lors
 des communications entre le robot, le backend et les interfaces
 utilisateur.
 
-\begin{figure}[h!]
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.85\textwidth]{diagramme/sequence_navigation.png}
     \caption{Diagramme de séquence de la navigation vers un point sélectionné}
