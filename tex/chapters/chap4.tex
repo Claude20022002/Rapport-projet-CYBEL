@@ -275,7 +275,7 @@ utilisateur.
 
 \subsection{Modèle des flux de communication}
 
-\subsubsection{Robot \texorpdfstring{$\leftrightarrow$}{<->} rosbridge}
+\subsubsection{Robot et Rosbridge}
 
 \textit{rosbridge} constitue la passerelle principale entre la plateforme
 CYBEL et le système de navigation du robot. Les échanges reposent sur le
@@ -283,21 +283,21 @@ protocole WebSocket et permettent la réception des données de télémétrie,
 l'abonnement aux topics ROS, l'appel de services, ainsi que l'envoi de
 commandes de navigation et de mouvement.
 
-\subsubsection{rosbridge \texorpdfstring{$\leftrightarrow$}{<->} Backend}
+\subsubsection{Rosbridge et Backend}
 
 Le backend agit comme intermédiaire entre \textit{rosbridge} et les
 interfaces utilisateur. Il collecte les informations provenant du robot,
 les traite puis les redistribue vers les clients connectés. Il assure
 également la gestion des commandes envoyées par les utilisateurs.
 
-\subsubsection{Backend \texorpdfstring{$\leftrightarrow$}{<->} Interfaces utilisateur}
+\subsubsection{Backend et Interfaces utilisateur}
 
 Les interfaces communiquent avec le backend à travers des requêtes REST
 pour les actions ponctuelles et des WebSockets pour les mises à jour
 temps réel. Cette architecture garantit une supervision réactive et une
 faible latence lors de l'affichage des données.
 
-\subsubsection{Backend \texorpdfstring{$\leftrightarrow$}{<->} Applications Android}
+\subsubsection{Backend et Applications Android}
 
 Les applications Android développées dans le cadre du projet permettent
 d'étendre les fonctionnalités du système, notamment pour la synthèse
