@@ -49,24 +49,38 @@
 \renewcommand{\headrulewidth}{0.4pt}
 \renewcommand{\footrulewidth}{0.4pt}
 
+%---------------- PAGE DE GARDE : EN-TÊTE DÉDIÉ ----------------
+\fancypagestyle{coverpage}{%
+    \fancyhf{}%
+    \fancyhead[L]{\includegraphics[height=1cm]{images/1.png}}%
+    \fancyhead[R]{\small\textsc{HESTIM}}%
+    \renewcommand{\headrulewidth}{0.4pt}%
+    \renewcommand{\footrulewidth}{0pt}%
+}
+
 \begin{document}
 
 %================================================
 % PAGE DE TITRE
 %================================================
 \begin{titlepage}
+\thispagestyle{coverpage}
 \centering
-\includegraphics[width=0.75\textwidth]{images/1.png}\\[1cm]
+\vspace*{0.25cm}
 
-{\Large Hautes Études des Sciences et Techniques de l’Ingénierie et du Management}\\[0.3cm]
-{\large Rapport de stage}\\[1cm]
-\textsc{\large Filière : Génie Informatique et Intelligence Artificielle}\\[0.3cm]
+{\Large \textsc{HESTIM Engineering \& Business School}}\\[0.15cm]
+{\large Rapport de stage}\\[0.4cm]
+\textsc{\large Filière : Génie Informatique et Intelligence Artificielle}\\[0.6cm]
 
-\rule{\linewidth}{0.5mm}\\[0.4cm]
+\rule{\linewidth}{0.6mm}\\[0.4cm]
 {\Large \textbf{\textsc{Conception et développement d'une plateforme
     de commande et d'interaction autonome\\[0.2cm]
-    pour un robot de service Android}}}\\[1.2cm]
-\rule{\linewidth}{0.5mm}\\[1.5cm]
+    pour un robot de service Android}}}\\[0.4cm]
+\rule{\linewidth}{0.6mm}
+
+\vfill
+\includegraphics[width=0.48\textwidth]{images/cybel1.jpeg}
+\vfill
 
 % Auteurs / Encadrant
     \begin{minipage}{0.45\textwidth}
@@ -79,15 +93,16 @@
     \begin{minipage}{0.45\textwidth}
         \begin{flushright}\large
             \emph{Encadrante pédagogique :}\\[0.2cm]
-            Mme \textsc{MESKINI} Fatime Zahra\\[0.5cm]
+            Mme \textsc{MESKINI} Fatime Zahra\\[0.35cm]
             \emph{Encadrant industriel :}\\[0.2cm]
-            M \textsc{TULA} Sridath\\[0.5cm]
+            M \textsc{TULA} Sridath\\[0.3cm]
         \end{flushright}
-    \end{minipage}\\[1.2cm]
+    \end{minipage}\\[0.5cm]
 
-\vfill
+\rule{\linewidth}{0.3mm}\\[0.35cm]
 Classe : \textsc{\normalsize 1\textsuperscript{ère} du cycle d'ingénieur}\\[0.2cm]
 \textbf{Année universitaire : 2025 - 2026}
+\vspace*{0.2cm}
 
 \end{titlepage}
 
