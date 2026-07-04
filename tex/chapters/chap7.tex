@@ -204,6 +204,11 @@ développement et de validation a nécessité des correctifs spécifiques :
     \item Backend lite Termux, sous-ensemble des fonctions opérateur.
     \item Pas de CI/CD ni déploiement industrialisé.
     \item Reconnaissance vocale visiteur, non implémentée en v1.
+    \item Commande vocale opérateur (EF-07) non implémentée dans le périmètre
+    CYBEL : l'interaction vocale conversationnelle avec le robot est traitée
+    par le module chatbot développé en parallèle (G. Khalifi, branche
+    \texttt{chatbot-cybel-projet-2026}), fonctionnel mais encore sujet à des
+    erreurs de réponse, et non intégré à la branche \texttt{main} à ce stade.
 \end{enumerate}
 
 
@@ -217,8 +222,6 @@ développement et de validation a nécessité des correctifs spécifiques :
 \begin{tabular}{|p{2.3cm}|p{9.3cm}|}
 \hline
 \textbf{Priorité} & \textbf{Amélioration} \\
-\hline
-Haute & Calibrer les huit arrêts sur la carte réelle (éliminer les erreurs 604) \\
 \hline
 Haute & Connexion \textit{rosbridge} non bloquante au démarrage FastAPI \\
 \hline
@@ -237,8 +240,9 @@ Basse & Synchronisation POI robot $\leftrightarrow$ \texttt{lab\_tour.json} ; re
 La validation démontre que CYBEL atteint son objectif principal : \textbf{commander
 et faire interagir le robot sans l'application propriétaire}. Les tests
 unitaires et d'intégration mock sont au vert ; les tests terrain confirment
-téléopération, TTS, télémétrie et navigation ponctuelle. La visite guidée
-complète sur huit arrêts reste le dernier jalon de validation, conditionnée
-par l'affinage des coordonnées et la stabilité réseau. Les limites identifiées
-sont connues et documentées ; les perspectives constituent une feuille de
-route pour la suite du projet au laboratoire HESTIM.
+téléopération, TTS, télémétrie, navigation et visite guidée. La visite
+guidée complète sur huit arrêts (scénario T8) est validée sans erreur 604,
+dernier jalon de validation atteint après affinage des coordonnées sur la
+carte réelle du laboratoire. Les limites identifiées sont connues et
+documentées ; les perspectives constituent une feuille de route pour la
+suite du projet au laboratoire HESTIM.

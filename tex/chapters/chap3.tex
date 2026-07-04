@@ -1,5 +1,5 @@
 \newpage
-\section{ État de l'art}
+\section{État de l'art}
 \label{chap:etat_art}
 
 Ce chapitre situe le projet CYBEL par rapport aux travaux et solutions
@@ -21,7 +21,10 @@ La conception de la plateforme s'appuie sur plusieurs corpus de référence :
     \item \textbf{Navigation autonome} : les concepts de cartes
     d'occupation et de planification (costmaps, DWA) décrits dans
     \textit{Probabilistic Robotics} (Thrun, Burgard \& Fox, 2005)
-    servent de base à l'interprétation du module \texttt{move\_base}.
+    servent de base à l'interprétation du module \texttt{move\_base}, replacé
+    dans le cadre plus large de l'architecture des robots mobiles de service
+    décrite par Siegwart, Nourbakhsh \& Scaramuzza (2011) et par Siciliano \&
+    Khatib (2016).
 
     \item \textbf{Protocole rosbridge} : le standard JSON de communication
     ROS (subscribe, publish, call\_service) est utilisé comme référence pour
@@ -115,10 +118,21 @@ Oui &
 Non &
 Partiel / évolutif \\
 \hline
+Maturité et robustesse &
+Élevée (déployée industriellement) &
+Élevée (écosystème ROS établi de longue date) &
+Prototype de stage ($\sim$90~\% de fiabilité de connexion \textit{rosbridge}, cf. chapitre 7) \\
+\hline
 \end{tabular}
 \caption{Benchmark comparatif des solutions}
 \label{tab:benchmark_cybel}
 \end{table}
+
+Ce dernier critère nuance volontairement les précédents : CYBEL répond mieux
+aux besoins fonctionnels identifiés au chapitre 2, mais reste, à ce stade,
+un prototype de quelques mois de développement, sans le niveau de maturité
+et de robustesse en production des outils ROS établis ou de l'application
+constructeur.
 
 \subsection{Limites des solutions existantes}
 \label{subsec:limites}

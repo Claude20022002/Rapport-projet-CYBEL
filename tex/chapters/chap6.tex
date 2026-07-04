@@ -172,11 +172,14 @@ L'interface opérateur regroupe :
     \item une page Visite pour le CRUD de \texttt{lab\_tour.json} et le suivi d'état ;
     \item une page Accueil pour les actions vocales et la FAQ.
 \end{itemize}
+La figure~\ref{fig:dashboard_operateur} présente le tableau de bord de cette
+interface.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.45\textwidth]{captures_ecran/dashbordcontroleur.png}
-    \caption{Logo d'ADB}
+    \caption{Tableau de bord de l'interface opérateur}
+    \label{fig:dashboard_operateur}
 \end{figure}
 
 \subsubsection{Interface visiteur (\texttt{frontend-kiosk/})}
@@ -185,12 +188,14 @@ Le kiosque propose un parcours en trois écrans (accueil, visite en cours,
 fin ou erreur), une bascule FR/EN et un polling de \texttt{/api/tour/status}
 pendant la visite. La visite guidée autonome du laboratoire constitue le
 scénario principal : huit arrêts synchronisés depuis
-\texttt{knowledgeV2-lab.json}.
+\texttt{knowledgeV2-lab.json}, comme illustré en
+figure~\ref{fig:kiosk_visite}.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.45\textwidth]{images/appvisit.jpeg}
-    \caption{Logo d'ADB}
+    \caption{Interface visiteur — application de visite guidée (kiosque)}
+    \label{fig:kiosk_visite}
 \end{figure}
 
 \subsection{Mise en place du système TTS}
@@ -213,7 +218,8 @@ pour déclencher la parole sur la tête Android.
 L'intégration bout en bout de la visite guidée suit la chaîne suivante :
 kiosque tablette (\texttt{frontend-kiosk/}) $\rightarrow$ backend Termux
 (\texttt{cybel\_lite.py}) $\rightarrow$ SDK $\rightarrow$ \textit{rosbridge}
-$\rightarrow$ robot, sont action s'illustre sur figure~\ref{fig:etapes_visite}.
+$\rightarrow$ robot, dont les étapes sont illustrées en
+figure~\ref{fig:etapes_visite}.
 
 \begin{figure}[H]
     \centering
@@ -235,6 +241,7 @@ L'implémentation CYBEL couvre l'intégralité de la chaîne du protocole robot
 aux interfaces utilisateur, en passant par une API structurée et un déploiement
 embarqué sur tablette. L'architecture en couches (SDK / API / UI) a absorbé
 les évolutions (visite guidée, TTS, Termux) sans remise en cause du cœur
-logiciel. Le principal travail restant porte sur l'alignement des coordonnées
-de \texttt{lab\_tour.json} avec la carte SLAM réelle du laboratoire, objet
-du chapitre~7.
+logiciel. L'alignement des coordonnées de \texttt{lab\_tour.json} avec la
+carte SLAM réelle du laboratoire, affiné au fil des sessions terrain, a
+permis d'aboutir à une visite guidée complète et sans erreur, dont la
+validation est détaillée au chapitre~7.

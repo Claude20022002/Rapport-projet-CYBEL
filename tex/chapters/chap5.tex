@@ -125,7 +125,7 @@ lorsque le robot n'était pas accessible.
 
 \begin{table}[H]
 \centering
-\caption{Jalons principaux atteints (fin juin 2026)}
+\caption{Jalons principaux atteints (juin-juillet 2026)}
 \label{tab:jalons}
 \small
 \begin{tabular}{|p{4.0cm}|p{2.4cm}|p{3.2cm}|}
@@ -152,10 +152,10 @@ lorsque le robot n'était pas accessible.
 
 \subsubsection{ROS (Robot Operating System)}
 
-Le châssis du robot exécute ROS pour la localisation SLAM, la planification
-(\texttt{move\_base}) et l'exécution des trajectoires. CYBEL n'accède pas à
-ROS natif (C++/Python ROS) mais via \textbf{\textit{rosbridge}} pont WebSocket
-JSON sur le port 9090.
+Le châssis du robot exécute ROS (figure~\ref{fig:logo_ros}) pour la
+localisation SLAM, la planification (\texttt{move\_base}) et l'exécution des
+trajectoires. CYBEL n'accède pas à ROS natif (C++/Python ROS) mais via
+\textbf{\textit{rosbridge}} pont WebSocket JSON sur le port 9090.
 
 \begin{table}[H]
 \centering
@@ -184,11 +184,12 @@ Les codes \texttt{nav\_status} documentés sont : 600 (initialisation), 601
     \centering
     \includegraphics[width=0.35\textwidth]{images/ros.png}
     \caption{Logo de ROS}
+    \label{fig:logo_ros}
 \end{figure}
 
 \subsubsection{FastAPI}
 
-FastAPI constitue le backend principal sur poste opérateur : API REST, WebSocket
+FastAPI (figure~\ref{fig:logo_fastapi}) constitue le backend principal sur poste opérateur : API REST, WebSocket
 \texttt{/ws/telemetry}, routers (\texttt{robot}, \texttt{navigation}, \texttt{tour},
 \texttt{speech}, etc.) et configuration via \texttt{pydantic-settings}
 (\texttt{ROBOT\_MOCK}, \texttt{ROBOT\_HOST}). Sur tablette Termux, \textbf{Starlette}
@@ -199,21 +200,24 @@ pas sur Python~3.13 Termux.
     \centering
     \includegraphics[width=0.35\textwidth]{images/fastapi.png}
     \caption{Logo de FastAPI}
+    \label{fig:logo_fastapi}
 \end{figure}
 
 \subsubsection{Python}
-Python a constitué le langage de toutes nos découvertes et un outil très puissant : grâce à ses
+Python (figure~\ref{fig:logo_python}) a constitué le langage de toutes nos découvertes et un outil très puissant : grâce à ses
 nombreuses bibliothèques, nous avons pu concevoir le backend, les scripts et les SDK, entre autres.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.35\textwidth]{images/python.png}
     \caption{Logo de Python}
+    \label{fig:logo_python}
 \end{figure}
 
 \subsubsection{TypeScript et Vite}
 
-Deux applications web sans framework lourd ont été utilisées pour les interfaces :
+Deux applications web sans framework lourd, en TypeScript et Vite
+(figure~\ref{fig:logo_ts_vite}), ont été utilisées pour les interfaces :
 \begin{itemize}
     \item \texttt{frontend/} (port 5173) : interface opérateur ;
     \item \texttt{frontend-kiosk/} (port 5174) : kiosque visiteur bilingue FR/EN.
@@ -229,11 +233,12 @@ Le kiosque est compilé en bundle \textbf{IIFE} pour compatibilité WebView Chro
         (a) TypeScript & (b) Vite
     \end{tabular}
     \caption{Logo de TypeScript et Vite}
+    \label{fig:logo_ts_vite}
 \end{table}
 
 \subsubsection{Android et Java}
 
-Deux APK Java compilées sans Gradle (\texttt{java}, \texttt{d8}, \texttt{apksigner}) :
+Deux APK Android et Java (figure~\ref{fig:logo_android_java}) compilées sans Gradle (\texttt{java}, \texttt{d8}, \texttt{apksigner}) :
 \begin{itemize}
     \item \texttt{CybelTTSBridge} : synthèse vocale via \texttt{TextToSpeech} ;
     \item \texttt{CybelVisitorKiosk} : WebView plein écran vers \texttt{/kiosk/}.
@@ -247,11 +252,12 @@ Deux APK Java compilées sans Gradle (\texttt{java}, \texttt{d8}, \texttt{apksig
         (a) Android & (b) Java
     \end{tabular}
     \caption{Logo d'Android et de Java}
+    \label{fig:logo_android_java}
 \end{table}
 
 \subsubsection{ADB (Android Debug Bridge)}
 
-ADB permet de déclencher le TTS depuis le PC développeur vers la tête Android
+ADB (figure~\ref{fig:logo_adb}) permet de déclencher le TTS depuis le PC développeur vers la tête Android
 (câble USB requis sur ce modèle). Sur tablette autonome, le broadcast local
 remplace ADB.
 
@@ -259,6 +265,7 @@ remplace ADB.
     \centering
     \includegraphics[width=0.35\textwidth]{images/adb.jpg}
     \caption{Logo d'ADB}
+    \label{fig:logo_adb}
 \end{figure}
 
 
@@ -313,7 +320,7 @@ exposés sans accès shell au châssis (SSH verrouillé).
 \hline
 8082 & Interface déploiement constructeur \\
 \hline
-8088 & Interface debug CSST \\
+8088 & Interface de debug interne, usage inconnu \\
 \hline
 21 & FTP \\
 \hline
@@ -326,7 +333,7 @@ exposés sans accès shell au châssis (SSH verrouillé).
     \centering
     \includegraphics[width=0.3\textwidth]{captures_ecran/port.png}
     \caption{Identification des services réseau avec Zenmap}
-    \label{fig:zennmap}
+    \label{fig:zenmap}
 \end{figure}
 
 La topologie réseau s'est révélée dual-stack : le châssis est joignable en
@@ -336,7 +343,7 @@ utilise un segment DHCP \texttt{172.16.0.0/16} et une liaison interne
 est accessible sur \texttt{192.168.20.22:9090} et non sur \texttt{10.42.0.1}.
 
 \subsubsection{Zenmap}
-Zenmap (figure~\ref{fig:zennmap}) est l’interface graphique officielle de Nmap, conçue pour rendre l’exploration et l’audit des réseaux plus accessibles. Elle permet de lancer des scans sans retenir toutes les options complexes de la ligne de commande, en offrant une présentation claire des résultats sous forme de tableaux et de graphiques. Grâce à ses profils de scan enregistrables, Zenmap facilite la répétition de tâches courantes et constitue un outil pratique pour les administrateurs réseau, les étudiants et les professionnels de la cybersécurité.
+Zenmap (figure~\ref{fig:zenmap}) est l’interface graphique officielle de Nmap, conçue pour rendre l’exploration et l’audit des réseaux plus accessibles. Elle permet de lancer des scans sans retenir toutes les options complexes de la ligne de commande, en offrant une présentation claire des résultats sous forme de tableaux et de graphiques. Grâce à ses profils de scan enregistrables, Zenmap facilite la répétition de tâches courantes et constitue un outil pratique pour les administrateurs réseau, les étudiants et les professionnels de la cybersécurité.
 
 \begin{figure}[H]
     \centering
@@ -445,8 +452,8 @@ Cartographie & Une carte du laboratoire incorrecte & Reconstruction de la carte 
 
 \subsection{Conclusion}
 
-La méthodologie adoptée s’est articulée en cinq étapes successives : 
-\textbf{observation},\textbf{Test} ,\textbf{vérification}, \textbf{intégration} puis \textbf{Documentation}. 
+La méthodologie adoptée s’est articulée en cinq étapes successives :
+\textbf{observation}, \textbf{test}, \textbf{vérification}, \textbf{intégration} puis \textbf{documentation}.
 Elle s’est révélée indispensable face à un système fermé et partiellement documenté.
 Le calendrier prévu en quatre phases a été globalement respecté, 
 avec une avance notable sur le \textit{déploiement tablette} 

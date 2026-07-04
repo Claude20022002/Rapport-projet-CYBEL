@@ -163,6 +163,11 @@ visiteurs. \\
 \end{tabularx}
 \end{table}
 
+Le critère d'ergonomie s'appuie sur les principes de conception centrée
+utilisateur de la norme ISO~9241-210, notamment l'itération rapide entre
+prototypes en mode simulé et retours d'usage réels, appliquée tout au long
+du développement des interfaces opérateur et visiteur.
+
 \subsection{Architecture générale de CYBEL}
 
 Afin de répondre aux besoins identifiés, une architecture modulaire a été
@@ -201,8 +206,10 @@ communication avec \textit{rosbridge}, de la gestion du protocole
 reconstruit, de l'accès aux données de télémétrie et de l'exécution des
 commandes. Deux implémentations sont proposées : une implémentation réelle
 et une implémentation simulée. Cette approche permet de développer et de
-tester la plateforme sans dépendre de la disponibilité permanente du
-robot.
+tester la plateforme sans dépendre de la disponibilité permanente du robot.
+Cette séparation entre une interface abstraite commune
+(\texttt{RobotBackend}) et ses implémentations interchangeables s'inspire du
+patron de conception \textit{Strategy} décrit par Gamma et al. (1994).
 
 \subsubsection{Couche API}
 
@@ -313,7 +320,8 @@ d'une architecture modulaire organisée autour d'un SDK robot, d'une API
 centralisée et de plusieurs interfaces utilisateur. Les différents
 diagrammes présentés permettent de visualiser les interactions entre les
 acteurs et les composants du système ainsi que les flux de communication
-mis en \oe uvre. Cette phase de conception constitue la base de la
-démarche méthodologique présentée au chapitre 5, puis des développements
-réalisés au chapitre 6, consacré à la réalisation et à l'implémentation de
-la solution proposée.
+mis en \oe uvre. Cette architecture cible s'appuie sur les hypothèses
+protocolaires déjà consolidées lors des phases exploratoires ; sa mise en
+œuvre concrète, à la lumière de la démarche méthodologique détaillée au
+chapitre 5, fait l'objet du chapitre 6, consacré à la réalisation et à
+l'implémentation de la solution proposée.
