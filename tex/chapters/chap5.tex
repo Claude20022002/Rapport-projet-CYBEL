@@ -18,7 +18,7 @@ la phase d'investigation.
 
 Le stage a réuni deux stagiaires aux \textbf{périmètres distincts} : la
 plateforme CYBEL (contenu technique du présent rapport, réalisée par
-Claudia LUSAMOTE KIMFUTA sur les branches \texttt{main}, \texttt{face-presence}
+Claudia LUSAMOTE KIMFUTA sur trois branches dont \texttt{main}, \texttt{face-presence}
 et \texttt{promote-kiosk-poi}) et un module
 \textbf{chatbot} développé en parallèle par Ghassane KHALIFI sur la branche
 \texttt{chatbot-cybel-projet-2026}, hors périmètre des chapitres de
@@ -343,7 +343,11 @@ utilise un segment DHCP \texttt{172.16.0.0/16} et une liaison interne
 est accessible sur \texttt{192.168.20.22:9090} et non sur \texttt{10.42.0.1}.
 
 \subsubsection{Zenmap}
-Zenmap (figure~\ref{fig:zenmap}) est l’interface graphique officielle de Nmap, conçue pour rendre l’exploration et l’audit des réseaux plus accessibles. Elle permet de lancer des scans sans retenir toutes les options complexes de la ligne de commande, en offrant une présentation claire des résultats sous forme de tableaux et de graphiques. Grâce à ses profils de scan enregistrables, Zenmap facilite la répétition de tâches courantes et constitue un outil pratique pour les administrateurs réseau, les étudiants et les professionnels de la cybersécurité.
+Zenmap (figure~\ref{fig:zenmap}) a été utilisé pour identifier les services
+réseau exposés par le robot (\textit{rosbridge}, MQTT, interfaces web, FTP,
+SSH) sans disposer d'accès shell au châssis. Son interface graphique a permis
+de mener ces scans rapidement et de façon répétable, sans avoir à retenir les
+options de Nmap en ligne de commande.
 
 \begin{figure}[H]
     \centering
@@ -353,7 +357,12 @@ Zenmap (figure~\ref{fig:zenmap}) est l’interface graphique officielle de Nmap,
 \end{figure}
 
 \subsubsection{JADX}
-JADX est un outil open source qui a permis de désassembler et de décompiler les fichiers APK du constructeur (issus de leurs applications Android) en code Java lisible. Il nous a été particulièrement utile pour le développement, la recherche et l’analyse de la structure interne des applications du constructeur, afin de comprendre leur fonctionnement et de vérifier certains comportements des APK. Grâce à son interface graphique et à ses options en ligne de commande, JADX a facilité l’exploration du bytecode Android et la conversion en code source plus compréhensible.
+JADX a été utilisé pour inspecter ponctuellement les fichiers APK de
+l'application constructeur, afin de retrouver des éléments non documentés
+comme les coordonnées des points d'intérêt exploitées par l'outil de
+déploiement. Sa conversion du bytecode Android en code source lisible a
+permis de vérifier certains comportements de l'application sans avoir à
+analyser le bytecode à la main.
 
 \begin{figure}[H]
     \centering
@@ -363,9 +372,10 @@ JADX est un outil open source qui a permis de désassembler et de décompiler le
 \end{figure}
 
 \subsubsection{Termux}
-Termux est une application Android qui fournit un terminal Linux complet directement sur smartphone ou tablette. 
-Elle permet d’exécuter des commandes Unix, d’installer des paquets via son propre gestionnaire, et d’accéder à des outils de développement ou de sécurité comme Python, Git ou SSH. 
-Grâce à son environnement minimaliste mais puissant, Termux est utilisé aussi bien pour l’apprentissage de Linux que pour l’administration système ou le prototypage rapide sur mobile.
+Termux a été utilisé pour héberger directement sur la tablette du robot une
+version allégée du backend CYBEL (\texttt{cybel\_lite.py}) et le kiosque
+visiteur, rendant la plateforme autonome sans dépendre en permanence d'un
+poste de développement externe.
 
 \begin{figure}[H]
     \centering

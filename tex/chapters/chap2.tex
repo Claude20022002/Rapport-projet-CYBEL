@@ -224,7 +224,9 @@ Développement d'un SDK Python d'accès au robot (mode simulé et mode réel) &
 Développement d'une application Android de remplacement (optionnel, non engagé) \\
 \hline
 Développement d'une API de commande/supervision (FastAPI) &
-Décompilation ou rétro-ingénierie de l'application Android propriétaire \\
+Rétro-ingénierie de la logique métier de l'application Android propriétaire
+d'accueil (une inspection ciblée de l'outil de déploiement constructeur, via
+JADX, a néanmoins été nécessaire — voir chapitre 5) \\
 \hline
 Développement d'une interface web opérateur (Vite/TypeScript) &
 Déploiement en production / hébergement distant \\
@@ -374,9 +376,13 @@ du robot & Essentielle \\
     d'annulation disponible) ; les tentatives d'accès aux comptes système (SSH/FTP)
     doivent rester mesurées pour ne pas provoquer de blocage.
 
-    \item \textbf{Contraintes de propriété intellectuelle} : aucune décompilation
-    du logiciel propriétaire n'est entreprise ; seule l'observation du trafic
-    réseau et l'introspection des interfaces standard (ROS, MQTT) sont utilisées.
+    \item \textbf{Contraintes de propriété intellectuelle} : la logique métier
+    de l'application propriétaire d'accueil n'est pas rétro-ingénierée ;
+    l'analyse repose principalement sur l'observation du trafic réseau et
+    l'introspection des interfaces standard (ROS, MQTT). Une inspection
+    ciblée, via JADX, de l'outil constructeur de déploiement (\textit{Deployment
+    Tool}) a néanmoins été nécessaire pour retrouver les coordonnées non
+    documentées des points d'intérêt du laboratoire (voir chapitre 5).
 \end{itemize}
 
 \subsubsection{Livrables attendus}
@@ -394,6 +400,7 @@ Conformément au sujet de stage, les livrables attendus en fin de projet sont :
     l'analyse du protocole.
 \end{enumerate}
 
+\newpage
 \subsubsection{Critères de réception et de validation}
 
 Le tableau~\ref{tab:criteres_validation} précise, pour chaque critère
@@ -437,14 +444,14 @@ présent rapport \\
 
 \subsection{Solution proposée}
 
-Face à ce besoin, la solution retenue consiste en une plateforme logicielle
+Face à ce besoin, la solution proposée consiste en une plateforme logicielle
 indépendante, structurée autour d'une couche d'accès au robot (SDK Python
 interchangeable mock/réel), d'une API de commande et de supervision, et
 d'interfaces utilisateur web dédiées à l'opérateur et au visiteur. L'analyse
 fonctionnelle détaillée, l'architecture logicielle complète et les
 diagrammes de conception associés sont présentés au Chapitre 4 (\textit{Analyse
 et conception du système}).
-
+\newpage
 \subsection{Conclusion}
 
 Ce chapitre a permis de poser le cadre du projet CYBEL : l'architecture du

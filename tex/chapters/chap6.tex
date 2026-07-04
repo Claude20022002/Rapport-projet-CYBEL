@@ -33,9 +33,9 @@ Wi-Fi du robot).
 \subsubsection{Environnement tablette (Termux)}
 
 Sur la tablette Android du robot, Termux héberge une version allégée du
-backend (\texttt{cybel\_lite.py}). Le bootstrap est assuré par
+backend (\texttt{cybel\_lite.py}). Le bootstrap est assuré par un script sur le chemin
 \texttt{scripts/termux/bootstrap\_lite.sh}, le déploiement par
-\texttt{python scripts/deploy\_termux.py --lite-only} et le démarrage par
+\texttt{python scripts/deploy\_termux.py --lite-only} et le démarrage par se fait par
 \texttt{~/cybel/scripts/termux/start\_cybel.sh}.
 
 
@@ -130,7 +130,7 @@ Le client \textit{rosbridge} implémente une connexion avec timeout de 20~s,
 trois tentatives, keepalive et reconnexion automatique en cas de silence
 prolongé. Le moteur \texttt{TourEngine} orchestre la visite : navigation
 séquentielle vers chaque arrêt de \texttt{data/lab\_tour.json}, annonces
-vocales et gestion des erreurs (\texttt{nav\_status} 604).
+vocales et une gestion des erreurs (\texttt{nav\_status} 604).
 
 \begin{figure}[H]
     \centering
@@ -234,7 +234,7 @@ de \texttt{cybel\_lite}. Le script \texttt{preflight\_labo.ps1} vérifie avant
 chaque session terrain la connectivité, la santé de l'API et la présence du
 TTS.
 
-
+\newpage
 \subsection{Conclusion}
 
 L'implémentation CYBEL couvre l'intégralité de la chaîne du protocole robot
