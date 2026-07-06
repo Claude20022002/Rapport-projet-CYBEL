@@ -19,12 +19,16 @@
 \usepackage{array}
 \usepackage{minted}
 \usepackage[protrusion=true,expansion=false]{microtype}
+\usepackage{tikz}
+\usepackage[skins]{tcolorbox}
 
 
 \definecolor{bgcolor}{RGB}{110, 90, 109}
 \definecolor{codegreen}{RGB}{152, 195, 121}
 \definecolor{codeblue}{RGB}{97, 175, 239}
 \definecolor{codewhite}{RGB}{248, 248, 242}
+\definecolor{hestimblue}{RGB}{18, 52, 86}
+\definecolor{hestimaccent}{RGB}{224, 122, 33}
 
 \lstdefinestyle{terminal}{
     backgroundcolor=\color{bgcolor},
@@ -53,8 +57,8 @@
 \fancypagestyle{coverpage}{%
     \fancyhf{}%
     \fancyhead[L]{\includegraphics[height=1cm]{images/1.png}}%
-    \fancyhead[R]{\small\textsc{HESTIM}}%
-    \renewcommand{\headrulewidth}{0.4pt}%
+    \fancyhead[R]{\small\textcolor{hestimblue}{\textsc{HESTIM}}}%
+    \renewcommand{\headrule}{{\color{hestimblue}\hrule width\headwidth height1pt}}%
     \renewcommand{\footrulewidth}{0pt}%
 }
 
@@ -65,44 +69,60 @@
 %================================================
 \begin{titlepage}
 \thispagestyle{coverpage}
+
+\begin{tikzpicture}[remember picture, overlay]
+    \fill[hestimblue] (current page.south west) rectangle ([xshift=0.35cm]current page.north west);
+    \fill[hestimaccent] ([xshift=0.35cm]current page.south west) rectangle ([xshift=0.5cm]current page.north west);
+\end{tikzpicture}
+
 \centering
-\vspace*{0.25cm}
+\vspace*{0.15cm}
 
-{\Large \textsc{HESTIM Engineering \& Business School}}\\[0.15cm]
-{\large Rapport de stage}\\[0.4cm]
-\textsc{\large Filière : Génie Informatique et Intelligence Artificielle}\\[0.6cm]
+{\Large \textsc{\textcolor{hestimblue}{HESTIM Engineering \& Business School}}}\\[0.1cm]
+{\color{hestimaccent}\rule{2.4cm}{0.8pt}}\\[0.2cm]
+{\large Rapport de stage}\\[0.35cm]
+\textsc{\large Filière : Génie Informatique et Intelligence Artificielle}\\[0.5cm]
 
-\rule{\linewidth}{0.6mm}\\[0.4cm]
-{\Large \textbf{\textsc{Conception et développement d'une plateforme
-    de commande et d'interaction autonome\\[0.2cm]
-    pour un robot de service Android}}}\\[0.4cm]
-\rule{\linewidth}{0.6mm}
+\begin{tcolorbox}[enhanced, width=\linewidth, colback=hestimblue!6, colframe=hestimblue,
+    boxrule=0.6pt, arc=2pt, left=10pt, right=10pt, top=9pt, bottom=9pt,
+    drop shadow={black!35!white}]
+    \centering
+    {\Large \textbf{\textsc{Conception et développement d'une plateforme
+        de commande et d'interaction autonome\\[0.15cm]
+        pour un robot de service Android}}}
+\end{tcolorbox}
 
 \vfill
-\includegraphics[width=0.48\textwidth]{images/cybel1.jpeg}
+\begin{tcolorbox}[enhanced, width=0.3\linewidth, colback=white, colframe=hestimblue,
+    boxrule=0.8pt, arc=2pt, left=2pt, right=2pt, top=2pt, bottom=2pt,
+    drop shadow={black!30!white}, halign=center]
+    \includegraphics[width=\linewidth]{images/cybel1.jpeg}
+\end{tcolorbox}\\[0.2cm]
+{\small\itshape Robot CIOT TY1251D-03195 --- plateforme CYBEL}
 \vfill
 
 % Auteurs / Encadrant
     \begin{minipage}{0.45\textwidth}
         \begin{flushleft}\large
-            \emph{Réalisé par :}\\[0.2cm]
+            \textcolor{hestimblue}{\emph{Réalisé par :}}\\[0.2cm]
             Claudia \textsc{LUSAMOTE KIMFUTA}\\
         \end{flushleft}
     \end{minipage}
     \hfill
     \begin{minipage}{0.45\textwidth}
         \begin{flushright}\large
-            \emph{Encadrante pédagogique :}\\[0.2cm]
-            Mme \textsc{MESKINI} Fatime Zahra\\[0.35cm]
-            \emph{Encadrant industriel :}\\[0.2cm]
-            M \textsc{TULA} Sridath\\[0.3cm]
+            \textcolor{hestimblue}{\emph{Encadrante pédagogique :}}\\[0.2cm]
+            Mme \textsc{MESKINI} Fatime Zahra\\[0.3cm]
+            \textcolor{hestimblue}{\emph{Encadrant industriel :}}\\[0.2cm]
+            M \textsc{TULA} Sridath
         \end{flushright}
-    \end{minipage}\\[0.5cm]
+    \end{minipage}\\[0.4cm]
 
-\rule{\linewidth}{0.3mm}\\[0.35cm]
-Classe : \textsc{\normalsize 1\textsuperscript{ère} du cycle d'ingénieur}\\[0.2cm]
-\textbf{Année universitaire : 2025 - 2026}
-\vspace*{0.2cm}
+\begin{tcolorbox}[enhanced, width=\linewidth, colback=hestimblue, colframe=hestimblue,
+    boxrule=0pt, arc=0pt, left=6pt, right=6pt, top=6pt, bottom=6pt, halign=center]
+    {\color{white}\normalsize Classe : \textsc{1\textsuperscript{ère} du cycle d'ingénieur}}\\[0.15cm]
+    {\color{white}\textbf{Année universitaire : 2025 -- 2026}}
+\end{tcolorbox}
 
 \end{titlepage}
 

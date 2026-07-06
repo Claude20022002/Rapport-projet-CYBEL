@@ -112,7 +112,7 @@ Bouton Arrêt kiosque inefficace & Appel \texttt{haltTour} au lieu de \texttt{ca
 \end{tabular}
 \end{table}
 
-
+\newpage
 \subsection{Indicateurs de performance}
 
 Le tableau~\ref{tab:perf} présente les indicateurs mesurés en conditions réelles
@@ -128,7 +128,7 @@ et en développement local.
 \hline
 Temps de réponse API REST & $<$ 100~ms & Localhost PC, hors \textit{rosbridge} \\
 \hline
-Connexion \textit{rosbridge} & 2--60~s & Selon qualité Wi-Fi ; 3$\times$ timeout 20~s max \\
+Connexion \textit{rosbridge} & 2-60~s & Selon qualité Wi-Fi ; 3$\times$ timeout 20~s max \\
 \hline
 Fiabilité connexion \textit{rosbridge} & $\sim$90~\% & Session stable, dépend du Wi-Fi \\
 \hline
@@ -138,7 +138,7 @@ Fréquence télémétrie pose & $\sim$10~Hz & Topic \texttt{/robot\_pose} \\
 \hline
 Fréquence LiDAR & $\sim$25~Hz & Topic \texttt{/scan\_filter} \\
 \hline
-Latence Wi-Fi (ping robot) & 7--1654~ms & Très variable \\
+Latence Wi-Fi (ping robot) & 7-1654~ms & Très variable \\
 \hline
 Robustesse navigation & Erreurs 604 ponctuelles & Coordonnées à calibrer terrain \\
 \hline
