@@ -98,13 +98,11 @@ distinct (\texttt{172.16.0.0/16}).
     \label{fig:archi_robot}
 \end{figure}
 
-\paragraph{Positionnement du système CYBEL dans l'architecture.}
-CYBEL se place dans les couches supérieures, en remplaçant l'application
-propriétaire et en ajoutant des fonctions. Il utilise l'API FastAPI et le SDK
-Python pour la logique de commande, rosbridge et MQTT pour la communication,
-et s'appuie sur le matériel robotique pour exécuter les actions. Cette
-solution intermédiaire sépare l'interface utilisateur du système robotique
-tout en conservant la compatibilité avec l'infrastructure existante.
+\paragraph{Positionnement du système CYBEL dans l'architecture:}
+CYBEL remplace l'application propriétaire dans les couches supérieures,
+ajoute des fonctions et s'appuie sur FastAPI, le SDK Python, rosbridge et MQTT
+pour commander le robot, tout en restant compatible avec l'infrastructure
+existante.
 \subsubsection*{Cadre et déroulement du stage}
 
 L'établissement disposant de ce robot souhaite l'utiliser pour des scénarios
@@ -226,7 +224,7 @@ Développement d'une application Android de remplacement (optionnel, non engagé
 Développement d'une API de commande/supervision (FastAPI) &
 Rétro-ingénierie de la logique métier de l'application Android propriétaire
 d'accueil (une inspection ciblée de l'outil de déploiement constructeur, via
-JADX, a néanmoins été nécessaire — voir chapitre 5) \\
+JADX, a néanmoins été nécessaire: voir chapitre 5) \\
 \hline
 Développement d'une interface web opérateur (Vite/TypeScript) &
 Déploiement en production / hébergement distant \\
