@@ -209,10 +209,16 @@ La synthèse vocale ne transite pas par ROS. Le flux est le suivant :
     sans dépendance au PC.
 \end{enumerate}
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/ChatGPT Image 12 juil. 2026, 12_34_24.png}
+    \caption{Mise en place du TTS}
+\end{figure}
+
 Ce choix architectural a été imposé par l'absence de tout canal réseau ou ROS
 pour déclencher la parole sur la tête Android.
 
-
+\newpage
 \subsection{Intégration des différents modules}
 
 L'intégration bout en bout de la visite guidée suit la chaîne suivante :
@@ -234,7 +240,6 @@ de \texttt{cybel\_lite}. Le script \texttt{preflight\_labo.ps1} vérifie avant
 chaque session terrain la connectivité, la santé de l'API et la présence du
 TTS.
 
-\newpage
 \subsection{Conclusion}
 
 L'implémentation CYBEL couvre l'intégralité de la chaîne du protocole robot
