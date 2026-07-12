@@ -221,16 +221,17 @@ pour déclencher la parole sur la tête Android.
 \newpage
 \subsection{Intégration des différents modules}
 
-L'intégration bout en bout de la visite guidée suit la chaîne suivante :
-kiosque tablette (\texttt{frontend-kiosk/}) $\rightarrow$ backend Termux
+L'intégration bout en bout de la visite guidée se matérialise par la chaîne 
+suivante~: kiosque tablette (\texttt{frontend-kiosk/}) $\rightarrow$ backend Termux
 (\texttt{cybel\_lite.py}) $\rightarrow$ SDK $\rightarrow$ \textit{rosbridge}
-$\rightarrow$ robot, dont les étapes sont illustrées en
-figure~\ref{fig:etapes_visite}.
+$\rightarrow$ robot. Après avoir assemblé tous les modules, le schéma d'action
+présenté à la figure~\ref{fig:etapes_visite} décrit la mise en marche du robot
+pour une visite complète.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\textwidth]{diagramme/processVisit.png}
-    \caption{Étapes d'action}
+    \includegraphics[width=0.75\textwidth]{diagramme/processVisit.png}
+    \caption{Étapes d'action de mise en marche du robot}
     \label{fig:etapes_visite}
 \end{figure}
 
